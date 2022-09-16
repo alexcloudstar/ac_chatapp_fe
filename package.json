@@ -1,10 +1,25 @@
 {
   "name": "kitchat-v2",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "A real time app messaging",
   "private": true,
   "license": "UNLICENSED",
+  "keywords": [
+    "chat",
+    "chatapp",
+    "sockets",
+    "real-time-app-messaging",
+    "realtime-app-message"
+  ],
+  "bugs": {
+    "url": "https://github.com/alexcloudstar/kitchat-v2/issues",
+    "email": "alexcloudstar@gmail.com"
+  },
+  "author": {
+    "name": "Alex Cloudstar",
+    "email": "alexcloudstar@gmail.com",
+    "url": "https://alexcloudstar.com"
+  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
