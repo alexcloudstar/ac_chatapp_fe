@@ -9,3 +9,35 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        Int         @id @default(autoincrement())
+  email     String      @unique
+  password  String
+  name      String?
+  username  String?     @unique
+  avatar    String?
+  messages  Messages[]
+  chatrooms Chatrooms[]
+  admin     Boolean     @default(false)
+  role      Role        @default(USER)
+}
+
+model Messages {
+  id        Int      @id @default(autoincrement())
+  message   String
+  published Boolean? @default(false)
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    Int?
+}
+
+model Chatrooms {
+  id     Int   @id @default(autoincrement())
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?
+}
+
+enum Role {
+  USER
+  ADMIN
+}
