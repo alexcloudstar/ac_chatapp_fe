@@ -20,8 +20,6 @@ export class UsersService {
     return this.prisma.user.create({
       data: {
         ...data,
-        messages: undefined,
-        chatrooms: undefined,
         admin: false,
       },
     });

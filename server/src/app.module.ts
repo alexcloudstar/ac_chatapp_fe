@@ -7,10 +7,11 @@ import { ChatroomsService } from './chatrooms/chatrooms.service';
 import { ChatroomsController } from './chatrooms/chatrooms.controller';
 import { ChatroomsModule } from './chatrooms/chatrooms.module';
 import { PrismaService } from './prisma.service';
+import { UsersService } from './users/users.service';
 
 @Module({
   imports: [EventsModule, UsersModule, ChatroomsModule],
   controllers: [AppController, ChatroomsController],
-  providers: [AppService, ChatroomsService, PrismaService],
+  providers: [AppService, UsersService, ChatroomsService, PrismaService],
 })
 export class AppModule {}

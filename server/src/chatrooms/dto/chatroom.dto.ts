@@ -1,13 +1,13 @@
-import { User } from '@prisma/client';
+import { Message, User } from '@prisma/client';
 import { Expose } from 'class-transformer';
 
 export class ChatroomDto {
   @Expose()
-  chatroomsUserId: any;
+  messages: any;
 
   @Expose()
-  chatoomsUser: any;
+  users: any;
 
   @Expose()
-  ownerId: number;
+  userOwnerId: number;
 }
