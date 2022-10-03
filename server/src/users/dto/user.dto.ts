@@ -1,4 +1,4 @@
-import { Chatrooms, Messages, Role } from '@prisma/client';
+import { Chatroom, Message, Role } from '@prisma/client';
 import { Expose } from 'class-transformer';
 
 export class UserDto {
@@ -18,10 +18,10 @@ export class UserDto {
   avatar: string;
 
   @Expose()
-  messages: Messages[];
+  messages: Message[];
 
   @Expose()
-  chatrooms: Chatrooms[];
+  chatrooms: Chatroom[];
 
   @Expose()
   admin: boolean;

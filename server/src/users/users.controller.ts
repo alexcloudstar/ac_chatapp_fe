@@ -9,6 +9,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { User } from '@prisma/client';
+import { CurrentUser } from 'src/decorators/current-user.decorator';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/user-update.dto';
@@ -49,5 +50,10 @@ export class UsersController {
   @Patch('/:id')
   updateUser(@Param('id') id: string, @Body() body: UpdateUserDto) {
     return this.usersService.update(parseInt(id), body);
+  }
+
+  @Get('/whoami')
+  whoAmI(@CurrentUser() user: User) {
+    return user;
   }
 }
