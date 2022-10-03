@@ -11,30 +11,37 @@ datasource db {
 }
 
 model User {
-  id        Int        @id @default(autoincrement())
-  email     String     @unique
-  password  String
-  name      String?
-  username  String?    @unique
-  avatar    String?
-  messages  Message[]
-  chatrooms Chatroom[] @relation("ChatroomsUser")
-  admin     Boolean    @default(false)
-  role      Role       @default(USER)
-}
-
-model Message {
-  id      Int    @id @default(autoincrement())
-  message String
-  user    User?  @relation(fields: [userId], references: [id])
-  userId  Int?
+  id         Int       @id @default(autoincrement())
+  email      String    @unique
+  password   String
+  name       String?
+  username   String?   @unique
+  avatar     String?
+  admin      Boolean   @default(false)
+  role       Role      @default(USER)
+  createdAt  DateTime  @default(now())
+  sender     Message?  @relation("sender")
+  receiver  Message? @relation("receiver")
+  Chatroom   Chatroom? @relation(fields: [chatroomId], references: [id])
+  chatroomId Int?
 }
 
 model Chatroom {
-  id              Int  @id @default(autoincrement())
-  chatroomsUserId Int
-  chatoomsUser    User @relation(fields: [chatroomsUserId], references: [id], name: "ChatroomsUser")
-  ownerId         Int
+  id       Int       @id @default(autoincrement())
+  messages Message[]
+  users     User[]
+  userOwnerId Int
+}
+
+model Message {
+  id         Int      @id @default(autoincrement())
+  message    String
+  chatroom   Chatroom @relation(fields: [chatroomId], references: [id])
+  chatroomId Int
+  sender     User     @relation("sender", fields: [senderId], references: [id])
+  senderId   Int      @unique
+  receiver    User    @relation("receiver", fields: [receiverId], references: [id])
+  receiverId  Int @unique
 }
 
 enum Role {
