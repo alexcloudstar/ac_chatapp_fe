@@ -11,30 +11,30 @@ datasource db {
 }
 
 model User {
-  id        Int         @id @default(autoincrement())
-  email     String      @unique
+  id        Int        @id @default(autoincrement())
+  email     String     @unique
   password  String
   name      String?
-  username  String?     @unique
+  username  String?    @unique
   avatar    String?
-  messages  Messages[]
-  chatrooms Chatrooms[]
-  admin     Boolean     @default(false)
-  role      Role        @default(USER)
+  messages  Message[]
+  chatrooms Chatroom[] @relation("ChatroomsUser")
+  admin     Boolean    @default(false)
+  role      Role       @default(USER)
 }
 
-model Messages {
-  id        Int      @id @default(autoincrement())
-  message   String
-  published Boolean? @default(false)
-  user      User?    @relation(fields: [userId], references: [id])
-  userId    Int?
+model Message {
+  id      Int    @id @default(autoincrement())
+  message String
+  user    User?  @relation(fields: [userId], references: [id])
+  userId  Int?
 }
 
-model Chatrooms {
-  id     Int   @id @default(autoincrement())
-  user   User? @relation(fields: [userId], references: [id])
-  userId Int?
+model Chatroom {
+  id              Int  @id @default(autoincrement())
+  chatroomsUserId Int
+  chatoomsUser    User @relation(fields: [chatroomsUserId], references: [id], name: "ChatroomsUser")
+  ownerId         Int
 }
 
 enum Role {
