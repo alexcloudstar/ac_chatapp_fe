@@ -1,5 +1,6 @@
-import { Chatroom, Message, Role } from '@prisma/client';
+import { Message, Role } from '@prisma/client';
 import { Expose } from 'class-transformer';
+import { IsDate } from 'class-validator';
 
 export class UserDto {
   @Expose()
@@ -21,11 +22,12 @@ export class UserDto {
   messages: Message[];
 
   @Expose()
-  chatrooms: Chatroom[];
-
-  @Expose()
   admin: boolean;
 
   @Expose()
   role: Role;
+
+  @Expose()
+  @IsDate()
+  createdAt: string;
 }

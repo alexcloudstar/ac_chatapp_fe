@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { Chatroom } from '@prisma/client';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { ChatroomsService } from './chatrooms.service';
@@ -14,8 +14,13 @@ export class ChatroomsController {
     return this.chatroomsService.findAll();
   }
 
+  @Get('/:id')
+  find(@Param('id') id: string): Promise<Chatroom> {
+    return this.chatroomsService.find(+id);
+  }
+
   @Post()
-  async create(@Body() body: any): Promise<Chatroom> {
+  create(@Body() body: any): Promise<Chatroom> {
     return this.chatroomsService.create(+body.ownerId, +body.userId);
   }
 }
