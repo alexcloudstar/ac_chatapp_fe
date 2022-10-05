@@ -17,8 +17,7 @@ model User {
   name      String?
   username  String?    @unique
   avatar    String?
-  admin     Boolean    @default(false)
-  role      Role       @default(USER)
+  isAdmin     Boolean    @default(false)
   createdAt DateTime   @default(now())
   sender    Message?   @relation("sender")
   receiver  Message?   @relation("receiver")
@@ -27,6 +26,7 @@ model User {
   @@map("users")
 }
 
+// declare other propreties such as room color, room name, profanity words, etc
 model Chatroom {
   id          Int       @id @default(autoincrement())
   messages    Message[]
@@ -45,9 +45,4 @@ model Message {
   senderId   Int      @unique
   receiver   User     @relation("receiver", fields: [receiverId], references: [id])
   receiverId Int      @unique
-}
-
-enum Role {
-  USER
-  ADMIN
 }

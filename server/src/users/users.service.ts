@@ -20,7 +20,6 @@ export class UsersService {
     return this.prisma.user.create({
       data: {
         ...data,
-        admin: false,
       },
     });
   }

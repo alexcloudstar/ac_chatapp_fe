@@ -1,4 +1,4 @@
-import { Message, Role } from '@prisma/client';
+import { Message } from '@prisma/client';
 import { Expose } from 'class-transformer';
 import { IsDate } from 'class-validator';
 
@@ -23,9 +23,6 @@ export class UserDto {
 
   @Expose()
   admin: boolean;
-
-  @Expose()
-  role: Role;
 
   @Expose()
   @IsDate()
