@@ -7,7 +7,11 @@ export class ChatroomsService {
   constructor(private prisma: PrismaService) {}
 
   findAll(): Promise<Chatroom[]> {
-    return this.prisma.chatroom.findMany();
+    return this.prisma.chatroom.findMany({
+      include: {
+        users: true,
+      },
+    });
   }
 
   find(@Param() chatroomId: number): Promise<Chatroom> {
@@ -24,6 +28,21 @@ export class ChatroomsService {
               id: userId,
             },
           ],
+        },
+      },
+    });
+  }
+
+  delete(chatroomId: number): Promise<Chatroom> {
+    return this.prisma.chatroom.delete({ where: { id: chatroomId } });
+  }
+
+  join(chatroomId: number, userId: number): any {
+    return this.prisma.chatroom.update({
+      where: { id: chatroomId },
+      data: {
+        users: {
+          connect: { id: userId },
         },
       },
     });

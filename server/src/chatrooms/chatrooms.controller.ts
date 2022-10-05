@@ -23,4 +23,9 @@ export class ChatroomsController {
   create(@Body() body: any): Promise<Chatroom> {
     return this.chatroomsService.create(+body.ownerId, +body.userId);
   }
+
+  @Post('/:id/join')
+  join(@Param('id') id: string, @Body() body: any): Promise<Chatroom> {
+    return this.chatroomsService.join(+id, +body.userId);
+  }
 }
