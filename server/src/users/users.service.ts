@@ -21,7 +21,9 @@ export class UsersService {
     return this.prisma.user.findMany();
   }
 
-  async remove(id: number): Promise<string> {
+  async remove(id: number, loggedInUser: User): Promise<string> {
+    if (id !== loggedInUser.id) throw new BadRequestException('Not authorized');
+
     try {
       await this.prisma.user.delete({ where: { id } });
 

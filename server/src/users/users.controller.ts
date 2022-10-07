@@ -79,8 +79,8 @@ export class UsersController {
   }
 
   @Delete('/:id')
-  removeUser(@Param('id') id: string) {
-    return this.usersService.remove(parseInt(id));
+  removeUser(@Param('id') id: string, @CurrentUser() user: User) {
+    return this.usersService.remove(parseInt(id), user);
   }
 
   @Patch('/:id')
