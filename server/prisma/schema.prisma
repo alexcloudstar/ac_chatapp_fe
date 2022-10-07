@@ -9,3 +9,40 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        Int        @id @default(autoincrement())
+  email     String     @unique
+  password  String
+  name      String?
+  username  String?    @unique
+  avatar    String?
+  isAdmin   Boolean    @default(false)
+  createdAt DateTime   @default(now())
+  sender    Message?   @relation("sender")
+  receiver  Message?   @relation("receiver")
+  chatrooms Chatroom[]
+
+  @@map("users")
+}
+
+// declare other propreties such as room color, room name, profanity words, etc
+model Chatroom {
+  id          Int       @id @default(autoincrement())
+  messages    Message[]
+  users       User[]
+  userOwnerId Int
+
+  @@map("chatrooms")
+}
+
+model Message {
+  id         Int      @id @default(autoincrement())
+  message    String
+  chatroom   Chatroom @relation(fields: [chatroomId], references: [id])
+  chatroomId Int
+  sender     User     @relation("sender", fields: [senderId], references: [id])
+  senderId   Int      @unique
+  receiver   User     @relation("receiver", fields: [receiverId], references: [id])
+  receiverId Int      @unique
+}
