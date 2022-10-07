@@ -2,7 +2,8 @@
 /dist
 /node_modules
 
-.env.*
+.env
+.env.development
 
 # Logs
 logs
