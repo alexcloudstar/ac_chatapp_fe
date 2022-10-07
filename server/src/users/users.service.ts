@@ -5,7 +5,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { User } from '@prisma/client';
-import argon2 from 'argon2';
 import { PrismaService } from 'src/prisma.service';
 import { CustomException } from '../exceptions/custom-exception';
 import { UpdateUserDto } from './dto/user-update.dto';
@@ -22,21 +21,26 @@ export class UsersService {
     return this.prisma.user.findMany();
   }
 
-  async remove(id: number): Promise<string> {
+  async remove(id: number, loggedInUser: User): Promise<string> {
+    if (id !== loggedInUser.id) throw new BadRequestException('Not authorized');
+
     try {
       await this.prisma.user.delete({ where: { id } });
 
-      return 'User deleted succesfuly';
+      return 'User deleted successfully';
     } catch (error) {
       throw new NotFoundException('User not found');
     }
   }
 
-  async update(id: number, body: UpdateUserDto) {
-    try {
-      const user = await this.prisma.user.update({ where: { id }, data: body });
+  async update(id: number, body: UpdateUserDto, loggedInUser: User) {
+    if (id !== loggedInUser.id) throw new BadRequestException('Not authorized');
 
-      return user;
+    try {
+      return await this.prisma.user.update({
+        where: { id },
+        data: { ...body },
+      });
     } catch (error) {
       if (error.code === 'P2002')
         throw new CustomException(

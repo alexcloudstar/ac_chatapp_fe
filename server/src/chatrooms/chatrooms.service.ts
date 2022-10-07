@@ -1,4 +1,4 @@
-import { Injectable, Param } from '@nestjs/common';
+import { Injectable, NotFoundException, Param } from '@nestjs/common';
 import { Chatroom } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 
@@ -18,17 +18,21 @@ export class ChatroomsService {
     return this.prisma.chatroom.findUnique({ where: { id: chatroomId } });
   }
 
-  create(userOwnerId: number, userId: number): Promise<Chatroom> {
+  create(userOwnerId: number, userIds: string[]): Promise<Chatroom> {
+    if (!userOwnerId)
+      throw new NotFoundException('You are not logged in to create a chatroom');
+
+    const usersArrIds = userIds?.map((id) => ({ id: +id }));
+
     return this.prisma.chatroom.create({
       data: {
         userOwnerId: userOwnerId,
         users: {
-          connect: [
-            {
-              id: userId,
-            },
-          ],
+          connect: usersArrIds,
         },
+      },
+      include: {
+        users: true,
       },
     });
   }
@@ -37,7 +41,7 @@ export class ChatroomsService {
     return this.prisma.chatroom.delete({ where: { id: chatroomId } });
   }
 
-  join(chatroomId: number, userId: number): any {
+  join(chatroomId: number, userId: number): Promise<Chatroom> {
     return this.prisma.chatroom.update({
       where: { id: chatroomId },
       data: {

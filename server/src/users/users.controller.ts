@@ -28,6 +28,8 @@ export class UsersController {
 
   @Get('/whoami')
   whoami(@CurrentUser() user: User) {
+    if (!user) throw new NotFoundException(`You are not logged in`);
+
     return user;
   }
 
@@ -39,9 +41,7 @@ export class UsersController {
   @Get('/:id')
   async findOne(@Param('id') id: string): Promise<User> {
     try {
-      const user = await this.usersService.find(parseInt(id));
-
-      return user;
+      return await this.usersService.find(parseInt(id));
     } catch (error) {
       throw new NotFoundException(`User not found with given id: ${id}`);
     }
@@ -68,18 +68,25 @@ export class UsersController {
 
     session.userId = user.id;
 
-    console.log(session);
-
     return user;
   }
 
+  @Post('/signout')
+  signOut(@Session() session: any) {
+    session.userId = null;
+  }
+
   @Delete('/:id')
-  removeUser(@Param('id') id: string) {
-    return this.usersService.remove(parseInt(id));
+  removeUser(@Param('id') id: string, @CurrentUser() user: User) {
+    return this.usersService.remove(parseInt(id), user);
   }
 
   @Patch('/:id')
-  updateUser(@Param('id') id: string, @Body() body: UpdateUserDto) {
-    return this.usersService.update(parseInt(id), body);
+  updateUser(
+    @Param('id') id: string,
+    @Body() body: UpdateUserDto,
+    @CurrentUser() user: User,
+  ) {
+    return this.usersService.update(parseInt(id), body, user);
   }
 }
