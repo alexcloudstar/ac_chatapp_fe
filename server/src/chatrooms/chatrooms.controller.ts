@@ -1,8 +1,10 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { Chatroom } from '@prisma/client';
+import { Chatroom, User } from '@prisma/client';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { ChatroomsService } from './chatrooms.service';
 import { ChatroomDto } from './dto/chatroom.dto';
+import { CurrentUser } from '../users/decorators/current-user.decorator';
+import { CreateChatroomDto } from './dto/create-chatroom.dto';
 
 @Serialize(ChatroomDto)
 @Controller('chatrooms')
@@ -20,8 +22,11 @@ export class ChatroomsController {
   }
 
   @Post()
-  create(@Body() body: any): Promise<Chatroom> {
-    return this.chatroomsService.create(+body.ownerId, +body.userId);
+  create(
+    @Body() body: CreateChatroomDto,
+    @CurrentUser() user: User,
+  ): Promise<Chatroom> {
+    return this.chatroomsService.create(user.id, body.userIds);
   }
 
   @Post('/:id/join')
