@@ -26,7 +26,7 @@ export class ChatroomsController {
     @Body() body: CreateChatroomDto,
     @CurrentUser() user: User,
   ): Promise<Chatroom> {
-    return this.chatroomsService.create(user.id, body.userIds);
+    return this.chatroomsService.create(user?.id, body.userIds);
   }
 
   @Post('/:id/join')

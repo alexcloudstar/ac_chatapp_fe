@@ -1,4 +1,4 @@
-import { Injectable, Param } from '@nestjs/common';
+import { Injectable, NotFoundException, Param } from '@nestjs/common';
 import { Chatroom } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 
@@ -20,7 +20,7 @@ export class ChatroomsService {
 
   create(userOwnerId: number, userIds: string[]): Promise<Chatroom> {
     if (!userOwnerId)
-      throw new Error('You are not logged in to create a chatroom');
+      throw new NotFoundException('You are not logged in to create a chatroom');
 
     const usersArrIds = userIds?.map((id) => ({ id: +id }));
 
