@@ -28,6 +28,8 @@ export class UsersController {
 
   @Get('/whoami')
   whoami(@CurrentUser() user: User) {
+    if (!user) throw new NotFoundException(`You are not logged in`);
+
     return user;
   }
 
@@ -68,8 +70,6 @@ export class UsersController {
 
     session.userId = user.id;
 
-    console.log(session);
-
     return user;
   }
 
@@ -79,7 +79,11 @@ export class UsersController {
   }
 
   @Patch('/:id')
-  updateUser(@Param('id') id: string, @Body() body: UpdateUserDto) {
-    return this.usersService.update(parseInt(id), body);
+  updateUser(
+    @Param('id') id: string,
+    @Body() body: UpdateUserDto,
+    @CurrentUser() user: User,
+  ) {
+    return this.usersService.update(parseInt(id), body, user);
   }
 }
