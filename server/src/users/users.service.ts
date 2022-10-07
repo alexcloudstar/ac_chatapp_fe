@@ -1,5 +1,11 @@
-import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
-import { Prisma, User } from '@prisma/client';
+import {
+  BadRequestException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { User } from '@prisma/client';
+import argon2 from 'argon2';
 import { PrismaService } from 'src/prisma.service';
 import { CustomException } from '../exceptions/custom-exception';
 import { UpdateUserDto } from './dto/user-update.dto';
@@ -14,14 +20,6 @@ export class UsersService {
 
   findAll(): Promise<User[]> {
     return this.prisma.user.findMany();
-  }
-
-  create(data: Prisma.UserCreateInput): Promise<User> {
-    return this.prisma.user.create({
-      data: {
-        ...data,
-      },
-    });
   }
 
   async remove(id: number): Promise<string> {
