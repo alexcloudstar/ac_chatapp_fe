@@ -39,4 +39,20 @@ export class ChatroomsController {
   join(@Param('id') id: string, @Body() body: any): Promise<Chatroom> {
     return this.chatroomsService.join(+id, +body.userId);
   }
+
+  @Post('/:id/invite')
+  invite(
+    @Param('id') id: string,
+    @Body() body: { userId: string },
+  ): Promise<Chatroom> {
+    return this.chatroomsService.invite(+id, +body.userId);
+  }
+
+  @Post('/:id/leave')
+  leave(
+    @Param('id') id: string,
+    @Body() body: { userId: string },
+  ): Promise<Chatroom> {
+    return this.chatroomsService.leave(+id, +body.userId);
+  }
 }

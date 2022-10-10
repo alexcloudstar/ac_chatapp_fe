@@ -79,4 +79,42 @@ export class ChatroomsService {
       },
     });
   }
+
+  async invite(chatroomId: number, userId: number): Promise<Chatroom> {
+    const room = await this.prisma.chatroom.findUnique({
+      where: { id: chatroomId },
+    });
+
+    if (room.userOwnerId !== userId)
+      throw new BadRequestException('You are not the owner of this chatroom');
+
+    return this.prisma.chatroom.update({
+      where: { id: chatroomId },
+      data: {
+        users: {
+          connect: { id: userId },
+        },
+      },
+    });
+  }
+
+  async leave(chatroomId: number, userId: number): Promise<Chatroom> {
+    const room = await this.prisma.chatroom.findUnique({
+      where: { id: chatroomId },
+    });
+
+    if (room.userOwnerId === userId)
+      throw new BadRequestException(
+        'You are the owner of this chatroom, please delete room',
+      );
+
+    return this.prisma.chatroom.update({
+      where: { id: chatroomId },
+      data: {
+        users: {
+          disconnect: { id: userId },
+        },
+      },
+    });
+  }
 }
