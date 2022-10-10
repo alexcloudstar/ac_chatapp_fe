@@ -1,6 +1,14 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { MessagesService } from './messages.service';
-import { SendMessageDto } from './dto/send-message.dto';
+import { DeleteMessageDto, SendMessageDto } from './dto/message.dto';
 import { CurrentUser } from '../users/decorators/current-user.decorator';
 import { User } from '@prisma/client';
 import { Serialize } from '../interceptors/serialize.interceptor';
@@ -29,5 +37,33 @@ export class MessagesController {
   ) {
     // console.log(roomId);
     return this.messagesService.sendMessage(+roomId, user.id, body.message);
+  }
+
+  @Patch('/:roomId/:messageId')
+  updateMessage(
+    @Param('roomId') roomId: string,
+    @Param('messageId') messageId: string,
+    @CurrentUser() user: User,
+    @Body() body: SendMessageDto,
+  ) {
+    return this.messagesService.updateMessage(
+      +roomId,
+      +messageId,
+      user.id,
+      body.message,
+    );
+  }
+
+  @Delete('/:roomId')
+  deleteMessage(
+    @Param('roomId') roomId: string,
+    @CurrentUser() user: User,
+    @Body() body: DeleteMessageDto,
+  ) {
+    return this.messagesService.deleteMessage(
+      +roomId,
+      user.id,
+      +body.messageId,
+    );
   }
 }

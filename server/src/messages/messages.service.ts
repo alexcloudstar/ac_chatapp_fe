@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { Chatroom, Message, User } from '@prisma/client';
 
@@ -52,5 +56,65 @@ export class MessagesService {
     });
 
     return newMessage;
+  }
+
+  async updateMessage(
+    roomId: Chatroom['id'],
+    messageId: Message['id'],
+    userId: User['id'],
+    message: string,
+  ) {
+    const room = await this.prismaService.chatroom.findUnique({
+      where: {
+        id: roomId,
+      },
+    });
+
+    if (!room) throw new NotFoundException('No room found');
+
+    const messageToUpdate = await this.prismaService.message.update({
+      where: { id: messageId },
+      data: {
+        message,
+      },
+    });
+
+    if (!messageToUpdate) throw new NotFoundException('No message found');
+
+    if (messageToUpdate.senderId !== userId)
+      throw new UnauthorizedException('You are not the sender of this message');
+
+    return messageToUpdate;
+  }
+
+  async deleteMessage(
+    roomId: Chatroom['id'],
+    userId: User['id'],
+    messageId: number,
+  ): Promise<Chatroom> {
+    const room = await this.prismaService.chatroom.findUnique({
+      where: {
+        id: roomId,
+      },
+      include: {
+        messages: true,
+        users: true,
+      },
+    });
+
+    if (!room) throw new NotFoundException('No room found');
+
+    const messageToDelete = await this.prismaService.message.findUnique({
+      where: { id: messageId },
+    });
+
+    if (!messageToDelete) throw new NotFoundException('No message found');
+
+    if (messageToDelete.senderId !== userId)
+      throw new UnauthorizedException('You are not the sender of this message');
+
+    await this.prismaService.message.delete({ where: { id: messageId } });
+
+    return room;
   }
 }
