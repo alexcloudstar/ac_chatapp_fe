@@ -14,7 +14,9 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   find(id: number): Promise<User> {
-    return this.prisma.user.findUnique({ where: { id } });
+    return this.prisma.user.findUnique({
+      where: { id },
+    });
   }
 
   findAll(): Promise<User[]> {

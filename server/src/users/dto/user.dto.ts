@@ -1,4 +1,4 @@
-import { Message } from '@prisma/client';
+import { Chatroom, Message } from '@prisma/client';
 import { Expose } from 'class-transformer';
 import { IsDate } from 'class-validator';
 

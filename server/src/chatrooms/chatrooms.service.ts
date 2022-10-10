@@ -10,12 +10,19 @@ export class ChatroomsService {
     return this.prisma.chatroom.findMany({
       include: {
         users: true,
+        messages: true,
       },
     });
   }
 
   find(@Param() chatroomId: number): Promise<Chatroom> {
-    return this.prisma.chatroom.findUnique({ where: { id: chatroomId } });
+    return this.prisma.chatroom.findUnique({
+      where: { id: chatroomId },
+      include: {
+        users: true,
+        messages: true,
+      },
+    });
   }
 
   create(userOwnerId: number, userIds: string[]): Promise<Chatroom> {

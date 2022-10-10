@@ -19,8 +19,7 @@ model User {
   avatar    String?
   isAdmin   Boolean    @default(false)
   createdAt DateTime   @default(now())
-  sender    Message?   @relation("sender")
-  receiver  Message?   @relation("receiver")
+  sender    Message[]  @relation("sender")
   chatrooms Chatroom[]
 
   @@map("users")
@@ -42,7 +41,5 @@ model Message {
   chatroom   Chatroom @relation(fields: [chatroomId], references: [id])
   chatroomId Int
   sender     User     @relation("sender", fields: [senderId], references: [id])
-  senderId   Int      @unique
-  receiver   User     @relation("receiver", fields: [receiverId], references: [id])
-  receiverId Int      @unique
+  senderId   Int
 }
