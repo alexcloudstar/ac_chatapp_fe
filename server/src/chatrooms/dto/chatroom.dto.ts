@@ -31,4 +31,13 @@ export class ChatroomDto {
 
   @Expose()
   userOwnerId: number;
+
+  @Expose()
+  isPrivate: boolean;
+
+  @Expose()
+  name: string;
+
+  @Expose()
+  profanityWords: string[];
 }

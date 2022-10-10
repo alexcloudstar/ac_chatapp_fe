@@ -27,10 +27,14 @@ model User {
 
 // declare other propreties such as room color, room name, profanity words, etc
 model Chatroom {
-  id          Int       @id @default(autoincrement())
-  messages    Message[]
-  users       User[]
-  userOwnerId Int
+  id             Int       @id @default(autoincrement())
+  messages       Message[]
+  users          User[]
+  userOwnerId    Int
+  name           String @default("Doe Room")
+  profanityWords String[]
+  isPrivate      Boolean   @default(false)
+  createdAt      DateTime  @default(now())
 
   @@map("chatrooms")
 }
