@@ -14,8 +14,7 @@
     "lint:scripts": "eslint --ext .ts,.tsx src",
     "lint:styles": "stylelint \"src/**/*.css\"",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "prepare": "cd .. && husky install client/.husky"
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "react": "^18.2.0",
