@@ -1,8 +1,12 @@
-import { Message, User } from '@prisma/client';
+import { User } from '@prisma/client';
 import { Expose, Transform } from 'class-transformer';
 
-interface IUser {
+interface IMessage {
   id: number;
+
+  message: string;
+
+  senderId: number;
 }
 
 export class ChatroomDto {
@@ -10,7 +14,14 @@ export class ChatroomDto {
   id: number;
 
   @Expose()
-  messages: any;
+  @Transform(({ obj }) =>
+    obj.messages?.map((message: IMessage) => ({
+      id: message.id,
+      message: message.message,
+      senderId: message.senderId,
+    })),
+  )
+  messages: IMessage;
 
   @Transform(({ obj }: { obj: { users: User[] } }) =>
     obj.users?.map((user) => ({ id: user.id })),
@@ -20,4 +31,13 @@ export class ChatroomDto {
 
   @Expose()
   userOwnerId: number;
+
+  @Expose()
+  isPrivate: boolean;
+
+  @Expose()
+  name: string;
+
+  @Expose()
+  profanityWords: string[];
 }

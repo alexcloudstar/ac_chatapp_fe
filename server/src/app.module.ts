@@ -11,6 +11,7 @@ import { UsersService } from './users/users.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_PIPE } from '@nestjs/core';
 import { MessagesModule } from './messages/messages.module';
+import { AdminModule } from './admin/admin.module';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const cookieSession = require('cookie-session');
@@ -25,6 +26,7 @@ const cookieSession = require('cookie-session');
     UsersModule,
     ChatroomsModule,
     MessagesModule,
+    AdminModule,
   ],
 
   controllers: [AppController, ChatroomsController],
