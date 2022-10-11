@@ -17,7 +17,7 @@ module.exports = {
   features: {
     storyStoreV7: true,
   },
-  async viteFinal(config: any) {
+  async viteFinal(config) {
     const { config: userConfig } = await loadConfigFromFile(
       path.resolve(__dirname, '../vite.config.ts')
     )

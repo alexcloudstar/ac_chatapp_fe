@@ -15,7 +15,6 @@
     "lint:styles": "stylelint \"src/**/*.css\"",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "prepare": "husky install"
   },
   "dependencies": {
     "react": "^18.2.0",
