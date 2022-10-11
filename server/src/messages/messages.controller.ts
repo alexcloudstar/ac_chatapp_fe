@@ -35,7 +35,6 @@ export class MessagesController {
     @CurrentUser() user: User,
     @Body() body: SendMessageDto,
   ) {
-    // console.log(roomId);
     return this.messagesService.sendMessage(+roomId, user.id, body.message);
   }
 

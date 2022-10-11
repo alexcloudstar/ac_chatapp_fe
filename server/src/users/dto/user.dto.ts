@@ -1,4 +1,4 @@
-import { Chatroom, Message } from '@prisma/client';
+import { Message, Punishment } from '@prisma/client';
 import { Expose } from 'class-transformer';
 import { IsDate } from 'class-validator';
 
@@ -27,4 +27,7 @@ export class UserDto {
   @Expose()
   @IsDate()
   createdAt: string;
+
+  @Expose()
+  punishments: Punishment[];
 }
