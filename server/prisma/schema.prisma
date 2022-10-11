@@ -1,8 +1,7 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// TODO: Add Delete and Update operations
-// https://www.prisma.io/docs/concepts/components/prisma-schema/relations/referential-actions
+
 
 generator client {
   provider = "prisma-client-js"
@@ -54,9 +53,9 @@ model Message {
 
 model Punishment {
   id         Int            @id @default(autoincrement())
-  chatroom   Chatroom       @relation(fields: [chatroomId], references: [id])
+  chatroom   Chatroom       @relation(fields: [chatroomId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   chatroomId Int
-  User       User           @relation(fields: [userId], references: [id])
+  User       User           @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   userId     Int
   type       PunishmentType
   createdAt  DateTime       @default(now())
