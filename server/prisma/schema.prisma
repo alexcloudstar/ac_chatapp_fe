@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int          @id @default(autoincrement())
+  email       String       @unique
+  password    String
+  name        String?
+  username    String?      @unique
+  avatar      String?
+  isAdmin     Boolean      @default(false)
+  createdAt   DateTime     @default(now())
+  sender      Message[]    @relation("sender")
+  chatrooms   Chatroom[]
+  punishments Punishment[]
+
+  @@map("users")
+}
+
+model Chatroom {
+  id             Int          @id @default(autoincrement())
+  messages       Message[]
+  users          User[]
+  userOwnerId    Int
+  name           String       @default("Doe Room")
+  profanityWords String[]
+  isPrivate      Boolean      @default(false)
+  createdAt      DateTime     @default(now())
+  Punishment     Punishment[]
+
+  @@map("chatrooms")
+}
+
+model Message {
+  id         Int      @id @default(autoincrement())
+  message    String
+  chatroom   Chatroom @relation(fields: [chatroomId], references: [id])
+  chatroomId Int
+  sender     User     @relation("sender", fields: [senderId], references: [id])
+  senderId   Int
+}
+
+model Punishment {
+  id         Int            @id @default(autoincrement())
+  chatroom   Chatroom       @relation(fields: [chatroomId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  chatroomId Int
+  User       User           @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  userId     Int
+  type       PunishmentType
+  createdAt  DateTime       @default(now())
+  reason     String
+  duration   Int?
+}
+
+enum PunishmentType {
+  MUTE
+  BAN
+  KICK
+  WARN
+}
