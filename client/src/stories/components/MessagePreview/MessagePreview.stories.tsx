@@ -1,27 +1,28 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
+import React from 'react'
 
-import { Header } from './Header'
+import { MessagePreview } from './MessagePreview'
 
 export default {
-  title: 'Components/Header',
-  component: Header,
+  title: 'Components/MessagePreview',
+  component: MessagePreview,
   parameters: {
-    // More on Story layout: https://storybook.js.org/docs/react/configure/story-layout
     layout: 'fullscreen',
   },
-} as ComponentMeta<typeof Header>
+} as ComponentMeta<typeof MessagePreview>
 
-const Template: ComponentStory<typeof Header> = (args) => <Header {...args} />
+const Template: ComponentStory<typeof MessagePreview> = (args) => (
+  <MessagePreview {...args} />
+)
 
-export const LoggedIn = Template.bind({})
-LoggedIn.args = {
+export const Initial = Template.bind({})
+Initial.args = {
   avatar:
     'https://avataaars.io/?avatarStyle=Circle&topType=Hat&accessoriesType=Prescription02&facialHairType=BeardMedium&facialHairColor=BlondeGolden&clotheType=ShirtScoopNeck&clotheColor=Red&eyeType=Close&eyebrowType=UpDownNatural&mouthType=Smile&skinColor=Pale',
   user: {
     firstName: 'John',
     lastName: 'Doe',
   },
+  message: 'Will do, super, thank you ❤️',
+  time: 'Tue',
 }
-
-export const LoggedOut = Template.bind({})
-LoggedOut.args = {}

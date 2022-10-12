@@ -1,2 +1,6 @@
 export { Button } from './Button'
 export { Header } from './Header'
+export { Search } from './Search'
+export { Room } from './Room'
+export { Avatar } from './Avatar'
+export { MessagePreview } from './MessagePreview'
