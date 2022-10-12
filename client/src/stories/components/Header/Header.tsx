@@ -1,8 +1,11 @@
 import React from 'react'
+
+import { Avatar } from '../Avatar'
 import './header.css'
 
 type User = {
-  name: string
+  firstName: string
+  lastName: string
 }
 
 type HeaderProps = {
@@ -12,15 +15,13 @@ type HeaderProps = {
 
 export const Header = ({ avatar, user }: HeaderProps) => {
   return (
-    <div className="container">
+    <div className="header_container">
       {user ? (
         <>
-          <img
-            src={avatar}
-            alt={`${user?.name || ''} avatar`}
-            className="profile-pic"
-          />
-          <h1 className="username">{user?.name}</h1>
+          <Avatar avatar={avatar} user={user} />
+          <h1 className="header_username">
+            {user?.firstName} {user?.lastName}
+          </h1>
         </>
       ) : (
         <h1>Please login</h1>

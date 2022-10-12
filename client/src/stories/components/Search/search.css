@@ -1,8 +1,8 @@
-.container {
+.search_container {
   position: relative;
 }
 
-.search-input {
+.search_search-input {
   position: relative;
   width: 100%;
   max-width: 275px;
@@ -15,11 +15,11 @@
   outline: none;
 }
 
-.search-input::placeholder {
+.search_search-input::placeholder {
   color: rgb(255 255 255 / 60%);
 }
 
-.icon-container {
+.search_icon-container {
   position: absolute;
   top: 0;
   left: 235px;
@@ -32,6 +32,6 @@
   border-radius: 10px;
 }
 
-.icon {
+.search_icon {
   color: #fff;
 }

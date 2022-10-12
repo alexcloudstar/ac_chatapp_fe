@@ -1,14 +1,14 @@
-.container {
+.header_container {
   display: flex;
 }
 
-.profile-pic {
+.header_profile-pic {
   width: 45px;
   height: 45px;
   margin-right: 17px;
 }
 
-.username {
+.header_username {
   font-size: 27px;
   font-weight: 400;
 }

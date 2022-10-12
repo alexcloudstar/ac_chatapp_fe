@@ -15,18 +15,18 @@ export const Search = ({ query, icon }: SearchTypeProps) => {
   const onSearch = () => console.log('Search for', value)
 
   return (
-    <div className="container">
+    <div className="search_container">
       <input
         type="text"
         placeholder="Search..."
         value={value || query}
         onChange={onChange}
         onKeyDown={(e) => e.key === 'Enter' && onSearch()}
-        className="search-input"
+        className="search_search-input"
       />
       {icon && (
-        <button className="icon-container" onClick={onSearch}>
-          <span className="icon">{icon}</span>
+        <button className="search_icon-container" onClick={onSearch}>
+          <span className="search_icon">{icon}</span>
         </button>
       )}
     </div>
