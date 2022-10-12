@@ -10,7 +10,7 @@ function App() {
 
       <Button
         label="Click me"
-        backgroundColor="blue"
+        backgroundColor="red"
         primary={true}
         key="exampleBtn"
         onClick={() => console.log('I was clicked')}

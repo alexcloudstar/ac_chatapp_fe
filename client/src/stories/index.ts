@@ -1,2 +1,2 @@
-export { Button, Header } from './components'
+export { Button, Header, Search } from './components'
 export { Page } from './Pages'
