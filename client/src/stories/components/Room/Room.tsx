@@ -13,7 +13,7 @@ type RoomProps = {
 export const Room: FC<RoomProps> = ({
   owner,
   isFavorite = false,
-  bgColor,
+  bgColor = 'linear-gradient(175deg, rgba(3,169,241,1) 0%, rgba(160,2,90,1) 100%)',
   bgImage,
   classes,
 }) => {
