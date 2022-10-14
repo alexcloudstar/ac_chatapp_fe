@@ -1,0 +1,20 @@
+.searchContainer {
+  display: flex;
+  align-items: flex-end;
+}
+
+.customInput {
+  margin-top: 25px;
+}
+
+.customInput button {
+  right: 0;
+  left: initial;
+  background-color: #596787;
+}
+
+.btnCreateRoom {
+  position: initial;
+  margin-left: 15px;
+  background-color: #03a9f1 !important;
+}
