@@ -16,11 +16,16 @@ interface ButtonProps {
   /**
    * Button contents
    */
-  label: string
+  label?: string
   /**
    * Optional click handler
    */
   onClick?: () => void
+
+  /**
+   * Button Icon
+   */
+  icon?: React.ReactNode
 }
 
 /**
@@ -31,21 +36,23 @@ export const Button = ({
   size = 'medium',
   backgroundColor,
   label,
+  icon,
   ...props
 }: ButtonProps) => {
   const mode = primary
     ? 'storybook-button--primary'
     : 'storybook-button--secondary'
+  const classes = `storybook-button ${mode} storybook-button--${size} ${
+    icon ? 'search_icon-container' : ''
+  }`
   return (
     <button
       type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(
-        ' '
-      )}
+      className={classes}
       style={{ backgroundColor }}
       {...props}
     >
-      {label}
+      {icon ? <span className="search_icon">{icon}</span> : label}
     </button>
   )
 }
