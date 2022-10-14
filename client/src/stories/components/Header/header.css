@@ -1,5 +1,6 @@
 .header_container {
   display: flex;
+  height: fit-content;
 }
 
 .header_profile-pic {

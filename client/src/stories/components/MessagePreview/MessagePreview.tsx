@@ -9,14 +9,16 @@ type MessagePreviewProps = {
   user: User
   message: string
   time: string
+  classes?: string
 }
 
 export const MessagePreview: FC<MessagePreviewProps> = ({
   user,
   message,
   time,
+  classes,
 }) => (
-  <div className="mp_container">
+  <div className={`mp_container ${classes ? classes : ''}`}>
     <div className="mp_inner-container">
       <Avatar user={user} />
       <div className="mp_username-message-container">

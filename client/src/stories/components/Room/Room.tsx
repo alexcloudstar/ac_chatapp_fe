@@ -7,6 +7,7 @@ type RoomProps = {
   isFavorite: boolean
   bgColor?: string
   bgImage?: string
+  classes?: string
 }
 
 export const Room: FC<RoomProps> = ({
@@ -14,6 +15,7 @@ export const Room: FC<RoomProps> = ({
   isFavorite = false,
   bgColor,
   bgImage,
+  classes,
 }) => {
   const [isFavoriteState, setIsFavoriteState] = useState(isFavorite)
 
@@ -21,7 +23,7 @@ export const Room: FC<RoomProps> = ({
 
   return (
     <div
-      className="room_container"
+      className={`room_container ${classes ? classes : ''}`}
       style={
         bgColor
           ? { background: bgColor }

@@ -6,10 +6,11 @@ import './header.css'
 
 type HeaderProps = {
   user?: User
+  classes?: string
 }
 
-export const Header = ({ user }: HeaderProps) => (
-  <div className="header_container">
+export const Header = ({ user, classes }: HeaderProps) => (
+  <div className={`header_container ${classes ? classes : ''}`}>
     {user ? (
       <>
         <Avatar user={user} />

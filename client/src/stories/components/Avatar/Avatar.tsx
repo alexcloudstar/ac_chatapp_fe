@@ -6,10 +6,11 @@ import './avatar.css'
 type AvatarProps = {
   user: User
   bgColor?: string
+  classes?: string
 }
 
-export const Avatar: FC<AvatarProps> = ({ user, bgColor }) => (
-  <>
+export const Avatar: FC<AvatarProps> = ({ user, bgColor, classes }) => (
+  <div className={classes ? classes : ''}>
     {user.avatar ? (
       <img
         src={user.avatar}
@@ -25,5 +26,5 @@ export const Avatar: FC<AvatarProps> = ({ user, bgColor }) => (
         {user.lastName[0]}
       </span>
     )}
-  </>
+  </div>
 )
