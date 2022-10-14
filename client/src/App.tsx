@@ -1,11 +1,10 @@
-import { Home } from './Pages'
-
-import './App.css'
+import styles from './app.module.css'
+import { ChatHeader } from './components'
 
 function App() {
   return (
-    <main>
-      <Home />
+    <main className={styles.container}>
+      <ChatHeader />
     </main>
     // <div className="container w-full max-w-full flex flex-col justify-center items-center h-full">
     //   <h1 className="text-3xl font-bold underline text-red-500 mb-8">
