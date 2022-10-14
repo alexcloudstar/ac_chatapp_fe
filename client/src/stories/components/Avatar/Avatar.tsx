@@ -1,21 +1,19 @@
 import React, { FC } from 'react'
+
+import { User } from '../../types'
 import './avatar.css'
 
 type AvatarProps = {
-  avatar?: string
-  user: {
-    firstName: string
-    lastName: string
-  }
+  user: User
   bgColor?: string
 }
 
-export const Avatar: FC<AvatarProps> = ({ avatar, user, bgColor }) => {
+export const Avatar: FC<AvatarProps> = ({ user, bgColor }) => {
   return (
     <>
-      {avatar ? (
+      {user.avatar ? (
         <img
-          src={avatar}
+          src={user.avatar}
           alt={`${`${user.firstName} ${user.lastName}` || ''} avatar`}
           className="avatar_profile-pic"
         />
