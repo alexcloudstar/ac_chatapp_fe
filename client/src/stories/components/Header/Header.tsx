@@ -8,19 +8,17 @@ type HeaderProps = {
   user?: User
 }
 
-export const Header = ({ user }: HeaderProps) => {
-  return (
-    <div className="header_container">
-      {user ? (
-        <>
-          <Avatar user={user} />
-          <h1 className="header_username">
-            {user?.firstName} {user?.lastName}
-          </h1>
-        </>
-      ) : (
-        <h1>Please login</h1>
-      )}
-    </div>
-  )
-}
+export const Header = ({ user }: HeaderProps) => (
+  <div className="header_container">
+    {user ? (
+      <>
+        <Avatar user={user} />
+        <h1 className="header_username">
+          {user?.firstName} {user?.lastName}
+        </h1>
+      </>
+    ) : (
+      <h1>Please login</h1>
+    )}
+  </div>
+)

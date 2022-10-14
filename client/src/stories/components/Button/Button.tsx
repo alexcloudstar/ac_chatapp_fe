@@ -45,6 +45,7 @@ export const Button = ({
   const classes = `storybook-button ${mode} storybook-button--${size} ${
     icon ? 'search_icon-container' : ''
   }`
+
   return (
     <button
       type="button"
