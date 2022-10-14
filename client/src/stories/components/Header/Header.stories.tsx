@@ -16,7 +16,10 @@ const Template: ComponentStory<typeof Header> = (args) => <Header {...args} />
 export const LoggedIn = Template.bind({})
 LoggedIn.args = {
   user: {
-    name: 'Jane Doe',
+    firstName: 'John',
+    lastName: 'Doe',
+    avatar:
+      'https://avataaars.io/?avatarStyle=Circle&topType=Hat&accessoriesType=Prescription02&facialHairType=BeardMedium&facialHairColor=BlondeGolden&clotheType=ShirtScoopNeck&clotheColor=Red&eyeType=Close&eyebrowType=UpDownNatural&mouthType=Smile&skinColor=Pale',
   },
 }
 
