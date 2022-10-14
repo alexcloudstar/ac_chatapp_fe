@@ -6,4 +6,3 @@ export {
   Avatar,
   MessagePreview,
 } from './components'
-export { Page } from './Pages'
