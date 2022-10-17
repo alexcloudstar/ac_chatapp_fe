@@ -6,9 +6,10 @@ import './search.css'
 type SearchTypeProps = {
   query: string
   icon?: JSX.Element
+  classes?: string
 }
 
-export const Search = ({ query, icon }: SearchTypeProps) => {
+export const Search = ({ query, icon, classes }: SearchTypeProps) => {
   const [value, setValue] = useState(query)
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -17,7 +18,7 @@ export const Search = ({ query, icon }: SearchTypeProps) => {
   const onSearch = () => console.log('Search for', value)
 
   return (
-    <div className="search_container">
+    <div className={`search_container ${classes ? classes : ''}`}>
       <input
         type="text"
         placeholder="Search..."

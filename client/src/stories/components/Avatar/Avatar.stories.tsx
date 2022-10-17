@@ -15,10 +15,10 @@ const Template: ComponentStory<typeof Avatar> = (args) => <Avatar {...args} />
 
 export const Image = Template.bind({})
 Image.args = {
-  avatar: 'https://images.unsplash.com/photo-1661961112134-fbce0fdf3d99',
   user: {
     firstName: 'John',
     lastName: 'Doe',
+    avatar: 'https://images.unsplash.com/photo-1661961112134-fbce0fdf3d99',
   },
 }
 

@@ -26,6 +26,8 @@ interface ButtonProps {
    * Button Icon
    */
   icon?: React.ReactNode
+
+  classes?: string
 }
 
 /**
@@ -37,18 +39,20 @@ export const Button = ({
   backgroundColor,
   label,
   icon,
+  classes,
   ...props
 }: ButtonProps) => {
   const mode = primary
     ? 'storybook-button--primary'
     : 'storybook-button--secondary'
-  const classes = `storybook-button ${mode} storybook-button--${size} ${
+  const localClasses = `storybook-button ${mode} storybook-button--${size} ${
     icon ? 'search_icon-container' : ''
-  }`
+  } ${classes ? classes : ''}`
+
   return (
     <button
       type="button"
-      className={classes}
+      className={localClasses}
       style={{ backgroundColor }}
       {...props}
     >
