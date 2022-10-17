@@ -3,6 +3,7 @@
   display: flex;
   align-items: flex-end;
   width: 95px;
+  min-width: 95px;
   height: 145px;
   padding: 0 20px 20px 10px;
   color: #fff;

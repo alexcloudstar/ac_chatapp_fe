@@ -1,7 +1,5 @@
 import { Room } from '../../stories'
 
-import styles from './rooms.module.css'
-
 const Rooms = () => {
   const user = {
     firstName: 'John',
@@ -11,10 +9,41 @@ const Rooms = () => {
   }
 
   return (
-    <div className={styles.container}>
+    <>
       <h2 className="mt-[35px] mb-[15px]">Chatrooms</h2>
-      <Room owner={user.firstName} isFavorite />
-    </div>
+      <div className="flex">
+        <Room
+          owner={`${user.firstName} ${user.lastName}`}
+          isFavorite
+          classes="mr-[15px]"
+        />
+        <Room
+          owner={`${user.firstName} ${user.lastName}`}
+          isFavorite
+          classes="mr-[15px]"
+        />
+        <Room
+          owner={`${user.firstName} ${user.lastName}`}
+          isFavorite
+          classes="mr-[15px]"
+        />
+        <Room
+          owner={`${user.firstName} ${user.lastName}`}
+          isFavorite
+          classes="mr-[15px]"
+        />
+        <Room
+          owner={`${user.firstName} ${user.lastName}`}
+          isFavorite
+          classes="mr-[15px]"
+        />
+        <Room
+          owner={`${user.firstName} ${user.lastName}`}
+          isFavorite
+          classes="mr-[15px]"
+        />
+      </div>
+    </>
   )
 }
 
