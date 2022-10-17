@@ -14,7 +14,7 @@ const Rooms = () => {
 
   return (
     <>
-      <h2 className="mt-[35px] mb-[15px]">Chatrooms</h2>
+      <h2 className="mt-[25px] mb-[15px]">Chatrooms</h2>
       <div>
         <RoomsSlider>
           <SwiperSlide>
