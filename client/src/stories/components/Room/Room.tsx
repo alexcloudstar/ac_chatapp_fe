@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import './room.css'
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from 'react-icons/md'
 
-type RoomProps = {
+export type RoomProps = {
   owner: string
   isFavorite: boolean
   bgColor?: string

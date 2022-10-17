@@ -1,8 +1,8 @@
 import { SwiperSlide } from 'swiper/react'
 
-import { Room } from '../../stories'
-
 import { RoomsSlider } from './components'
+
+import { Room } from '@/stories'
 
 const Rooms = () => {
   const user = {
