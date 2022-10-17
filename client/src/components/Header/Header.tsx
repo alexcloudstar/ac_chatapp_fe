@@ -23,7 +23,7 @@ const ChatHeader = () => {
         <Header user={user} />
       </div>
 
-      <div className={styles.searchContainer}>
+      <div className="flex items-end">
         <Search query="" icon={<FaSearch />} classes={styles.customInput} />
         <Button
           icon={<FaPlus />}

@@ -10,7 +10,7 @@ type HeaderProps = {
 }
 
 export const Header = ({ user, classes }: HeaderProps) => (
-  <div className={`header_container ${classes ? classes : ''}`}>
+  <div className="flex h-fit">
     {user ? (
       <>
         <Avatar user={user} />

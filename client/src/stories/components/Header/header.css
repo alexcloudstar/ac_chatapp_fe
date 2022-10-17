@@ -1,8 +1,3 @@
-.header_container {
-  display: flex;
-  height: fit-content;
-}
-
 .header_profile-pic {
   width: 45px;
   height: 45px;
