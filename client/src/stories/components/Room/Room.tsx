@@ -8,6 +8,7 @@ type RoomProps = {
   bgColor?: string
   bgImage?: string
   classes?: string
+  onClick: () => void
 }
 
 export const Room: FC<RoomProps> = ({
@@ -16,25 +17,29 @@ export const Room: FC<RoomProps> = ({
   bgColor = 'linear-gradient(175deg, rgba(3,169,241,1) 0%, rgba(160,2,90,1) 100%)',
   bgImage,
   classes,
+  onClick,
 }) => {
   const [isFavoriteState, setIsFavoriteState] = useState(isFavorite)
 
   const toggleFavorite = () => setIsFavoriteState(!isFavoriteState)
 
   return (
-    <div
-      className={`room_container ${classes ? classes : ''}`}
-      style={
-        bgColor
-          ? { background: bgColor }
-          : {
-              backgroundImage: `url(${bgImage || ''})`,
-              backgroundPosition: 'center',
-              backgroundSize: 'contain',
-            }
-      }
-    >
-      <span className="room_owner">{owner}</span>
+    <div className="relative">
+      <div
+        className={`room_container ${classes ? classes : ''}`}
+        style={
+          bgColor
+            ? { background: bgColor }
+            : {
+                backgroundImage: `url(${bgImage || ''})`,
+                backgroundPosition: 'center',
+                backgroundSize: 'contain',
+              }
+        }
+        onClick={onClick}
+      >
+        <span className="room_owner">{owner}</span>
+      </div>
       <button className="room_icon" onClick={toggleFavorite}>
         {isFavoriteState ? <MdOutlineFavorite /> : <MdOutlineFavoriteBorder />}
       </button>
