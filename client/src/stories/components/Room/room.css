@@ -1,4 +1,5 @@
 .room_container {
+  position: relative;
   display: flex;
   align-items: flex-end;
   width: 95px;
@@ -14,6 +15,8 @@
 }
 
 .room_icon {
+  position: absolute;
+  right: 20px;
   width: 12px;
   height: 12px;
   color: #fff;
