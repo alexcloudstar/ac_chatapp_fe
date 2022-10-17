@@ -24,7 +24,7 @@ export const Room: FC<RoomProps> = ({
   const toggleFavorite = () => setIsFavoriteState(!isFavoriteState)
 
   return (
-    <>
+    <div className="relative">
       <div
         className={`room_container ${classes ? classes : ''}`}
         style={
@@ -43,6 +43,6 @@ export const Room: FC<RoomProps> = ({
       <button className="room_icon" onClick={toggleFavorite}>
         {isFavoriteState ? <MdOutlineFavorite /> : <MdOutlineFavoriteBorder />}
       </button>
-    </>
+    </div>
   )
 }
