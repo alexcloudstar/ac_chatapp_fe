@@ -2,8 +2,7 @@ export type AuthProps = {
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export type AuthFormData = {
+export type AuthFormInputs = {
   email: string
   password: string
-  isRegister: boolean
 }
