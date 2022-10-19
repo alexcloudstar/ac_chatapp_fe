@@ -53,12 +53,19 @@ export class UsersController {
   async signup(
     @Body() body: CreateUserDto,
     @Session() session: any,
-  ): Promise<User> {
+  ): Promise<{
+    accessToken: string;
+  }> {
     const user = await this.authService.signup(body.email, body.password);
 
-    session.userId = user.id;
+    const payload = { email: user.email, username: user.username, id: user.id };
+    const accessToken: string = this.jwtService.sign(payload);
 
-    return user;
+    session.accessToken = accessToken;
+
+    return {
+      accessToken,
+    };
   }
 
   @Post('/signin')
@@ -87,7 +94,7 @@ export class UsersController {
 
   @Post('/signout')
   signOut(@Session() session: any) {
-    session.userId = null;
+    session.accessToken = null;
   }
 
   @Delete('/:id')

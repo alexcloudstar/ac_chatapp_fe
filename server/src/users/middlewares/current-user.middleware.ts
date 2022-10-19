@@ -23,10 +23,15 @@ export class CurrentUserMiddleware implements NestMiddleware {
   ) {}
 
   async use(req: Request, res: Response, next: NextFunction) {
-    if (!req.headers?.authorization?.includes('Bearer'))
+    const accessToken = req.headers.authorization?.split(' ')[1];
+    const sessionAccessToken = req.session?.accessToken;
+
+    if (!req.headers?.authorization?.includes('Bearer') && !sessionAccessToken)
       throw new BadRequestException('Invalid token');
 
-    const accessToken = req.headers.authorization.split(' ')[1];
+    if (accessToken === sessionAccessToken)
+      throw new BadRequestException('Invalid token');
+
     if (accessToken) {
       const userFromToken: {
         id: number;
