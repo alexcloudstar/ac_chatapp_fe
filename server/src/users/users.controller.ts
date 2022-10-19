@@ -17,6 +17,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/user-update.dto';
 import { UserDto } from './dto/user.dto';
 import { UsersService } from './users.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Serialize(UserDto)
 @Controller('users')
@@ -24,6 +25,7 @@ export class UsersController {
   constructor(
     private usersService: UsersService,
     private authService: AuthService,
+    private jwtService: JwtService,
   ) {}
 
   @Get('/whoami')
@@ -63,12 +65,24 @@ export class UsersController {
   async signin(
     @Body() body: CreateUserDto,
     @Session() session: any,
-  ): Promise<User> {
+  ): Promise<{
+    accessToken: string;
+  }> {
     const user = await this.authService.signin(body.email, body.password);
 
-    session.userId = user.id;
+    if (!user)
+      throw new NotFoundException(
+        `User not found with given email: ${body.email}`,
+      );
 
-    return user;
+    const payload = { email: user.email, username: user.username, id: user.id };
+    const accessToken: string = this.jwtService.sign(payload);
+
+    session.accessToken = accessToken;
+
+    return {
+      accessToken,
+    };
   }
 
   @Post('/signout')
