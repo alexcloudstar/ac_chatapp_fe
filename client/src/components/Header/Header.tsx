@@ -5,6 +5,10 @@ import { Search, Button, Header } from '../../stories'
 
 import styles from './header.module.css'
 
+import { API_METHODS } from '@/types'
+import { fetchAPI } from '@/utils/api'
+import { getLocalStorage } from '@/utils/localStorage'
+
 const ChatHeader = () => {
   const user = {
     firstName: 'John',
@@ -17,10 +21,22 @@ const ChatHeader = () => {
     console.log('creating room...')
   }
 
+  const getUser = async () => {
+    const APIData = await fetchAPI(
+      'http://localhost:4000/users/whoami',
+      API_METHODS.GET,
+      // null,
+      getLocalStorage('accessToken') || ''
+    )
+
+    console.log(APIData)
+  }
+
   return (
     <div className={styles.container}>
       <div>
         <Header user={user} />
+        <button onClick={getUser}>Get User</button>
       </div>
 
       <div className="flex items-end">
