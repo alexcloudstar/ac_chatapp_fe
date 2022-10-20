@@ -26,6 +26,9 @@ export class CurrentUserMiddleware implements NestMiddleware {
     const accessToken = req.headers.authorization?.split(' ')[1];
     const sessionAccessToken = req.session?.accessToken;
 
+    console.log(req.baseUrl);
+    // console.log(res);
+
     if (!req.headers?.authorization?.includes('Bearer') && !sessionAccessToken)
       throw new BadRequestException('Invalid token');
 
