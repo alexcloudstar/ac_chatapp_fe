@@ -26,8 +26,6 @@ export class CurrentUserMiddleware implements NestMiddleware {
     const accessToken = req.headers.authorization?.split(' ')[1];
     const sessionAccessToken = req.session?.accessToken;
 
-    console.log(req.baseUrl.includes('auth'));
-
     if (req.baseUrl.includes('auth')) return next();
 
     if (
