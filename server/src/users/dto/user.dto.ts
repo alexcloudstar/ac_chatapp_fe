@@ -30,4 +30,7 @@ export class UserDto {
 
   @Expose()
   punishments: Punishment[];
+
+  @Expose()
+  accessToken: string;
 }
