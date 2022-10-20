@@ -1,12 +1,15 @@
-import { API_METHODS } from '@/types'
-import { fetchAPI } from '@/utils/useAPI'
-import React, { FC } from 'react'
-
+import React, { FC, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+
 import { AuthFormInputs, AuthProps } from './types'
 
+import { API_METHODS } from '@/types'
+import { fetchAPI } from '@/utils/api'
+import { setLocalStorage } from '@/utils/localStorage'
+
 const Auth: FC<AuthProps> = ({ setIsLoggedIn }) => {
-  const [isRegister, setIsRegister] = React.useState<boolean>(false)
+  const [isRegister, setIsRegister] = useState<boolean>(false)
+  const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
 
   const switchFormMode = () => setIsRegister(!isRegister)
 
@@ -15,20 +18,23 @@ const Auth: FC<AuthProps> = ({ setIsLoggedIn }) => {
     handleSubmit,
     formState: { errors },
   } = useForm<AuthFormInputs>()
-  const onSubmit: SubmitHandler<AuthFormInputs> = (data) => {
-    console.log(data)
-    fetchAPI('http://localhost:4000/users/signin', API_METHODS.POST, data).then(
-      (data) => {
-        console.log(data) // JSON data parsed by `data.json()` call
-      }
+  const onSubmit: SubmitHandler<AuthFormInputs> = async (data) => {
+    const APIData: {
+      accessToken: string
+      error: string
+      message: string
+    } = await fetchAPI(
+      'http://localhost:4000/auth/signin',
+      API_METHODS.POST,
+      data
     )
-  }
 
-  fetchAPI('http://localhost:4000/users/whoami', API_METHODS.GET).then(
-    (data) => {
-      console.log(data) // JSON data parsed by `data.json()` call
+    if (APIData.error) {
+      return setApiErrorMessage(APIData.message)
     }
-  )
+
+    setLocalStorage('accessToken', APIData.accessToken)
+  }
 
   return (
     <div className="flex flex-col h-fit min-h-[350px] justify-between text-center pt-[50px] pr-[30px] pl-[30px] pb-[30px] text-white bg-[#596787] rounded-[40px]">
@@ -51,6 +57,10 @@ const Auth: FC<AuthProps> = ({ setIsLoggedIn }) => {
           placeholder="Password"
           {...register('password', { required: true })}
         />
+
+        {apiErrorMessage && (
+          <p className="mt-3 mb-5 text-red-500">{apiErrorMessage}</p>
+        )}
 
         <button type="submit">{isRegister ? 'Register' : 'Login'}</button>
       </form>

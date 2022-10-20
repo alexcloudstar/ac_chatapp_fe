@@ -1,8 +1,11 @@
 import { useState } from 'react'
+
 import { Auth, ChatHeader, ChatList, Rooms } from './components'
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(
+    !!localStorage.getItem('accessToken')
+  )
   return (
     <>
       {!isLoggedIn ? (
