@@ -27,7 +27,9 @@ export class AuthController {
 
     const payload = { email: user.email, username: user.username, id: user.id };
 
-    const accessToken: string = this.jwtService.sign(payload);
+    const accessToken: string = this.jwtService.sign(payload, {
+      secret: process.env.JWT_SECRET,
+    });
 
     session.accessToken = accessToken;
 
@@ -51,7 +53,9 @@ export class AuthController {
       );
 
     const payload = { email: user.email, username: user.username, id: user.id };
-    const accessToken: string = this.jwtService.sign(payload);
+    const accessToken: string = this.jwtService.sign(payload, {
+      secret: process.env.JWT_SECRET,
+    });
 
     session.accessToken = accessToken;
 

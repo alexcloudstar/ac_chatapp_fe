@@ -1,7 +1,7 @@
 import {
-  BadRequestException,
   Injectable,
   NestMiddleware,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { UsersService } from '../users.service';
@@ -26,14 +26,17 @@ export class CurrentUserMiddleware implements NestMiddleware {
     const accessToken = req.headers.authorization?.split(' ')[1];
     const sessionAccessToken = req.session?.accessToken;
 
-    console.log(req.baseUrl);
-    // console.log(res);
+    console.log(req.baseUrl.includes('auth'));
 
-    if (!req.headers?.authorization?.includes('Bearer') && !sessionAccessToken)
-      throw new BadRequestException('Invalid token');
+    if (req.baseUrl.includes('auth')) return next();
 
-    if (accessToken === sessionAccessToken)
-      throw new BadRequestException('Invalid token');
+    if (
+      (!accessToken &&
+        !req.headers?.authorization?.includes('Bearer') &&
+        !sessionAccessToken) ||
+      accessToken !== sessionAccessToken
+    )
+      throw new UnauthorizedException('Invalid token');
 
     if (accessToken) {
       const userFromToken: {
