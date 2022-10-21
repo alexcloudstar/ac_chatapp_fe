@@ -9,7 +9,7 @@ import {
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { JwtService } from '@nestjs/jwt';
-import { LocalAuthGuard } from './local-auth.guard';
+import { LocalAuthGuard } from '../utils/jwt/local-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -43,7 +43,7 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('/signin')
   async signin(@Request() req) {
-    return req.user;
+    return this.authService.signin(req.user);
   }
 
   @Post('/signout')

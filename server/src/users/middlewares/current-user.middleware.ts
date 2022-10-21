@@ -18,8 +18,7 @@ declare global {
 @Injectable()
 export class CurrentUserMiddleware implements NestMiddleware {
   constructor(
-    private usersService: UsersService,
-    private jwtService: JwtService,
+    private usersService: UsersService, // private jwtService: JwtService,
   ) {}
 
   async use(req: Request, res: Response, next: NextFunction) {

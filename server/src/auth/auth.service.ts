@@ -3,10 +3,11 @@ import { User } from '@prisma/client';
 import * as argon2 from 'argon2';
 
 import { PrismaService } from 'src/prisma.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService, private jwtService: JwtService) {}
 
   async signup(
     email: User['email'],
@@ -41,19 +42,13 @@ export class AuthService {
     return null;
   }
 
-  async signin(
-    email: User['email'],
-    password: User['password'],
-  ): Promise<User> {
-    console.log('123sssss');
-    const user = await this.prisma.user.findUnique({ where: { email } });
+  async signin(user: Omit<User, 'password'>): Promise<{ accessToken: string }> {
+    const payload = { username: user.email, sub: user.id };
 
-    if (!user) throw new BadRequestException('User does not exist');
-
-    const valid = await argon2.verify(user.password, password);
-
-    if (!valid) throw new BadRequestException('Invalid password');
-
-    return user;
+    return {
+      accessToken: this.jwtService.sign(payload, {
+        secret: process.env.JWT_SECRET,
+      }),
+    };
   }
 }
