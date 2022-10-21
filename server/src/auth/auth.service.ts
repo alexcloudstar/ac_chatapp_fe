@@ -11,6 +11,7 @@ export class AuthService {
 
   async signup(
     email: User['email'],
+    username: User['username'],
     password: User['password'],
   ): Promise<User> {
     const user = await this.prisma.user.findUnique({ where: { email } });
@@ -22,6 +23,7 @@ export class AuthService {
     return this.prisma.user.create({
       data: {
         email,
+        username,
         password: hash,
       },
     });
@@ -43,7 +45,11 @@ export class AuthService {
   }
 
   async signin(user: Omit<User, 'password'>): Promise<{ accessToken: string }> {
-    const payload = { username: user.email, sub: user.id };
+    const payload = {
+      email: user.email,
+      username: user.username,
+      sub: user.id,
+    };
 
     return {
       accessToken: this.jwtService.sign(payload, {

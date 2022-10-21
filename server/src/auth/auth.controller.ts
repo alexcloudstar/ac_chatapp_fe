@@ -25,7 +25,11 @@ export class AuthController {
   ): Promise<{
     accessToken: string;
   }> {
-    const user = await this.authService.signup(body.email, body.password);
+    const user = await this.authService.signup(
+      body.email,
+      body.username,
+      body.password,
+    );
 
     const payload = { email: user.email, username: user.username, id: user.id };
 
