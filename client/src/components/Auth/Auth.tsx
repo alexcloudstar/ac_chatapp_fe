@@ -28,6 +28,7 @@ const Auth: FC<AuthProps> = ({ setIsLoggedIn }) => {
       } = await fetchAPI(
         'http://localhost:4000/auth/signin',
         API_METHODS.POST,
+        '',
         data
       )
 
