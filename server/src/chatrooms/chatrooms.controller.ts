@@ -14,7 +14,7 @@ export class ChatroomsController {
 
   @UseGuards(JwtAuthGuard)
   @Get('/joined')
-  findJoined(@CurrentUser() user: User) {
+  findJoined(@CurrentUser() user: User): Promise<Chatroom[]> {
     return this.chatroomsService.findJoined(+user.id);
   }
 
