@@ -25,6 +25,7 @@ export class CurrentUserMiddleware implements NestMiddleware {
       const userFromToken: {
         sub: number;
         email: string;
+        username: string;
       } = this.jwtService.verify(accessToken, {
         secret: process.env.JWT_SECRET,
       });
