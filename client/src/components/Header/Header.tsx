@@ -1,42 +1,40 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { FaSearch, FaPlus } from 'react-icons/fa'
 
-import { Search, Button, Header } from '../../stories'
+import { Search, Button, Header, Avatar } from '../../stories'
 
 import styles from './header.module.css'
 
+import { User } from '@/stories/types'
 import { API_METHODS } from '@/types'
 import { fetchAPI } from '@/utils/api'
 import { getLocalStorage } from '@/utils/localStorage'
 
 const ChatHeader = () => {
-  const user = {
-    firstName: 'John',
-    lastName: 'Doe',
-    avatar:
-      'https://avataaars.io/?avatarStyle=Circle&topType=Hat&accessoriesType=Prescription02&facialHairType=BeardMedium&facialHairColor=BlondeGolden&clotheType=ShirtScoopNeck&clotheColor=Red&eyeType=Close&eyebrowType=UpDownNatural&mouthType=Smile&skinColor=Pale',
-  }
+  const [user, setUser] = useState<User>()
 
   const createRoom = () => {
     console.log('creating room...')
   }
 
-  const getUser = async () => {
-    const APIData = await fetchAPI(
+  const getUser = useCallback(async () => {
+    const APIData: User = await fetchAPI(
       'http://localhost:4000/users/whoami',
       API_METHODS.GET,
-      // null,
       getLocalStorage('accessToken') || ''
     )
 
-    console.log(APIData)
-  }
+    setUser(APIData)
+  }, [])
+
+  useEffect(() => {
+    getUser()
+  }, [getUser])
 
   return (
     <div className={styles.container}>
       <div>
         <Header user={user} />
-        <button onClick={getUser}>Get User</button>
       </div>
 
       <div className="flex items-end">

@@ -4,17 +4,21 @@ import { User } from '../../types'
 import './avatar.css'
 
 type AvatarProps = {
-  user: User
+  user: Pick<User, 'username' | 'avatar'>
   bgColor?: string
   classes?: string
 }
 
-export const Avatar: FC<AvatarProps> = ({ user, bgColor, classes }) => (
+export const Avatar: FC<AvatarProps> = ({
+  user,
+  bgColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`,
+  classes,
+}) => (
   <div className={classes ? classes : ''}>
-    {user.avatar ? (
+    {user?.avatar ? (
       <img
-        src={user.avatar}
-        alt={`${`${user.firstName} ${user.lastName}` || ''} avatar`}
+        src={user?.avatar}
+        alt={`${`${user.username}` || ''} avatar`}
         className="avatar_profile-pic"
       />
     ) : (
@@ -22,8 +26,7 @@ export const Avatar: FC<AvatarProps> = ({ user, bgColor, classes }) => (
         className="avatar_initials-avatar"
         style={{ backgroundColor: bgColor }}
       >
-        {user.firstName[0]}
-        {user.lastName[0]}
+        {user.username[0].toLocaleUpperCase()}
       </span>
     )}
   </div>

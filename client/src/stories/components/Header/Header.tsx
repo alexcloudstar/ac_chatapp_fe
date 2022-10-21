@@ -14,9 +14,7 @@ export const Header = ({ user, classes }: HeaderProps) => (
     {user ? (
       <>
         <Avatar user={user} />
-        <h1 className="header_username">
-          {user?.firstName} {user?.lastName}
-        </h1>
+        <h1 className="header_username">{user?.username}</h1>
       </>
     ) : (
       <h1>Please login</h1>

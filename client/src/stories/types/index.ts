@@ -1,5 +1,8 @@
 export type User = {
-  firstName: string
-  lastName: string
-  avatar?: string
+  id: number
+  email: string
+  name: string
+  username: string
+  avatar: string
+  createdAt: string
 }

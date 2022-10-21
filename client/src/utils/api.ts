@@ -1,12 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { API_METHODS } from '@/types'
 
 export const fetchAPI = async (
   url = '',
   method: API_METHODS,
-  data?: Record<string, unknown>,
-  token?: string
-) => {
-  // console.log(token)
+  token?: string,
+  data?: Record<string, unknown>
+): Promise<any> => {
   const response = await fetch(url, {
     method: method,
     credentials: 'same-origin',
