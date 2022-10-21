@@ -13,20 +13,32 @@ export class AuthService {
     email: User['email'],
     username: User['username'],
     password: User['password'],
-  ): Promise<User> {
+  ): Promise<{ accessToken: string }> {
     const user = await this.prisma.user.findUnique({ where: { email } });
 
     if (user) throw new BadRequestException('User already exists');
 
     const hash = await argon2.hash(password);
 
-    return this.prisma.user.create({
+    const newUser = await this.prisma.user.create({
       data: {
         email,
         username,
         password: hash,
       },
     });
+
+    const payload = {
+      email: newUser.email,
+      username: newUser.username,
+      sub: newUser.id,
+    };
+
+    return {
+      accessToken: this.jwtService.sign(payload, {
+        secret: process.env.JWT_SECRET,
+      }),
+    };
   }
 
   async validate(
