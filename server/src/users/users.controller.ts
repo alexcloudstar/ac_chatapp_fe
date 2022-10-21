@@ -25,10 +25,10 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @Get('/whoami')
-  whoami(@Request() req) {
-    if (!req.user) throw new NotFoundException(`You are not logged in`);
+  whoami(@CurrentUser() user: User) {
+    if (!user) throw new NotFoundException(`You are not logged in`);
 
-    return req.user;
+    return user;
   }
 
   @Get()
