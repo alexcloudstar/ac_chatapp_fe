@@ -18,11 +18,13 @@ export class ChatroomsController {
     return this.chatroomsService.findJoined(+user.id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAll(): Promise<Chatroom[]> {
     return this.chatroomsService.findAll();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('/:id')
   find(@Param('id') id: string): Promise<Chatroom> {
     return this.chatroomsService.find(+id);
@@ -43,11 +45,13 @@ export class ChatroomsController {
     );
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('/:id/join')
   join(@Param('id') id: string, @Body() body: any): Promise<Chatroom> {
     return this.chatroomsService.join(+id, +body.userId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('/:id/invite')
   invite(
     @Param('id') id: string,
@@ -56,6 +60,7 @@ export class ChatroomsController {
     return this.chatroomsService.invite(+id, +body.userId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('/:id/leave')
   leave(
     @Param('id') id: string,
