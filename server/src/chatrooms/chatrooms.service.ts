@@ -37,9 +37,6 @@ export class ChatroomsService {
     name: string,
     profanityWords: string[],
   ): Promise<Chatroom> {
-    if (!userOwnerId)
-      throw new NotFoundException('You are not logged in to create a chatroom');
-
     const usersArrIds = userIds?.map((id) => ({ id: +id }));
 
     return this.prisma.chatroom.create({

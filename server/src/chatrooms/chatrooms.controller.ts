@@ -1,10 +1,11 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { Chatroom, User } from '@prisma/client';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { ChatroomsService } from './chatrooms.service';
 import { ChatroomDto } from './dto/chatroom.dto';
 import { CurrentUser } from '../users/decorators/current-user.decorator';
 import { CreateChatroomDto } from './dto/create-chatroom.dto';
+import { JwtAuthGuard } from '../utils/jwt/jwt-auth.guard';
 
 @Serialize(ChatroomDto)
 @Controller('chatrooms')
@@ -21,6 +22,7 @@ export class ChatroomsController {
     return this.chatroomsService.find(+id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(
     @Body() body: CreateChatroomDto,
