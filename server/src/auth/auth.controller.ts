@@ -1,7 +1,6 @@
 import {
   Body,
   Controller,
-  NotFoundException,
   Post,
   Request,
   UseGuards,
@@ -10,7 +9,6 @@ import {
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { JwtService } from '@nestjs/jwt';
-import { AuthGuard } from '@nestjs/passport';
 import { LocalAuthGuard } from './local-auth.guard';
 
 @Controller('auth')
@@ -42,7 +40,7 @@ export class AuthController {
     };
   }
 
-  @UseGuards(AuthGuard('local'))
+  @UseGuards(LocalAuthGuard)
   @Post('/signin')
   async signin(@Request() req) {
     return req.user;
