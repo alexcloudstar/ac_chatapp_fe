@@ -116,7 +116,12 @@ export class ChatroomsService {
   }
 
   async findJoined(userId: number): Promise<Chatroom[]> {
-    return this.prisma.chatroom.findMany({
+    const include = {
+      users: true,
+      messages: true,
+    };
+
+    const joinedRooms = await this.prisma.chatroom.findMany({
       where: {
         users: {
           some: {
@@ -124,9 +129,15 @@ export class ChatroomsService {
           },
         },
       },
-      include: {
-        users: true,
-      },
+      include,
     });
+    const ownedRooms = await this.prisma.chatroom.findMany({
+      where: {
+        userOwnerId: userId,
+      },
+      include,
+    });
+
+    return [...joinedRooms, ...ownedRooms];
   }
 }
