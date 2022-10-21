@@ -1,10 +1,10 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 
-import { User } from '../../types'
+import { UserComponentType } from '../../types'
 import './avatar.css'
 
 type AvatarProps = {
-  user: Pick<User, 'username' | 'avatar'>
+  user: UserComponentType
   bgColor?: string
   classes?: string
 }

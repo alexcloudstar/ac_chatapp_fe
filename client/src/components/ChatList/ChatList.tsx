@@ -8,11 +8,27 @@ import { API_METHODS } from '@/types'
 import { fetchAPI } from '@/utils/api'
 import { getLocalStorage } from '@/utils/localStorage'
 
+type MessagesType = {
+  id: number
+  message: string
+  senderId: number
+}
+
+type ConversationType = {
+  id: string
+  isPrivate: boolean
+  messages: MessagesType[]
+  name: string
+  profanityWords: string[]
+  userOwnerId: number
+  users: Pick<User, 'id'>[]
+}
+
 const ChatList = () => {
-  const [conversations, setConversations] = useState<any[]>([])
+  const [conversations, setConversations] = useState<ConversationType[]>([])
 
   const getChatrooms = useCallback(async () => {
-    const APIData: any[] = await fetchAPI(
+    const APIData: ConversationType[] = await fetchAPI(
       'http://localhost:4000/chatrooms/joined',
       API_METHODS.GET,
       getLocalStorage('accessToken') || ''
@@ -25,19 +41,26 @@ const ChatList = () => {
     getChatrooms()
   }, [getChatrooms])
 
-  console.log(conversations)
+  console.log(conversations[1])
 
   return (
     <div className={`${styles.container}`}>
-      <Preview />
-      <Preview />
-      <Preview />
-      <Preview />
-      <Preview />
-      <Preview />
-      <Preview />
-      <Preview />
-      <Preview />
+      {conversations?.map((conversation) => (
+        <Preview
+          key={conversation.id}
+          user={{
+            avatar: 'https://i.pravatar.cc/150?img=1',
+            username: 'John Doe',
+          }}
+          message={
+            conversation.messages.length
+              ? conversation?.messages[conversation?.messages.length - 1]
+                  ?.message
+              : 'No message yet'
+          }
+          time="12:00"
+        />
+      ))}
     </div>
   )
 }
