@@ -12,6 +12,12 @@ import { JwtAuthGuard } from '../utils/jwt/jwt-auth.guard';
 export class ChatroomsController {
   constructor(private chatroomsService: ChatroomsService) {}
 
+  @UseGuards(JwtAuthGuard)
+  @Get('/joined')
+  findJoined(@CurrentUser() user: User) {
+    return this.chatroomsService.findJoined(+user.id);
+  }
+
   @Get()
   findAll(): Promise<Chatroom[]> {
     return this.chatroomsService.findAll();

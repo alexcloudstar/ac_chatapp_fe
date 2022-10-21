@@ -114,4 +114,19 @@ export class ChatroomsService {
       },
     });
   }
+
+  async findJoined(userId: number): Promise<Chatroom[]> {
+    return this.prisma.chatroom.findMany({
+      where: {
+        users: {
+          some: {
+            id: userId,
+          },
+        },
+      },
+      include: {
+        users: true,
+      },
+    });
+  }
 }
