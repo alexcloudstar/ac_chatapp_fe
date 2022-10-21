@@ -6,7 +6,12 @@ import { JwtModule } from '@nestjs/jwt';
 import { PrismaService } from '../prisma.service';
 
 @Module({
-  imports: [],
+  imports: [
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '60h' },
+    }),
+  ],
   controllers: [UsersController],
   providers: [UsersService, PrismaService],
 })
