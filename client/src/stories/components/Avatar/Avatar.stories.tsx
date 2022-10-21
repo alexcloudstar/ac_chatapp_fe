@@ -16,8 +16,8 @@ const Template: ComponentStory<typeof Avatar> = (args) => <Avatar {...args} />
 export const Image = Template.bind({})
 Image.args = {
   user: {
-    firstName: 'John',
-    lastName: 'Doe',
+    username: 'johndoe',
+
     avatar: 'https://images.unsplash.com/photo-1661961112134-fbce0fdf3d99',
   },
 }
@@ -25,8 +25,7 @@ Image.args = {
 export const Initials = Template.bind({})
 Initials.args = {
   user: {
-    firstName: 'John',
-    lastName: 'Doe',
+    username: 'johndoe',
   },
   bgColor: '#3cb46c',
 }

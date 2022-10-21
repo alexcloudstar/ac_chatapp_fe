@@ -4,7 +4,7 @@ import { User } from '../../types'
 import './avatar.css'
 
 type AvatarProps = {
-  user: User
+  user: Pick<User, 'username' | 'avatar'>
   bgColor?: string
   classes?: string
 }
@@ -26,7 +26,7 @@ export const Avatar: FC<AvatarProps> = ({
         className="avatar_initials-avatar"
         style={{ backgroundColor: bgColor }}
       >
-        {user.username[0]}
+        {user.username[0].toLocaleUpperCase()}
       </span>
     )}
   </div>
