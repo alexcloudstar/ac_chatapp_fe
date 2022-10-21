@@ -26,10 +26,26 @@ export class AuthService {
     });
   }
 
+  async validate(
+    email: string,
+    password: string,
+  ): Promise<Omit<User, 'password'> | null> {
+    const user = await this.prisma.user.findUnique({ where: { email } });
+
+    const valid = await argon2.verify(user.password, password);
+
+    if (valid) {
+      const { password, ...result } = user;
+      return result;
+    }
+    return null;
+  }
+
   async signin(
     email: User['email'],
     password: User['password'],
   ): Promise<User> {
+    console.log('123sssss');
     const user = await this.prisma.user.findUnique({ where: { email } });
 
     if (!user) throw new BadRequestException('User does not exist');
