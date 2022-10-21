@@ -6,18 +6,14 @@ export const fetchAPI = async (
   data?: Record<string, unknown>,
   token?: string
 ) => {
+  // console.log(token)
   const response = await fetch(url, {
     method: method,
-    mode: 'cors',
-    cache: 'no-cache',
     credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'DELETE, POST, GET, OPTIONS',
-      'Access-Control-Allow-Headers':
-        'Content-Type, Authorization, X-Requested-With',
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token || ''}`,
     },
 
     body: JSON.stringify(data),
