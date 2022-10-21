@@ -31,11 +31,13 @@ export class UsersController {
     return user;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAll(): Promise<User[]> {
     return this.usersService.findAll();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('/:id')
   async findOne(@Param('id') id: string, @CurrentUser() user: User) {
     try {
@@ -45,11 +47,13 @@ export class UsersController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete('/:id')
   removeUser(@Param('id') id: string, @CurrentUser() user: User) {
     return this.usersService.remove(parseInt(id), user);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch('/:id')
   updateUser(
     @Param('id') id: string,
