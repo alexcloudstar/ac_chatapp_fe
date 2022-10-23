@@ -13,13 +13,17 @@ const Rooms = () => {
   const [users, setUsers] = useState<User[]>([])
 
   const getUsers = useCallback(async () => {
-    const APIData: User[] = await fetchAPI(
-      'http://localhost:4000/users/',
-      API_METHODS.GET,
-      getLocalStorage('accessToken') || ''
-    )
+    try {
+      const APIData: User[] = await fetchAPI(
+        'http://localhost:4000/users/',
+        API_METHODS.GET,
+        getLocalStorage('accessToken') || ''
+      )
 
-    setUsers(APIData.filter((user) => user.id !== 1)) // TODO: implement redux toolkit
+      setUsers(APIData.filter((user) => user.id !== 1)) // TODO: implement redux toolkit
+    } catch (error) {
+      console.log(error)
+    }
   }, [])
 
   useEffect(() => {

@@ -12,6 +12,7 @@ type MessagesType = {
   id: number
   message: string
   senderId: number
+  sender: Pick<User, 'id' | 'username' | 'avatar'>
 }
 
 type ConversationType = {
@@ -26,41 +27,50 @@ type ConversationType = {
 
 const ChatList = () => {
   const [conversations, setConversations] = useState<ConversationType[]>([])
+  const [senderUser, setSenderUser] = useState<User | null>(null)
 
   const getChatrooms = useCallback(async () => {
-    const APIData: ConversationType[] = await fetchAPI(
-      'http://localhost:4000/chatrooms/joined',
-      API_METHODS.GET,
-      getLocalStorage('accessToken') || ''
-    )
+    try {
+      const APIData: ConversationType[] = await fetchAPI(
+        'http://localhost:4000/chatrooms/joined',
+        API_METHODS.GET,
+        getLocalStorage('accessToken') || ''
+      )
 
-    setConversations(APIData)
+      setConversations(APIData)
+    } catch (error) {
+      console.error(error)
+    }
   }, [])
 
   useEffect(() => {
     getChatrooms()
   }, [getChatrooms])
 
-  console.log(conversations[1])
+  console.log(conversations)
 
   return (
     <div className={`${styles.container}`}>
-      {conversations?.map((conversation) => (
-        <Preview
-          key={conversation.id}
-          user={{
-            avatar: 'https://i.pravatar.cc/150?img=1',
-            username: 'John Doe',
-          }}
-          message={
-            conversation.messages.length
-              ? conversation?.messages[conversation?.messages.length - 1]
-                  ?.message
-              : 'No message yet'
-          }
-          time="12:00"
-        />
-      ))}
+      {conversations?.map((conversation) => {
+        return (
+          <Preview
+            key={conversation.id}
+            user={{
+              avatar: 'https://i.pravatar.cc/150?img=1',
+              username:
+                conversation.messages[conversation?.messages.length - 1]?.sender
+                  ?.username,
+            }}
+            message={
+              conversation.messages.length
+                ? conversation?.messages[conversation?.messages.length - 1]
+                    ?.message
+                : 'No message yet'
+            }
+            time="12:00"
+          />
+        )
+      })}
     </div>
   )
 }

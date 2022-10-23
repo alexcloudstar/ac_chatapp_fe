@@ -18,13 +18,17 @@ const ChatHeader = () => {
   }
 
   const getUser = useCallback(async () => {
-    const APIData: User = await fetchAPI(
-      'http://localhost:4000/users/whoami',
-      API_METHODS.GET,
-      getLocalStorage('accessToken') || ''
-    )
+    try {
+      const APIData: User = await fetchAPI(
+        'http://localhost:4000/users/whoami',
+        API_METHODS.GET,
+        getLocalStorage('accessToken') || ''
+      )
 
-    setUser(APIData)
+      setUser(APIData)
+    } catch (error) {
+      console.log(error)
+    }
   }, [])
 
   useEffect(() => {
