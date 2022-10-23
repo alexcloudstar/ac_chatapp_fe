@@ -47,8 +47,6 @@ const ChatList = () => {
     getChatrooms()
   }, [getChatrooms])
 
-  console.log(conversations)
-
   return (
     <div className={`${styles.container}`}>
       {conversations?.map((conversation) => {
