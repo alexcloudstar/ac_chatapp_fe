@@ -6,6 +6,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(
     !!localStorage.getItem('accessToken')
   )
+
   return (
     <>
       {!isLoggedIn ? (
