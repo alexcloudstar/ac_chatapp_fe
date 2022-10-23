@@ -1,44 +1,28 @@
-import { useCallback, useEffect, useState } from 'react'
 import { SwiperSlide } from 'swiper/react'
 
 import { RoomsSlider } from './components'
 
+import { useGetUsersQuery } from '@/store/services/users'
 import { Room } from '@/stories'
 import { User } from '@/stories/types'
-import { API_METHODS } from '@/types'
-import { fetchAPI } from '@/utils/api'
-import { getLocalStorage } from '@/utils/localStorage'
+import { ApiState } from '../ApiState'
 
 const Rooms = () => {
-  const [users, setUsers] = useState<User[]>([])
+  const { data: users, error, isLoading } = useGetUsersQuery()
 
-  const getUsers = useCallback(async () => {
-    try {
-      const APIData: User[] = await fetchAPI(
-        'http://localhost:4000/users/',
-        API_METHODS.GET,
-        getLocalStorage('accessToken') || ''
-      )
+  if (error) return <ApiState errorMessage={error.data.message} />
 
-      setUsers(APIData.filter((user) => user.id !== 1)) // TODO: implement redux toolkit
-    } catch (error) {
-      console.log(error)
-    }
-  }, [])
-
-  useEffect(() => {
-    getUsers()
-  }, [getUsers])
+  if (isLoading) return <ApiState />
 
   return (
     <>
       <h2 className="mt-[25px] mb-[15px]">Chatrooms</h2>
       <div>
         <RoomsSlider>
-          {users?.map((user) => (
+          {users?.map((user: User) => (
             <SwiperSlide key={user.id}>
               <Room
-                owner={user.email}
+                owner={user.username || 'Unknown'}
                 isFavorite={false}
                 classes="mr-[15px]"
                 bgImage={user.avatar}

@@ -5,6 +5,7 @@ import { Button, Header, Search } from '../../stories'
 import styles from './header.module.css'
 
 import { useCurrentUserQuery } from '@/store/services/users'
+import { ApiState } from '../ApiState'
 
 const ChatHeader = () => {
   const { data, error, isLoading } = useCurrentUserQuery()
@@ -12,6 +13,10 @@ const ChatHeader = () => {
   const createRoom = () => {
     console.log('creating room...')
   }
+
+  if (error) return <ApiState errorMessage={error.data.message} />
+
+  if (isLoading) return <ApiState />
 
   return (
     <div className={styles.container}>
