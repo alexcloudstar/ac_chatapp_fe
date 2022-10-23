@@ -1,55 +1,21 @@
-import { useCallback, useEffect, useState } from 'react'
-
 import styles from './chatlist.module.css'
 import { Preview } from './components'
 
-import { User } from '@/stories/types'
-import { API_METHODS } from '@/types'
-import { fetchAPI } from '@/utils/api'
-import { getLocalStorage } from '@/utils/localStorage'
-
-type MessagesType = {
-  id: number
-  message: string
-  senderId: number
-  sender: Pick<User, 'id' | 'username' | 'avatar'>
-}
-
-type ConversationType = {
-  id: string
-  isPrivate: boolean
-  messages: MessagesType[]
-  name: string
-  profanityWords: string[]
-  userOwnerId: number
-  users: Pick<User, 'id'>[]
-}
+import { useConversationsQuery } from '@/store/services/conversations'
+import { ApiState } from '../ApiState'
+import { ConversationType } from './types'
 
 const ChatList = () => {
-  const [conversations, setConversations] = useState<ConversationType[]>([])
+  const { data: conversations, error, isLoading } = useConversationsQuery()
 
-  const getChatrooms = useCallback(async () => {
-    try {
-      const APIData: ConversationType[] = await fetchAPI(
-        'http://localhost:4000/chatrooms/joined',
-        API_METHODS.GET,
-        getLocalStorage('accessToken') || ''
-      )
+  if (error) return <ApiState errorMessage={error.data.message} />
 
-      setConversations(APIData)
-    } catch (error) {
-      console.error(error)
-    }
-  }, [])
-
-  useEffect(() => {
-    getChatrooms()
-  }, [getChatrooms])
+  if (isLoading) return <ApiState />
 
   return (
     <div className={`${styles.container}`}>
-      {conversations.length ? (
-        conversations.map((conversation) => {
+      {conversations?.length ? (
+        conversations.map((conversation: ConversationType) => {
           const lastMessage =
             conversation.messages[conversation.messages.length - 1]
           return (
