@@ -1,9 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-  Param,
-} from '@nestjs/common';
+import { BadRequestException, Injectable, Param } from '@nestjs/common';
 import { Chatroom } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 

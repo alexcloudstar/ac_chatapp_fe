@@ -18,7 +18,7 @@ export class ChatroomsController {
     return this.chatroomsService.findJoined(+user.id);
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get()
   findAll(): Promise<Chatroom[]> {
     return this.chatroomsService.findAll();

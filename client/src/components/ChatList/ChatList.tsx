@@ -27,7 +27,6 @@ type ConversationType = {
 
 const ChatList = () => {
   const [conversations, setConversations] = useState<ConversationType[]>([])
-  const [senderUser, setSenderUser] = useState<User | null>(null)
 
   const getChatrooms = useCallback(async () => {
     try {
@@ -50,19 +49,18 @@ const ChatList = () => {
   return (
     <div className={`${styles.container}`}>
       {conversations?.map((conversation) => {
+        const lastMessage =
+          conversation.messages[conversation.messages.length - 1]
         return (
           <Preview
             key={conversation.id}
             user={{
               avatar: 'https://i.pravatar.cc/150?img=1',
-              username:
-                conversation.messages[conversation?.messages.length - 1]?.sender
-                  ?.username,
+              username: lastMessage?.sender?.username,
             }}
             message={
               conversation.messages.length
-                ? conversation?.messages[conversation?.messages.length - 1]
-                    ?.message
+                ? lastMessage?.message
                 : 'No message yet'
             }
             time="12:00"

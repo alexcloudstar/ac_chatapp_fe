@@ -13,28 +13,24 @@ export class ChatroomDto {
   @Expose()
   id: number;
 
-  @Expose()
   @Transform(({ obj }) =>
     obj.messages?.map((message: IMessage) => ({
       id: message.id,
       message: message.message,
       senderId: message.senderId,
-      sender: obj.users.reduce((acc, user) => {
+
+      sender: obj.users.reduce((acc: any, user: User) => {
         if (user.id === message.senderId) {
-          acc.push({
-            id: user.id,
-            username: user.username,
-            avatar: user.avatar,
-          });
+          acc = user;
         }
         return {
-          id: acc.id,
           username: acc.username,
           avatar: acc.avatar,
         };
-      }),
+      }, {}),
     })),
   )
+  @Expose()
   messages: IMessage;
 
   @Transform(({ obj }: { obj: { users: User[] } }) =>
