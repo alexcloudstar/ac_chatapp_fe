@@ -1,5 +1,9 @@
 .container {
   overflow-y: scroll;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container::-webkit-scrollbar {

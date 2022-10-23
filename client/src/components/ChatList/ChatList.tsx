@@ -48,25 +48,31 @@ const ChatList = () => {
 
   return (
     <div className={`${styles.container}`}>
-      {conversations?.map((conversation) => {
-        const lastMessage =
-          conversation.messages[conversation.messages.length - 1]
-        return (
-          <Preview
-            key={conversation.id}
-            user={{
-              avatar: 'https://i.pravatar.cc/150?img=1',
-              username: lastMessage?.sender?.username,
-            }}
-            message={
-              conversation.messages.length
-                ? lastMessage?.message
-                : 'No message yet'
-            }
-            time="12:00"
-          />
-        )
-      })}
+      {conversations.length ? (
+        conversations.map((conversation) => {
+          const lastMessage =
+            conversation.messages[conversation.messages.length - 1]
+          return (
+            <Preview
+              key={conversation.id}
+              user={{
+                avatar: 'https://i.pravatar.cc/150?img=1',
+                username: lastMessage?.sender?.username,
+              }}
+              message={
+                conversation.messages.length
+                  ? lastMessage?.message
+                  : 'No message yet'
+              }
+              time="12:00"
+            />
+          )
+        })
+      ) : (
+        <p className="text-[20px] font-semibold	">
+          You have no conversation yet
+        </p>
+      )}
     </div>
   )
 }

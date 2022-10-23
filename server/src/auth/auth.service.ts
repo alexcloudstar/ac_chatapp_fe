@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { User } from '@prisma/client';
 import * as argon2 from 'argon2';
 
@@ -54,7 +58,8 @@ export class AuthService {
       const { password, ...result } = user;
       return result;
     }
-    return null;
+
+    throw new UnauthorizedException('Invalid credentials');
   }
 
   async signin(user: Omit<User, 'password'>): Promise<{ accessToken: string }> {

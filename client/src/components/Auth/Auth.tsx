@@ -19,25 +19,21 @@ const Auth: FC<AuthProps> = ({ setIsLoggedIn }) => {
     formState: { errors },
   } = useForm<AuthFormInputs>()
   const onSubmit: SubmitHandler<AuthFormInputs> = async (data) => {
-    console.log(data)
+    const url = `http://localhost:4000/auth/${isRegister ? 'signup' : 'signin'}`
+
     try {
       const APIData: {
         accessToken: string
         error: string
         message: string
-      } = await fetchAPI(
-        'http://localhost:4000/auth/signin',
-        API_METHODS.POST,
-        '',
-        data
-      )
+      } = await fetchAPI(url, API_METHODS.POST, '', data)
 
       if (APIData.error) {
         return setApiErrorMessage(APIData.message)
       }
 
       setLocalStorage('accessToken', APIData.accessToken)
-      // setIsLoggedIn(true)
+      setIsLoggedIn(true)
     } catch (error) {
       setApiErrorMessage('Something went wrong')
     }
@@ -58,6 +54,18 @@ const Auth: FC<AuthProps> = ({ setIsLoggedIn }) => {
           {...register('email', { required: true })}
         />
         {errors.email && (
+          <p className="mt-5 mb-5 text-red-500">This field is required</p>
+        )}
+
+        {isRegister && (
+          <input
+            type="text"
+            className="mt-2 outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+            placeholder="Username"
+            {...register('username', { required: true })}
+          />
+        )}
+        {errors.username && (
           <p className="mt-5 mb-5 text-red-500">This field is required</p>
         )}
 

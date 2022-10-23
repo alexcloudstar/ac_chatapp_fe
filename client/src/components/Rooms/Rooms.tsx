@@ -35,10 +35,10 @@ const Rooms = () => {
       <h2 className="mt-[25px] mb-[15px]">Chatrooms</h2>
       <div>
         <RoomsSlider>
-          {users.map((user) => (
+          {users?.map((user) => (
             <SwiperSlide key={user.id}>
               <Room
-                owner={user.username}
+                owner={user.email}
                 isFavorite={false}
                 classes="mr-[15px]"
                 bgImage={user.avatar}
