@@ -19,6 +19,20 @@ export class ChatroomDto {
       id: message.id,
       message: message.message,
       senderId: message.senderId,
+      sender: obj.users.reduce((acc, user) => {
+        if (user.id === message.senderId) {
+          acc.push({
+            id: user.id,
+            username: user.username,
+            avatar: user.avatar,
+          });
+        }
+        return {
+          id: acc.id,
+          username: acc.username,
+          avatar: acc.avatar,
+        };
+      }),
     })),
   )
   messages: IMessage;

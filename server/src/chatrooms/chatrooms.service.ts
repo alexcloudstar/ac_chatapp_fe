@@ -38,6 +38,7 @@ export class ChatroomsService {
     profanityWords: string[],
   ): Promise<Chatroom> {
     const usersArrIds = userIds?.map((id) => ({ id: +id }));
+    usersArrIds.push({ id: userOwnerId });
 
     return this.prisma.chatroom.create({
       data: {
@@ -47,6 +48,12 @@ export class ChatroomsService {
         profanityWords,
         users: {
           connect: usersArrIds,
+        },
+        messages: {
+          create: {
+            message: 'Welcome to the chatroom! ⚡️',
+            senderId: userOwnerId,
+          },
         },
       },
       include: {
@@ -116,12 +123,7 @@ export class ChatroomsService {
   }
 
   async findJoined(userId: number): Promise<Chatroom[]> {
-    const include = {
-      users: true,
-      messages: true,
-    };
-
-    const joinedRooms = await this.prisma.chatroom.findMany({
+    return this.prisma.chatroom.findMany({
       where: {
         users: {
           some: {
@@ -129,15 +131,10 @@ export class ChatroomsService {
           },
         },
       },
-      include,
-    });
-    const ownedRooms = await this.prisma.chatroom.findMany({
-      where: {
-        userOwnerId: userId,
+      include: {
+        users: true,
+        messages: true,
       },
-      include,
     });
-
-    return [...joinedRooms, ...ownedRooms];
   }
 }

@@ -23,6 +23,14 @@ export class MessagesService {
       where: {
         chatroomId: roomId,
       },
+      include: {
+        sender: {
+          select: {
+            id: true,
+            username: true,
+          },
+        },
+      },
     });
 
     if (!messages.length) throw new NotFoundException('No messages found');
