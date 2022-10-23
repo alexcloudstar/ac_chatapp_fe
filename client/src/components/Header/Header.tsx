@@ -8,7 +8,7 @@ import { useCurrentUserQuery } from '@/store/services/users'
 import { ApiState } from '../ApiState'
 
 const ChatHeader = () => {
-  const { data, error, isLoading } = useCurrentUserQuery()
+  const { data: user, error, isLoading } = useCurrentUserQuery()
 
   const createRoom = () => {
     console.log('creating room...')
@@ -21,7 +21,7 @@ const ChatHeader = () => {
   return (
     <div className={styles.container}>
       <div>
-        <Header user={data} />
+        <Header user={user} />
       </div>
 
       <div className="flex items-end">
