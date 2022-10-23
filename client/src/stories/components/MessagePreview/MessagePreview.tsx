@@ -1,12 +1,12 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 
 import './messagePreview.css'
 
-import { User } from '../../types'
+import { UserComponentType } from '../../types'
 import { Avatar } from '../Avatar'
 
 type MessagePreviewProps = {
-  user: User
+  user: UserComponentType
   message: string
   time: string
   classes?: string
@@ -22,9 +22,7 @@ export const MessagePreview: FC<MessagePreviewProps> = ({
     <div className="mp_inner-container">
       <Avatar user={user} />
       <div className="mp_username-message-container">
-        <span className="mp_username">
-          {user.firstName} {user.lastName}
-        </span>
+        <span className="mp_username">{user.username}</span>
         <p className="mp_message">{message}</p>
       </div>
     </div>

@@ -6,3 +6,8 @@ export type User = {
   avatar: string
   createdAt: string
 }
+
+export type UserComponentType = {
+  avatar: User['avatar']
+  username: User['username']
+}

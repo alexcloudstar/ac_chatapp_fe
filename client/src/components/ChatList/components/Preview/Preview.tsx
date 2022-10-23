@@ -1,27 +1,21 @@
-import React from 'react'
-
-import styles from './preview.module.css'
+import { FC } from 'react'
 
 import { MessagePreview } from '@/stories'
+import { User, UserComponentType } from '@/stories/types'
 
-const Preview = () => {
-  const data = {
-    user: {
-      firstName: 'John',
-      lastName: 'Doe',
-      avatar:
-        'https://avataaars.io/?avatarStyle=Circle&topType=Hat&accessoriesType=Prescription02&facialHairType=BeardMedium&facialHairColor=BlondeGolden&clotheType=ShirtScoopNeck&clotheColor=Red&eyeType=Close&eyebrowType=UpDownNatural&mouthType=Smile&skinColor=Pale',
-    },
-    message: 'Will do, super, thank you ❤️😁',
-    time: 'Tue',
-  }
+type PreviewProps = {
+  user: UserComponentType
+  message: string
+  time: string
+}
 
+const Preview: FC<PreviewProps> = ({ user, message, time }) => {
   return (
     <>
       <MessagePreview
-        user={data.user}
-        time={data.time}
-        message={data.message}
+        user={user}
+        time={time}
+        message={message}
         classes="text-[13px] mb-[25px]"
       />
     </>

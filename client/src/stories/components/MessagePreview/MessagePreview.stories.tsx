@@ -18,8 +18,7 @@ const Template: ComponentStory<typeof MessagePreview> = (args) => (
 export const Initial = Template.bind({})
 Initial.args = {
   user: {
-    firstName: 'John',
-    lastName: 'Doe',
+    username: 'John Doe',
     avatar:
       'https://avataaars.io/?avatarStyle=Circle&topType=Hat&accessoriesType=Prescription02&facialHairType=BeardMedium&facialHairColor=BlondeGolden&clotheType=ShirtScoopNeck&clotheColor=Red&eyeType=Close&eyebrowType=UpDownNatural&mouthType=Smile&skinColor=Pale',
   },
