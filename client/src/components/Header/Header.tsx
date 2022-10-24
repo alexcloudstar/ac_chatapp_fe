@@ -9,14 +9,25 @@ import { AuthProps } from '../Auth/types'
 
 import styles from './header.module.css'
 
+import { useAddConversationMutation } from '@/store/services/conversations'
 import { useCurrentUserQuery } from '@/store/services/users'
 import { setLocalStorage } from '@/utils/localStorage'
 
 const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
   const { data: user, error, isLoading } = useCurrentUserQuery()
+  const [addRoom, { error: addRoomError }] = useAddConversationMutation()
 
-  const createRoom = () => {
-    console.log('creating room...')
+  const createRoom = async () => {
+    try {
+      await addRoom({
+        userIds: ['2'],
+        name: 'Room From Frontend 2',
+        profanityWords: ['drugs', 'drug'],
+        isPrivate: true,
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const logout = () => {
@@ -32,7 +43,7 @@ const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
     <div className={styles.container}>
       <div className="flex justify-between items-center cursor-pointer">
         <Header user={user} />
-        <FiLogOut onClick={logout} />
+        <FiLogOut className="text-[24px]" onClick={logout} />
       </div>
 
       <div className="flex items-end">

@@ -16,3 +16,10 @@ export type ConversationType = {
   userOwnerId: number
   users: Pick<User, 'id'>[]
 }
+
+export type CreateConversationType = {
+  userIds: string[]
+  name: string
+  profanityWords: string[]
+  isPrivate: boolean
+}

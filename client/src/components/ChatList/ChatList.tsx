@@ -13,6 +13,8 @@ const ChatList = () => {
 
   if (isLoading) return <ApiState />
 
+  console.log(conversations)
+
   return (
     <div className={`${styles.container}`}>
       {conversations?.length ? (

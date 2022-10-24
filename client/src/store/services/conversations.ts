@@ -1,13 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+import {
+  ConversationType,
+  CreateConversationType,
+} from '@/components/ChatList/types'
 import { API_METHODS } from '@/types'
-import { ConversationType } from '@/components/ChatList/types'
 
 export const conversationsAPI = createApi({
   reducerPath: 'conversationsAPI',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000' }),
   tagTypes: ['Conversations'],
-
   endpoints: (builder) => ({
     conversations: builder.query<ConversationType[], void>({
       query: () => ({
@@ -15,11 +17,29 @@ export const conversationsAPI = createApi({
         method: API_METHODS.GET,
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          Authorization: `Bearer ${localStorage.getItem('accessToken') || ''}`,
         },
       }),
+      providesTags: ['Conversations'],
+    }),
+    // TODO invalidateTags on creating a new conversation
+    addConversation: builder.mutation<
+      CreateConversationType,
+      CreateConversationType
+    >({
+      query: (payload: CreateConversationType) => ({
+        url: '/chatrooms/',
+        method: API_METHODS.POST,
+        body: { ...payload },
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          Authorization: `Bearer ${localStorage.getItem('accessToken') || ''}`,
+        },
+      }),
+      invalidatesTags: ['Conversations'],
     }),
   }),
 })
 
-export const { useConversationsQuery } = conversationsAPI
+export const { useConversationsQuery, useAddConversationMutation } =
+  conversationsAPI
