@@ -1,16 +1,16 @@
+import { FC } from 'react'
 import { FaPlus, FaSearch } from 'react-icons/fa'
 import { FiLogOut } from 'react-icons/fi'
+import { useNavigate } from 'react-router-dom'
 
 import { Button, Header, Search } from '../../stories'
+import { ApiState } from '../ApiState'
+import { AuthProps } from '../Auth/types'
 
 import styles from './header.module.css'
 
 import { useCurrentUserQuery } from '@/store/services/users'
-import { ApiState } from '../ApiState'
 import { setLocalStorage } from '@/utils/localStorage'
-import { useNavigate } from 'react-router-dom'
-import { FC } from 'react'
-import { AuthProps } from '../Auth/types'
 
 const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
   const { data: user, error, isLoading } = useCurrentUserQuery()
@@ -24,7 +24,7 @@ const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
     setIsLoggedIn(false)
   }
 
-  if (error) return <ApiState errorMessage={error.data.message} />
+  if (error) return <ApiState errorMessage={error?.data?.message} />
 
   if (isLoading) return <ApiState />
 

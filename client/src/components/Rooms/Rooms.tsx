@@ -1,16 +1,17 @@
 import { SwiperSlide } from 'swiper/react'
 
+import { ApiState } from '../ApiState'
+
 import { RoomsSlider } from './components'
 
 import { useGetUsersQuery } from '@/store/services/users'
 import { Room } from '@/stories'
 import { User } from '@/stories/types'
-import { ApiState } from '../ApiState'
 
 const Rooms = () => {
   const { data: users, error, isLoading } = useGetUsersQuery()
 
-  if (error) return <ApiState errorMessage={error.data.message} />
+  if (error) return <ApiState errorMessage={error?.data?.message} />
 
   if (isLoading) return <ApiState />
 
