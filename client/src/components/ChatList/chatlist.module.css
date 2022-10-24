@@ -1,8 +1,8 @@
 .container {
-  overflow-y: scroll;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  overflow-y: scroll;
 }
 
 .container::-webkit-scrollbar {
