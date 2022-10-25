@@ -3,19 +3,26 @@ import { FaPlus, FaSearch } from 'react-icons/fa'
 import { FiLogOut } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 
+import {
+  useAddConversationMutation,
+  useConversationsQuery,
+} from '@/store/services/conversations'
+import { useCurrentUserQuery } from '@/store/services/users'
+import { setLocalStorage } from '@/utils/localStorage'
+
 import { Button, Header, Search } from '../../stories'
 import { ApiState } from '../ApiState'
 import { AuthProps } from '../Auth/types'
 
 import styles from './header.module.css'
 
-import { useAddConversationMutation } from '@/store/services/conversations'
-import { useCurrentUserQuery } from '@/store/services/users'
-import { setLocalStorage } from '@/utils/localStorage'
-
 const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
   const { data: user, error, isLoading } = useCurrentUserQuery()
   const [addRoom, { error: addRoomError }] = useAddConversationMutation()
+
+  const { refetch } = useConversationsQuery(null, {
+    refetchOnMountOrArgChange: true,
+  })
 
   const createRoom = async () => {
     try {
@@ -25,6 +32,7 @@ const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
         profanityWords: ['drugs', 'drug'],
         isPrivate: true,
       })
+      refetch()
     } catch (error) {
       console.log(error)
     }

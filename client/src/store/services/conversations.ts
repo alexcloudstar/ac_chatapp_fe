@@ -11,7 +11,7 @@ export const conversationsAPI = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000' }),
   tagTypes: ['Conversations'],
   endpoints: (builder) => ({
-    conversations: builder.query<ConversationType[], void>({
+    conversations: builder.query<ConversationType[], null>({
       query: () => ({
         url: '/chatrooms/joined',
         method: API_METHODS.GET,
