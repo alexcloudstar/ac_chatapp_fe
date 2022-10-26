@@ -54,8 +54,13 @@ const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
 
   return (
     <div className={styles.container}>
+      <div className="show-mobile mb-12">
+        <Header user={user} classes="justify-center" />
+      </div>
       <div className="flex justify-between items-center cursor-pointer">
-        <Header user={user} />
+        <div className="hide-mobile">
+          <Header user={user} />
+        </div>
 
         <Search query="" icon={<FaSearch />} classes={styles.customInput} />
         <div className="flex items-center">

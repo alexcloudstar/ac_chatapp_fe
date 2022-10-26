@@ -3,11 +3,8 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-top: 25px;
-}
 
-.customInput > div {
-  width: 50%;
+  /* margin-top: 25px; */
 }
 
 .customInput button {
@@ -18,4 +15,10 @@
   position: initial;
   margin-left: 15px;
   background-color: #03a9f1 !important;
+}
+
+@media (min-width: 768px) {
+  .customInput > div {
+    width: 50%;
+  }
 }

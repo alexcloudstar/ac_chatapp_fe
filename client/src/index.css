@@ -15,3 +15,11 @@
 main {
   box-shadow: 0 20px 40px rgb(0 0 0 / 40%);
 }
+
+.hide-mobile {
+  @apply hidden md:block;
+}
+
+.show-mobile {
+  @apply block md:hidden;
+}
