@@ -5,4 +5,5 @@ export {
   Room,
   Avatar,
   MessagePreview,
+  Modal,
 } from './components'
