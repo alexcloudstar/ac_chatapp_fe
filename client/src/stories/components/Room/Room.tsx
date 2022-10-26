@@ -39,10 +39,15 @@ export const Room: FC<RoomProps> = ({
         onClick={onClick}
       >
         <span className="room_owner">{owner}</span>
+
+        <button className="room_icon" onClick={toggleFavorite}>
+          {isFavoriteState ? (
+            <MdOutlineFavorite />
+          ) : (
+            <MdOutlineFavoriteBorder />
+          )}
+        </button>
       </div>
-      <button className="room_icon" onClick={toggleFavorite}>
-        {isFavoriteState ? <MdOutlineFavorite /> : <MdOutlineFavoriteBorder />}
-      </button>
     </div>
   )
 }
