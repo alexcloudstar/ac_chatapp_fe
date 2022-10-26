@@ -3,17 +3,23 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
+.sb-main-fullscreen,
+.sb-show-main {
+  background: none;
+}
+
+.app-root {
+  width: 100%;
+  height: 100vh;
   background-image: url('./assets/slashes.png');
 }
 
-#root {
+.app--inner-root {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-color: rgb(89 103 135 / 45%);
 }
 
