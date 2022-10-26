@@ -1,12 +1,12 @@
 import { SwiperSlide } from 'swiper/react'
 
-import { ApiState } from '../ApiState'
-
-import { RoomsSlider } from './components'
-
 import { useGetUsersQuery } from '@/store/services/users'
 import { Room } from '@/stories'
 import { User } from '@/stories/types'
+
+import { ApiState } from '../ApiState'
+
+import { RoomsSlider } from './components'
 
 const Rooms = () => {
   const { data: users, error, isLoading } = useGetUsersQuery()
