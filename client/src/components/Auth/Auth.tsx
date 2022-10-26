@@ -18,6 +18,7 @@ const Auth: FC<AuthProps> = ({ setIsLoggedIn }) => {
     handleSubmit,
     formState: { errors },
   } = useForm<AuthFormInputs>()
+
   const onSubmit: SubmitHandler<AuthFormInputs> = async (data) => {
     const url = `http://localhost:4000/auth/${isRegister ? 'signup' : 'signin'}`
 

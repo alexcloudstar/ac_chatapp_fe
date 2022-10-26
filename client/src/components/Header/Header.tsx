@@ -12,6 +12,7 @@ import { setLocalStorage } from '@/utils/localStorage'
 
 import { ApiState } from '../ApiState'
 import { AuthProps } from '../Auth/types'
+import { CreateRoom } from '../CreateRoom'
 
 import styles from './header.module.css'
 
@@ -60,7 +61,7 @@ const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
     <>
       {showModal && (
         <Modal title="Create room" onClose={onCloseModal}>
-          <h1>this is a modal</h1>
+          <CreateRoom />
         </Modal>
       )}
       <div className={styles.container}>
