@@ -43,7 +43,12 @@ const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
     setIsLoggedIn(false)
   }
 
-  if (error) return <ApiState errorMessage={error?.data?.message} />
+  if (error)
+    return (
+      <ApiState
+        errorMessage={error?.data?.message || addRoomError?.data?.message}
+      />
+    )
 
   if (isLoading) return <ApiState />
 
@@ -51,16 +56,16 @@ const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
     <div className={styles.container}>
       <div className="flex justify-between items-center cursor-pointer">
         <Header user={user} />
-        <FiLogOut className="text-[24px]" onClick={logout} />
-      </div>
 
-      <div className="flex items-end">
         <Search query="" icon={<FaSearch />} classes={styles.customInput} />
-        <Button
-          icon={<FaPlus />}
-          classes={styles.btnCreateRoom}
-          onClick={createRoom}
-        />
+        <div className="flex items-center">
+          <Button
+            icon={<FaPlus />}
+            classes={styles.btnCreateRoom}
+            onClick={createRoom}
+          />
+          <FiLogOut className="text-[24px] ml-8" onClick={logout} />
+        </div>
       </div>
     </div>
   )

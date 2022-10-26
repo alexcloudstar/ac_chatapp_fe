@@ -22,3 +22,10 @@
 .container::-webkit-scrollbar-thumb:hover {
   background-color: #a8bbbf;
 }
+
+@media (min-width: 1024px) {
+  .container::-webkit-scrollbar {
+    display: initial;
+    width: 20px;
+  }
+}
