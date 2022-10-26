@@ -16,7 +16,7 @@ import { AuthProps } from '../Auth/types'
 import styles from './header.module.css'
 
 const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
-  const [isShow, setIsShow] = useState<boolean>(false)
+  const [showModal, setShowModal] = useState<boolean>(false)
 
   const { data: user, error, isLoading } = useCurrentUserQuery()
   const [addRoom, { error: addRoomError }] = useAddConversationMutation()
@@ -26,7 +26,7 @@ const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
   })
 
   const createRoom = () => {
-    setIsShow(!isShow)
+    setShowModal(!showModal)
     // try {
     //   await addRoom({
     //     userIds: ['2'],
@@ -39,6 +39,8 @@ const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
     //   console.log(error)
     // }
   }
+
+  const onCloseModal = () => setShowModal(!showModal)
 
   const logout = () => {
     setLocalStorage('accessToken', '')
@@ -56,8 +58,8 @@ const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
 
   return (
     <>
-      {isShow && (
-        <Modal>
+      {showModal && (
+        <Modal title="Create room" onClose={onCloseModal}>
           <h1>this is a modal</h1>
         </Modal>
       )}
