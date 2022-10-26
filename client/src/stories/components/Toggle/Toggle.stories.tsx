@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { useState } from 'react'
 
 import { Toggle } from './Toggle'
 
@@ -12,8 +13,14 @@ export default {
 } as ComponentMeta<typeof Toggle>
 
 const Template: ComponentStory<typeof Toggle> = (args) => {
-  return <Toggle {...args} />
+  const [isOn, setIsOn] = useState(false)
+  return <Toggle {...args} isOn={isOn} setIsOn={setIsOn} />
 }
 
 export const Simple = Template.bind({})
 Simple.args = {}
+
+export const ShowText = Template.bind({})
+ShowText.args = {
+  showText: true,
+}

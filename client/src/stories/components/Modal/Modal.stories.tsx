@@ -52,6 +52,7 @@ const modalChildrenExample = (
 
 const Template: ComponentStory<typeof Modal> = (args) => {
   const [isShow, setIsShow] = useState(false)
+
   return (
     <>
       {modalChildrenExample}
