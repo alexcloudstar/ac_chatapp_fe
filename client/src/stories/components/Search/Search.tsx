@@ -19,15 +19,17 @@ export const Search = ({ query, icon, classes }: SearchTypeProps) => {
 
   return (
     <div className={`search_container ${classes ? classes : ''}`}>
-      <input
-        type="text"
-        placeholder="Search..."
-        value={value || query}
-        onChange={onChange}
-        onKeyDown={(e) => e.key === 'Enter' && onSearch()}
-        className="search_search-input"
-      />
-      {icon && <Button icon={icon} onClick={onSearch} />}
+      <div className="relative">
+        <input
+          type="text"
+          placeholder="Search..."
+          value={value || query}
+          onChange={onChange}
+          onKeyDown={(e) => e.key === 'Enter' && onSearch()}
+          className="search_search-input"
+        />
+        {icon && <Button icon={icon} onClick={onSearch} />}
+      </div>
     </div>
   )
 }
