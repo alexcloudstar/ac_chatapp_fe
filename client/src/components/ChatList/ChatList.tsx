@@ -21,7 +21,7 @@ const ChatList = () => {
   if (isLoading) return <ApiState />
 
   return (
-    <div className={`${styles.container}`}>
+    <div className={`${styles.container} pr-2`}>
       {conversations?.length ? (
         conversations.map((conversation: ConversationType) => {
           const lastMessage =

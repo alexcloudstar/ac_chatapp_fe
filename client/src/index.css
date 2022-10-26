@@ -3,10 +3,34 @@
 @tailwind components;
 @tailwind utilities;
 
-#root {
+.sb-main-fullscreen,
+.sb-show-main {
+  background: none;
+}
+
+.app-root {
+  width: 100%;
+  height: 100vh;
+  background-image: url('./assets/slashes.png');
+}
+
+.app--inner-root {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  background-color: rgb(89 103 135 / 45%);
+}
+
+.shadow-floating-container {
+  box-shadow: 0 20px 40px rgb(0 0 0 / 40%);
+}
+
+.hide-mobile {
+  @apply hidden md:block;
+}
+
+.show-mobile {
+  @apply block md:hidden;
 }

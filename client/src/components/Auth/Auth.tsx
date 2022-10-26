@@ -1,11 +1,11 @@
 import { FC, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { AuthFormInputs, AuthProps } from './types'
-
 import { API_METHODS } from '@/types'
 import { fetchAPI } from '@/utils/api'
 import { setLocalStorage } from '@/utils/localStorage'
+
+import { AuthFormInputs, AuthProps } from './types'
 
 const Auth: FC<AuthProps> = ({ setIsLoggedIn }) => {
   const [isRegister, setIsRegister] = useState<boolean>(false)
@@ -40,12 +40,12 @@ const Auth: FC<AuthProps> = ({ setIsLoggedIn }) => {
   }
 
   return (
-    <div className="flex flex-col h-fit min-h-[350px] justify-between text-center pt-[50px] pr-[30px] pl-[30px] pb-[30px] text-white bg-[#596787] rounded-[40px]">
+    <div className="flex flex-col h-fit min-h-[350px] justify-between text-center pt-[50px] pr-[30px] pl-[30px] pb-[30px] text-white bg-[#596787]/[70%] rounded-[40px] shadow-floating-container">
       <h1>Please {isRegister ? 'register' : 'login'}</h1>
       <form
         action="POST"
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col"
+        className="flex flex-col justify-center items-center"
       >
         <input
           type="email"
@@ -83,7 +83,10 @@ const Auth: FC<AuthProps> = ({ setIsLoggedIn }) => {
           <p className="mt-3 text-red-500">{apiErrorMessage}</p>
         )}
 
-        <button type="submit" className="mt-5 mb-5">
+        <button
+          type="submit"
+          className="mt-5 mb-5 bg-white p-2 text-black rounded-xl	w-24"
+        >
           {isRegister ? 'Register' : 'Login'}
         </button>
       </form>
