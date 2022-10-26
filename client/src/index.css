@@ -3,16 +3,21 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+  background-image: url('./assets/slashes.png');
+}
+
 #root {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100vh;
-  background-color: #596787;
+  background-color: rgb(89 103 135 / 45%);
 }
 
-main {
+.shadow-floating-container {
   box-shadow: 0 20px 40px rgb(0 0 0 / 40%);
 }
 
