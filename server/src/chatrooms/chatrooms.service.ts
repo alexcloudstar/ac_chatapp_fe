@@ -25,15 +25,32 @@ export class ChatroomsService {
     });
   }
 
-  // TODO: instead of pass userIds, pass usernames
-  create(
+  async create(
     userOwnerId: number,
-    userIds: string[],
+    userUsernames: string[],
     isPrivate: boolean,
     name: string,
     profanityWords: string[],
   ): Promise<Chatroom> {
-    const usersArrIds = userIds?.map((id) => ({ id: +id }));
+    const usersId = await this.prisma.user.findMany({
+      where: {
+        OR: [
+          {
+            username: {
+              in: userUsernames,
+            },
+          },
+        ],
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    const usersArrIds: { id: number }[] = usersId?.map((user) => ({
+      id: user.id,
+    }));
+
     usersArrIds.push({ id: userOwnerId });
 
     return this.prisma.chatroom.create({
@@ -119,6 +136,8 @@ export class ChatroomsService {
   }
 
   async findJoined(userId: number): Promise<Chatroom[]> {
+    if (!userId) throw new BadRequestException('Please login');
+
     return this.prisma.chatroom.findMany({
       where: {
         users: {
