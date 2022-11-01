@@ -3,8 +3,14 @@ import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import Select from 'react-select'
 
+import {
+  useAddConversationMutation,
+  useConversationsQuery,
+} from '@/store/services/conversations'
 import { useGetUsersQuery } from '@/store/services/users'
 import { Toggle } from '@/stories/components'
+
+import { ApiState } from '..'
 
 type CreateRoomFormInputs = {
   userOwnerId: number
@@ -25,6 +31,26 @@ const CreateRoom = () => {
   } = useForm<CreateRoomFormInputs>()
 
   const { data: users, error, isLoading } = useGetUsersQuery()
+
+  const [addRoom, { error: addRoomError }] = useAddConversationMutation()
+
+  const { refetch } = useConversationsQuery(null, {
+    refetchOnMountOrArgChange: true,
+  })
+
+  const createRoom = () => {
+    // try {
+    //   await addRoom({
+    //     userIds: ['2'],
+    //     name: 'Room From Frontend 2',
+    //     profanityWords: ['drugs', 'drug'],
+    //     isPrivate: true,
+    //   })
+    //   refetch()
+    // } catch (error) {
+    //   console.log(error)
+    // }
+  }
 
   const onSubmit: SubmitHandler<CreateRoomFormInputs> = async (data) => {}
 
@@ -52,6 +78,15 @@ const CreateRoom = () => {
       background: randomColor(),
     }),
   }
+
+  if (error)
+    return (
+      <ApiState
+        errorMessage={error?.data?.message || addRoomError?.data?.message}
+      />
+    )
+
+  if (isLoading) return <ApiState />
 
   return (
     <form
@@ -114,6 +149,7 @@ const CreateRoom = () => {
         <button
           type="submit"
           className="mt-5 mb-5 bg-white p-2 text-black rounded-xl	w-24"
+          onClick={createRoom}
         >
           Create
         </button>

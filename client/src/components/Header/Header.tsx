@@ -20,47 +20,22 @@ const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
   const [showModal, setShowModal] = useState<boolean>(true)
 
   const { data: user, error, isLoading } = useCurrentUserQuery()
-  const [addRoom, { error: addRoomError }] = useAddConversationMutation()
 
-  const { refetch } = useConversationsQuery(null, {
-    refetchOnMountOrArgChange: true,
-  })
-
-  const createRoom = () => {
-    setShowModal(!showModal)
-    // try {
-    //   await addRoom({
-    //     userIds: ['2'],
-    //     name: 'Room From Frontend 2',
-    //     profanityWords: ['drugs', 'drug'],
-    //     isPrivate: true,
-    //   })
-    //   refetch()
-    // } catch (error) {
-    //   console.log(error)
-    // }
-  }
-
-  const onCloseModal = () => setShowModal(!showModal)
+  const toggleModal = () => setShowModal(!showModal)
 
   const logout = () => {
     setLocalStorage('accessToken', '')
     setIsLoggedIn(false)
   }
 
-  if (error)
-    return (
-      <ApiState
-        errorMessage={error?.data?.message || addRoomError?.data?.message}
-      />
-    )
+  if (error) return <ApiState errorMessage={error?.data?.message} />
 
   if (isLoading) return <ApiState />
 
   return (
     <>
       {showModal && (
-        <Modal title="Create room" onClose={onCloseModal} isSmall>
+        <Modal title="Create room" onClose={toggleModal} isSmall>
           <CreateRoom />
         </Modal>
       )}
@@ -78,7 +53,7 @@ const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
             <Button
               icon={<FaPlus />}
               classes={styles.btnCreateRoom}
-              onClick={createRoom}
+              onClick={toggleModal}
             />
             <FiLogOut className="text-[24px] ml-8" onClick={logout} />
           </div>
