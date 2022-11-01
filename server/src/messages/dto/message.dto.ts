@@ -13,6 +13,9 @@ export class MessageDto {
 
   @Expose()
   sender: any;
+
+  @Expose()
+  createdAt: Date;
 }
 
 export class SendMessageDto {
