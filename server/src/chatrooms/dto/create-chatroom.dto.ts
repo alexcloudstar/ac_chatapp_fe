@@ -2,7 +2,7 @@ import { IsBoolean, IsString } from 'class-validator';
 
 export class CreateChatroomDto {
   @IsString({ each: true })
-  userIds: string[];
+  userUsernames: string[];
 
   @IsBoolean()
   isPrivate: boolean;

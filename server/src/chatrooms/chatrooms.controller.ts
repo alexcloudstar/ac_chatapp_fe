@@ -15,10 +15,10 @@ export class ChatroomsController {
   @UseGuards(JwtAuthGuard)
   @Get('/joined')
   findJoined(@CurrentUser() user: User): Promise<Chatroom[]> {
-    return this.chatroomsService.findJoined(+user.id);
+    return this.chatroomsService.findJoined(+user?.id);
   }
 
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAll(): Promise<Chatroom[]> {
     return this.chatroomsService.findAll();
@@ -38,7 +38,7 @@ export class ChatroomsController {
   ): Promise<Chatroom> {
     return this.chatroomsService.create(
       user?.id,
-      body.userIds,
+      body.userUsernames,
       body.isPrivate,
       body.name,
       body.profanityWords,
