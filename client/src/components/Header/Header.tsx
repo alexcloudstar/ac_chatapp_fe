@@ -60,7 +60,7 @@ const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
   return (
     <>
       {showModal && (
-        <Modal title="Create room" onClose={onCloseModal}>
+        <Modal title="Create room" onClose={onCloseModal} isSmall>
           <CreateRoom />
         </Modal>
       )}

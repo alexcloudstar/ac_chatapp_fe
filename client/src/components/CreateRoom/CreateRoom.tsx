@@ -27,30 +27,45 @@ const CreateRoom = () => {
     <form
       action="POST"
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col justify-center items-center"
+      className="flex flex-col justify-center"
     >
-      <div>
-        <input
-          type="text"
-          className="mt-2 outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-          placeholder="Room name"
-          {...register('name', { required: true })}
-        />
+      <div className="w-100 flex flex-col">
+        <div className="flex w-100">
+          <div className="w-100">
+            <input
+              type="text"
+              className="mt-2 outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+              placeholder="Room name"
+              {...register('name', { required: true })}
+            />
 
-        {errors.name && (
-          <p className="mt-5 mb-5 text-red-500">This field is required</p>
-        )}
+            {errors.name && (
+              <p className="mt-5 mb-5 text-red-500">This field is required</p>
+            )}
+          </div>
 
-        <input
-          type="text"
-          className="mt-2 outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-          placeholder="Profanity Words"
-          {...register('profanityWords', { required: true })}
-        />
+          <div className="w-100">
+            <input
+              type="text"
+              className="mt-2 outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+              placeholder="Profanity Words"
+              {...register('profanityWords', { required: true })}
+            />
 
-        {errors.profanityWords && (
-          <p className="mt-5 mb-5 text-red-500">This field is required</p>
-        )}
+            {errors.profanityWords && (
+              <p className="mt-5 mb-5 text-red-500">This field is required</p>
+            )}
+          </div>
+
+          <div className="w-100">
+            <select>
+              <option value="volvo">Volvo</option>
+              <option value="saab">Saab</option>
+              <option value="mercedes">Mercedes</option>
+              <option value="audi">Audi</option>
+            </select>
+          </div>
+        </div>
 
         <div className="flex justify-between items-center mt-5">
           <p className="text-gray-900 dark:text-gray-100">Private</p>
