@@ -25,6 +25,7 @@ export class ChatroomsService {
     });
   }
 
+  // TODO: instead of pass userIds, pass usernames
   create(
     userOwnerId: number,
     userIds: string[],

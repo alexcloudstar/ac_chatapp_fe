@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import Select from 'react-select'
 
 import { Toggle } from '@/stories/components'
+import { useGetUsersQuery } from '@/store/services/users'
 
 type CreateRoomFormInputs = {
   userOwnerId: number
@@ -22,20 +23,36 @@ const CreateRoom = () => {
     formState: { errors },
   } = useForm<CreateRoomFormInputs>()
 
+  const { data: users, error, isLoading } = useGetUsersQuery()
+
   const onSubmit: SubmitHandler<CreateRoomFormInputs> = async (data) => {}
 
-  const colourOptions = [
-    { value: 'ocean', label: 'Ocean', color: '#00B8D9', isFixed: true },
-    { value: 'blue', label: 'Blue', color: '#0052CC', isDisabled: true },
-    { value: 'purple', label: 'Purple', color: '#5243AA' },
-    { value: 'red', label: 'Red', color: '#FF5630', isFixed: true },
-    { value: 'orange', label: 'Orange', color: '#FF8B00' },
-    { value: 'yellow', label: 'Yellow', color: '#FFC400' },
-    { value: 'green', label: 'Green', color: '#36B37E' },
-    { value: 'forest', label: 'Forest', color: '#00875A' },
-    { value: 'slate', label: 'Slate', color: '#253858' },
-    { value: 'silver', label: 'Silver', color: '#666666' },
-  ]
+  console.table(users)
+
+  const usersOptions =
+    users?.map((user) => ({
+      value: user.username || user.email,
+      label: user.username || user.email,
+    })) ?? []
+
+  const customStyles = {
+    option: (provided, state) => ({
+      ...provided,
+      borderBottom: '1px dotted pink',
+      color: state.isSelected ? 'red' : 'blue',
+      // padding: 20,
+    }),
+    control: () => ({
+      // none of react-select's styles are passed to <Control />
+      // width: 200,
+    }),
+    singleValue: (provided, state) => {
+      const opacity = state.isDisabled ? 0.5 : 1
+      const transition = 'opacity 300ms'
+
+      return { ...provided, opacity, transition }
+    },
+  }
 
   return (
     <form
@@ -75,12 +92,13 @@ const CreateRoom = () => {
         <div className="flex w-full">
           <div className="w-full">
             <Select
-              defaultValue={[colourOptions[2], colourOptions[3]]}
+              defaultValue={[usersOptions[2], usersOptions[3]]}
               isMulti
               name="colors"
-              options={colourOptions}
+              options={usersOptions}
               className="basic-multi-select"
               classNamePrefix="select"
+              styles={customStyles}
             />
           </div>
 
