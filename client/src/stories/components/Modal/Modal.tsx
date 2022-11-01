@@ -9,6 +9,8 @@ type ModalProps = {
   onClose: () => void
   hasFooter?: boolean
   footerContent?: React.ReactNode
+  classes?: string
+  isSmall?: boolean
 }
 
 export const Modal: FC<ModalProps> = ({
@@ -17,10 +19,15 @@ export const Modal: FC<ModalProps> = ({
   onClose,
   hasFooter,
   footerContent,
+  isSmall,
 }) => {
   return (
     <div className={styles.container}>
-      <div className={styles.innerContainer}>
+      <div
+        className={`${styles.innerContainer} ${
+          isSmall ? 'w-[50%]' : 'w-[70%]'
+        }`}
+      >
         <h1 className={styles.title}>{title}</h1>
         <div className={styles.content}>
           {children}

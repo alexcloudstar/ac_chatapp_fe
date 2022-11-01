@@ -29,31 +29,33 @@ const CreateRoom = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col justify-center items-center"
     >
-      <input
-        type="text"
-        className="mt-2 outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-        placeholder="Room name"
-        {...register('name', { required: true })}
-      />
+      <div>
+        <input
+          type="text"
+          className="mt-2 outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+          placeholder="Room name"
+          {...register('name', { required: true })}
+        />
 
-      {errors.name && (
-        <p className="mt-5 mb-5 text-red-500">This field is required</p>
-      )}
+        {errors.name && (
+          <p className="mt-5 mb-5 text-red-500">This field is required</p>
+        )}
 
-      <input
-        type="text"
-        className="mt-2 outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-        placeholder="Profanity Words"
-        {...register('profanityWords', { required: true })}
-      />
+        <input
+          type="text"
+          className="mt-2 outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+          placeholder="Profanity Words"
+          {...register('profanityWords', { required: true })}
+        />
 
-      {errors.profanityWords && (
-        <p className="mt-5 mb-5 text-red-500">This field is required</p>
-      )}
+        {errors.profanityWords && (
+          <p className="mt-5 mb-5 text-red-500">This field is required</p>
+        )}
 
-      <div className="flex justify-between items-center mt-5">
-        <p className="text-gray-900 dark:text-gray-100">Private</p>
-        <Toggle isOn={isPrivate} setIsOn={setIsPrivate} />
+        <div className="flex justify-between items-center mt-5">
+          <p className="text-gray-900 dark:text-gray-100">Private</p>
+          <Toggle isOn={isPrivate} setIsOn={setIsPrivate} />
+        </div>
       </div>
 
       <button

@@ -85,3 +85,26 @@ WithFooter.args = {
     </div>
   ),
 }
+
+export const Small = Template.bind({})
+Small.args = {
+  title: 'Modal with Footer',
+  children: modalChildrenExample,
+  hasFooter: true,
+  isSmall: true,
+  footerContent: (
+    <div>
+      <Button
+        label="Cancel"
+        onClick={() => console.log('cancel')}
+        primary
+        style={{ marginRight: 10 }}
+      />
+      <Button
+        label="Save"
+        style={{ color: '#fff', borderColor: '#fff' }}
+        onClick={() => console.log('save')}
+      />
+    </div>
+  ),
+}
