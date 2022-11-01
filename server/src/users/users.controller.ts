@@ -33,8 +33,8 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  findAll(): Promise<User[]> {
-    return this.usersService.findAll();
+  findAll(@CurrentUser() user: User): Promise<User[]> {
+    return this.usersService.findAll(user.id);
   }
 
   @UseGuards(JwtAuthGuard)

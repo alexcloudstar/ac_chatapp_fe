@@ -22,8 +22,14 @@ export class UsersService {
     });
   }
 
-  findAll(): Promise<User[]> {
-    return this.prisma.user.findMany();
+  findAll(currentUserId: number): Promise<User[]> {
+    return this.prisma.user.findMany({
+      where: {
+        id: {
+          not: currentUserId,
+        },
+      },
+    });
   }
 
   async remove(id: number, loggedInUser: User): Promise<string> {
