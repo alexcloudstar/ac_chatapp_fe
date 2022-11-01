@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
+import { Toggle } from '@/stories/components'
+
 type CreateRoomFormInputs = {
   userOwnerId: number
   userIds: string[]
@@ -11,6 +13,7 @@ type CreateRoomFormInputs = {
 
 const CreateRoom = () => {
   const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
+  const [isPrivate, setIsPrivate] = useState<boolean>(false)
 
   const {
     register,
@@ -47,6 +50,11 @@ const CreateRoom = () => {
       {errors.profanityWords && (
         <p className="mt-5 mb-5 text-red-500">This field is required</p>
       )}
+
+      <div className="flex justify-between items-center mt-5">
+        <p className="text-gray-900 dark:text-gray-100">Private</p>
+        <Toggle isOn={isPrivate} setIsOn={setIsPrivate} />
+      </div>
 
       <button
         type="submit"
