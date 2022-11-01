@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import Select from 'react-select'
 
-import { Toggle } from '@/stories/components'
 import { useGetUsersQuery } from '@/store/services/users'
+import { Toggle } from '@/stories/components'
 
 type CreateRoomFormInputs = {
   userOwnerId: number
@@ -27,38 +28,36 @@ const CreateRoom = () => {
 
   const onSubmit: SubmitHandler<CreateRoomFormInputs> = async (data) => {}
 
-  console.table(users)
-
   const usersOptions =
     users?.map((user) => ({
       value: user.username || user.email,
       label: user.username || user.email,
     })) ?? []
 
-  const customStyles = {
-    option: (provided, state) => ({
-      ...provided,
-      borderBottom: '1px dotted pink',
-      color: state.isSelected ? 'red' : 'blue',
-      // padding: 20,
-    }),
-    control: () => ({
-      // none of react-select's styles are passed to <Control />
-      // width: 200,
-    }),
-    singleValue: (provided, state) => {
-      const opacity = state.isDisabled ? 0.5 : 1
-      const transition = 'opacity 300ms'
+  const randomColor = (): string =>
+    `#${Math.floor(Math.random() * 16777215).toString(16)}`
 
-      return { ...provided, opacity, transition }
-    },
+  const selectStyle = {
+    option: (provided: any, state: any) => ({
+      ...provided,
+      fontWeight: state.isSelected ? 'bold' : 'normal',
+      color: 'white',
+      backgroundColor: '#03a9f1 ',
+      fontSize: 18,
+    }),
+    multiValue: (provided, state) => ({
+      ...provided,
+      color: '#fff',
+      fontSize: 18,
+      background: randomColor(),
+    }),
   }
 
   return (
     <form
       action="POST"
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col justify-center"
+      className="flex flex-col justify-center items-end"
     >
       <div className="w-full flex flex-col">
         <div className="flex w-full">
@@ -89,7 +88,7 @@ const CreateRoom = () => {
           </div>
         </div>
 
-        <div className="flex w-full">
+        <div className="flex w-full mt-5">
           <div className="w-full">
             <Select
               defaultValue={[usersOptions[2], usersOptions[3]]}
@@ -98,23 +97,27 @@ const CreateRoom = () => {
               options={usersOptions}
               className="basic-multi-select"
               classNamePrefix="select"
-              styles={customStyles}
+              styles={selectStyle}
             />
           </div>
 
-          <div className="flex justify-between items-center mt-5">
-            <p className="text-gray-900 dark:text-gray-100">Private</p>
+          <div className="w-full flex justify-center items-center">
+            <p className="text-gray-900 dark:text-gray-100 mr-5 text-lg">
+              Private
+            </p>
             <Toggle isOn={isPrivate} setIsOn={setIsPrivate} />
           </div>
         </div>
       </div>
 
-      <button
-        type="submit"
-        className="mt-5 mb-5 bg-white p-2 text-black rounded-xl	w-24"
-      >
-        submit
-      </button>
+      <div className="mt-5">
+        <button
+          type="submit"
+          className="mt-5 mb-5 bg-white p-2 text-black rounded-xl	w-24"
+        >
+          Create
+        </button>
+      </div>
     </form>
   )
 }
