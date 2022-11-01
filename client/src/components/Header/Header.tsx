@@ -44,7 +44,12 @@ const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
             <Header user={user} />
           </div>
 
-          <Search query="" icon={<FaSearch />} classes={styles.customInput} />
+          <Search
+            query=""
+            placeholder="Search for chatrooms"
+            icon={<FaSearch />}
+            classes={styles.customInput}
+          />
           <div className="flex items-center">
             <Button
               icon={<FaPlus />}
