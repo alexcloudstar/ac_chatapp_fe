@@ -2,12 +2,8 @@ import { FC, useState } from 'react'
 import { FaPlus, FaSearch } from 'react-icons/fa'
 import { FiLogOut } from 'react-icons/fi'
 
-import {
-  useAddConversationMutation,
-  useConversationsQuery,
-} from '@/store/services/conversations'
 import { useCurrentUserQuery } from '@/store/services/users'
-import { Header, Search, Button, Modal } from '@/stories'
+import { Button, Header, Modal, Search } from '@/stories'
 import { setLocalStorage } from '@/utils/localStorage'
 
 import { ApiState } from '../ApiState'
@@ -17,7 +13,7 @@ import { CreateRoom } from '../CreateRoom'
 import styles from './header.module.css'
 
 const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
-  const [showModal, setShowModal] = useState<boolean>(true)
+  const [showModal, setShowModal] = useState<boolean>(false)
 
   const { data: user, error, isLoading } = useCurrentUserQuery()
 
@@ -36,7 +32,7 @@ const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
     <>
       {showModal && (
         <Modal title="Create room" onClose={toggleModal} isSmall>
-          <CreateRoom />
+          <CreateRoom toggleModal={toggleModal} />
         </Modal>
       )}
       <div className={styles.container}>

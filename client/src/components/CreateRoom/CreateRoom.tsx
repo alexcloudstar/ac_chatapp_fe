@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-import { useState } from 'react'
+import { FC, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import Select from 'react-select'
 
 import {
   useAddConversationMutation,
@@ -10,25 +8,29 @@ import {
 import { useGetUsersQuery } from '@/store/services/users'
 import { Toggle } from '@/stories/components'
 
-import { ApiState } from '..'
+import { ApiState, CustomSelect } from '..'
 
-type CreateRoomFormInputs = {
+export type CreateRoomFormInputs = {
   userOwnerId: number
-  userIds: string[]
+  userUsernames: string[]
   isPrivate: boolean
   name: string
   profanityWords: string[]
 }
 
-const CreateRoom = () => {
+const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
   const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
   const [isPrivate, setIsPrivate] = useState<boolean>(false)
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
-  } = useForm<CreateRoomFormInputs>()
+  } = useForm<CreateRoomFormInputs>({
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+  })
 
   const { data: users, error, isLoading } = useGetUsersQuery()
 
@@ -38,46 +40,27 @@ const CreateRoom = () => {
     refetchOnMountOrArgChange: true,
   })
 
-  const createRoom = () => {
-    // try {
-    //   await addRoom({
-    //     userIds: ['2'],
-    //     name: 'Room From Frontend 2',
-    //     profanityWords: ['drugs', 'drug'],
-    //     isPrivate: true,
-    //   })
-    //   refetch()
-    // } catch (error) {
-    //   console.log(error)
-    // }
-  }
+  const onSubmit: SubmitHandler<CreateRoomFormInputs> = async (data) => {
+    try {
+      await addRoom({
+        userUsernames: data.userUsernames,
+        name: data.name,
+        profanityWords: data.profanityWords,
+        isPrivate,
+      })
+      refetch()
+    } catch (error) {
+      console.log(error)
+    }
 
-  const onSubmit: SubmitHandler<CreateRoomFormInputs> = async (data) => {}
+    toggleModal()
+  }
 
   const usersOptions =
     users?.map((user) => ({
       value: user.username || user.email,
       label: user.username || user.email,
     })) ?? []
-
-  const randomColor = (): string =>
-    `#${Math.floor(Math.random() * 16777215).toString(16)}`
-
-  const selectStyle = {
-    option: (provided: any, state: any) => ({
-      ...provided,
-      fontWeight: state.isSelected ? 'bold' : 'normal',
-      color: 'white',
-      backgroundColor: '#03a9f1 ',
-      fontSize: 18,
-    }),
-    multiValue: (provided, state) => ({
-      ...provided,
-      color: '#fff',
-      fontSize: 18,
-      background: randomColor(),
-    }),
-  }
 
   if (error)
     return (
@@ -109,6 +92,7 @@ const CreateRoom = () => {
             )}
           </div>
 
+          {/* // TODO: Split by comma or space and transform into arr */}
           <div className="w-full">
             <input
               type="text"
@@ -125,15 +109,7 @@ const CreateRoom = () => {
 
         <div className="flex w-full mt-5">
           <div className="w-full">
-            <Select
-              defaultValue={[usersOptions[2], usersOptions[3]]}
-              isMulti
-              name="colors"
-              options={usersOptions}
-              className="basic-multi-select"
-              classNamePrefix="select"
-              styles={selectStyle}
-            />
+            <CustomSelect options={usersOptions} control={control} />
           </div>
 
           <div className="w-full flex justify-center items-center">
@@ -149,7 +125,6 @@ const CreateRoom = () => {
         <button
           type="submit"
           className="mt-5 mb-5 bg-white p-2 text-black rounded-xl	w-24"
-          onClick={createRoom}
         >
           Create
         </button>

@@ -18,7 +18,7 @@ export type ConversationType = {
 }
 
 export type CreateConversationType = {
-  userIds: string[]
+  userUsernames: string[]
   name: string
   profanityWords: string[]
   isPrivate: boolean
