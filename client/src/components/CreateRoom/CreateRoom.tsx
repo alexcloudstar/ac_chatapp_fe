@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import Select from 'react-select'
 
+import { useGetUsersQuery } from '@/store/services/users'
 import { Toggle } from '@/stories/components'
 
 type CreateRoomFormInputs = {
@@ -21,17 +24,44 @@ const CreateRoom = () => {
     formState: { errors },
   } = useForm<CreateRoomFormInputs>()
 
+  const { data: users, error, isLoading } = useGetUsersQuery()
+
   const onSubmit: SubmitHandler<CreateRoomFormInputs> = async (data) => {}
+
+  const usersOptions =
+    users?.map((user) => ({
+      value: user.username || user.email,
+      label: user.username || user.email,
+    })) ?? []
+
+  const randomColor = (): string =>
+    `#${Math.floor(Math.random() * 16777215).toString(16)}`
+
+  const selectStyle = {
+    option: (provided: any, state: any) => ({
+      ...provided,
+      fontWeight: state.isSelected ? 'bold' : 'normal',
+      color: 'white',
+      backgroundColor: '#03a9f1 ',
+      fontSize: 18,
+    }),
+    multiValue: (provided, state) => ({
+      ...provided,
+      color: '#fff',
+      fontSize: 18,
+      background: randomColor(),
+    }),
+  }
 
   return (
     <form
       action="POST"
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col justify-center"
+      className="flex flex-col justify-center items-end"
     >
-      <div className="w-100 flex flex-col">
-        <div className="flex w-100">
-          <div className="w-100">
+      <div className="w-full flex flex-col">
+        <div className="flex w-full">
+          <div className="w-full">
             <input
               type="text"
               className="mt-2 outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
@@ -44,7 +74,7 @@ const CreateRoom = () => {
             )}
           </div>
 
-          <div className="w-100">
+          <div className="w-full">
             <input
               type="text"
               className="mt-2 outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
@@ -56,29 +86,38 @@ const CreateRoom = () => {
               <p className="mt-5 mb-5 text-red-500">This field is required</p>
             )}
           </div>
-
-          <div className="w-100">
-            <select>
-              <option value="volvo">Volvo</option>
-              <option value="saab">Saab</option>
-              <option value="mercedes">Mercedes</option>
-              <option value="audi">Audi</option>
-            </select>
-          </div>
         </div>
 
-        <div className="flex justify-between items-center mt-5">
-          <p className="text-gray-900 dark:text-gray-100">Private</p>
-          <Toggle isOn={isPrivate} setIsOn={setIsPrivate} />
+        <div className="flex w-full mt-5">
+          <div className="w-full">
+            <Select
+              defaultValue={[usersOptions[2], usersOptions[3]]}
+              isMulti
+              name="colors"
+              options={usersOptions}
+              className="basic-multi-select"
+              classNamePrefix="select"
+              styles={selectStyle}
+            />
+          </div>
+
+          <div className="w-full flex justify-center items-center">
+            <p className="text-gray-900 dark:text-gray-100 mr-5 text-lg">
+              Private
+            </p>
+            <Toggle isOn={isPrivate} setIsOn={setIsPrivate} />
+          </div>
         </div>
       </div>
 
-      <button
-        type="submit"
-        className="mt-5 mb-5 bg-white p-2 text-black rounded-xl	w-24"
-      >
-        submit
-      </button>
+      <div className="mt-5">
+        <button
+          type="submit"
+          className="mt-5 mb-5 bg-white p-2 text-black rounded-xl	w-24"
+        >
+          Create
+        </button>
+      </div>
     </form>
   )
 }

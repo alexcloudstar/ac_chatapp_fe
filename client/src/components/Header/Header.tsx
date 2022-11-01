@@ -17,7 +17,7 @@ import { CreateRoom } from '../CreateRoom'
 import styles from './header.module.css'
 
 const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
-  const [showModal, setShowModal] = useState<boolean>(false)
+  const [showModal, setShowModal] = useState<boolean>(true)
 
   const { data: user, error, isLoading } = useCurrentUserQuery()
   const [addRoom, { error: addRoomError }] = useAddConversationMutation()
