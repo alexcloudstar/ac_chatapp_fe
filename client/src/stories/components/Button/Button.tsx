@@ -27,7 +27,15 @@ interface ButtonProps {
    */
   icon?: React.ReactNode
 
+  /**
+   * Button Classes
+   */
   classes?: string
+
+  /**
+   * Button Style
+   */
+  style?: React.CSSProperties
 }
 
 /**
@@ -40,6 +48,7 @@ export const Button = ({
   label,
   icon,
   classes,
+  style,
   ...props
 }: ButtonProps) => {
   const mode = primary
@@ -53,7 +62,7 @@ export const Button = ({
     <button
       type="button"
       className={localClasses}
-      style={{ backgroundColor }}
+      style={{ backgroundColor, ...style }}
       {...props}
     >
       {icon ? <span className="search_icon">{icon}</span> : label}

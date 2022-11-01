@@ -1,23 +1,27 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { FaPlus, FaSearch } from 'react-icons/fa'
 import { FiLogOut } from 'react-icons/fi'
-import { useNavigate } from 'react-router-dom'
 
-import { Button, Header, Search } from '../../stories'
+import {
+  useAddConversationMutation,
+  useConversationsQuery,
+} from '@/store/services/conversations'
+import { useCurrentUserQuery } from '@/store/services/users'
+import { Header, Search, Button, Modal } from '@/stories'
+import { setLocalStorage } from '@/utils/localStorage'
+
 import { ApiState } from '../ApiState'
 import { AuthProps } from '../Auth/types'
+import { CreateRoom } from '../CreateRoom'
 
 import styles from './header.module.css'
 
-import { useCurrentUserQuery } from '@/store/services/users'
-import { setLocalStorage } from '@/utils/localStorage'
-
 const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
+  const [showModal, setShowModal] = useState<boolean>(true)
+
   const { data: user, error, isLoading } = useCurrentUserQuery()
 
-  const createRoom = () => {
-    console.log('creating room...')
-  }
+  const toggleModal = () => setShowModal(!showModal)
 
   const logout = () => {
     setLocalStorage('accessToken', '')
@@ -29,21 +33,33 @@ const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
   if (isLoading) return <ApiState />
 
   return (
-    <div className={styles.container}>
-      <div className="flex justify-between items-center cursor-pointer">
-        <Header user={user} />
-        <FiLogOut onClick={logout} />
-      </div>
+    <>
+      {showModal && (
+        <Modal title="Create room" onClose={toggleModal} isSmall>
+          <CreateRoom />
+        </Modal>
+      )}
+      <div className={styles.container}>
+        <div className="show-mobile mb-12">
+          <Header user={user} classes="justify-center" />
+        </div>
+        <div className="flex justify-between items-center cursor-pointer">
+          <div className="hide-mobile">
+            <Header user={user} />
+          </div>
 
-      <div className="flex items-end">
-        <Search query="" icon={<FaSearch />} classes={styles.customInput} />
-        <Button
-          icon={<FaPlus />}
-          classes={styles.btnCreateRoom}
-          onClick={createRoom}
-        />
+          <Search query="" icon={<FaSearch />} classes={styles.customInput} />
+          <div className="flex items-center">
+            <Button
+              icon={<FaPlus />}
+              classes={styles.btnCreateRoom}
+              onClick={toggleModal}
+            />
+            <FiLogOut className="text-[24px] ml-8" onClick={logout} />
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

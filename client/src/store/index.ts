@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
-import { conversationsAPI } from './services/conversations'
 
+import { conversationsAPI } from './services/conversations'
 import { usersAPI } from './services/users'
 
 const middlewaresArr = [usersAPI.middleware]

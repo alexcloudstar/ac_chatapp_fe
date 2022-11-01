@@ -1,11 +1,13 @@
 .customInput {
-  width: 275px;
-  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  /* margin-top: 25px; */
 }
 
 .customInput button {
-  right: 0;
-  left: initial;
   background-color: #596787;
 }
 
@@ -13,4 +15,10 @@
   position: initial;
   margin-left: 15px;
   background-color: #03a9f1 !important;
+}
+
+@media (min-width: 768px) {
+  .customInput > div {
+    width: 50%;
+  }
 }

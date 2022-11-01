@@ -1,20 +1,27 @@
+import { useConversationsQuery } from '@/store/services/conversations'
+
 import { ApiState } from '../ApiState'
 
 import styles from './chatlist.module.css'
 import { Preview } from './components'
 import { ConversationType } from './types'
 
-import { useConversationsQuery } from '@/store/services/conversations'
-
 const ChatList = () => {
-  const { data: conversations, error, isLoading } = useConversationsQuery()
+  const {
+    data: conversations,
+    error,
+    isLoading,
+    refetch,
+  } = useConversationsQuery(null, {
+    refetchOnMountOrArgChange: true,
+  })
 
   if (error) return <ApiState errorMessage={error?.data?.message} />
 
   if (isLoading) return <ApiState />
 
   return (
-    <div className={`${styles.container}`}>
+    <div className={`${styles.container} pr-2`}>
       {conversations?.length ? (
         conversations.map((conversation: ConversationType) => {
           const lastMessage =
