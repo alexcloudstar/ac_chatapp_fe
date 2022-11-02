@@ -1,6 +1,8 @@
 import { useState } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-import { Auth, ChatHeader, ChatList, Rooms } from './components'
+import { ChatHeader, ChatList, Rooms } from './components'
+import { HeaderLayout } from './Layouts'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(
@@ -8,19 +10,22 @@ function App() {
   )
 
   return (
-    <div className="app-root">
-      <div className="app--inner-root">
-        {!isLoggedIn ? (
-          <Auth setIsLoggedIn={setIsLoggedIn} />
-        ) : (
-          <main className="flex flex-col w-[90%] lg:w-[70%]  h-[90%]	 pt-[50px] pr-[30px] pl-[30px] pb-[30px] text-white bg-[#596787]/[70%] rounded-[40px] shadow-floating-container">
-            <ChatHeader setIsLoggedIn={setIsLoggedIn} />
-            <Rooms />
-            <ChatList />
-          </main>
-        )}
-      </div>
-    </div>
+    <BrowserRouter>
+      <HeaderLayout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}>
+        <ChatHeader setIsLoggedIn={setIsLoggedIn} />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Rooms />
+                <ChatList />
+              </>
+            }
+          />
+        </Routes>
+      </HeaderLayout>
+    </BrowserRouter>
   )
 }
 
