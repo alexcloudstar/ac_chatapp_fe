@@ -26,6 +26,7 @@ const ChatList = () => {
         conversations.map((conversation: ConversationType, index) => {
           const lastMessage =
             conversation.messages[conversation.messages.length - 1]
+
           return (
             <Preview
               key={conversation.id}
@@ -38,7 +39,7 @@ const ChatList = () => {
                   ? lastMessage?.message
                   : 'No message yet'
               }
-              time={conversation.messages[index].createdAt}
+              time={lastMessage.createdAt}
             />
           )
         })
