@@ -27,6 +27,13 @@ const ChatList = () => {
           const lastMessage =
             conversation.messages[conversation.messages.length - 1]
 
+          const lastMessageTime = new Date(
+            lastMessage.createdAt
+          ).toLocaleString('ro-RO', {
+            hour: '2-digit',
+            minute: '2-digit',
+          })
+
           return (
             <Preview
               key={conversation.id}
@@ -39,7 +46,7 @@ const ChatList = () => {
                   ? lastMessage?.message
                   : 'No message yet'
               }
-              time={lastMessage.createdAt}
+              time={lastMessageTime}
             />
           )
         })
