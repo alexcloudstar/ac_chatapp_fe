@@ -1,4 +1,5 @@
-import { Rooms, ChatList, NotFound } from '@/components'
+import { NotFound } from '@/components'
+import { Home, Profile } from '@/pages'
 
 export type RoutesType = {
   key: string
@@ -15,11 +16,11 @@ export const routes: RoutesType[] = [
   {
     key: 'home',
     path: '/',
-    component: (
-      <>
-        <Rooms />
-        <ChatList />
-      </>
-    ),
+    component: <Home />,
+  },
+  {
+    key: 'profile',
+    path: '/profile',
+    component: <Profile />,
   },
 ]

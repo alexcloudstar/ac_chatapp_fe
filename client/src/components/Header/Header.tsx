@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 import { FaPlus, FaSearch } from 'react-icons/fa'
 import { FiLogOut } from 'react-icons/fi'
+import { useNavigate } from 'react-router-dom'
 
 import { useCurrentUserQuery } from '@/store/services/users'
 import { Button, Header, Modal, Search } from '@/stories'
@@ -13,6 +14,8 @@ import { CreateRoom } from '../CreateRoom'
 import styles from './header.module.css'
 
 const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
+  const navigate = useNavigate()
+
   const [showModal, setShowModal] = useState<boolean>(false)
 
   const { data: user, error, isLoading } = useCurrentUserQuery()
@@ -23,6 +26,8 @@ const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
     setLocalStorage('accessToken', '')
     setIsLoggedIn(false)
   }
+
+  const onNavigateProfile = () => navigate('/profile')
 
   if (error) return <ApiState errorMessage={error?.data?.message} />
 
@@ -36,11 +41,11 @@ const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
         </Modal>
       )}
       <div className={styles.container}>
-        <div className="show-mobile mb-12">
+        <div className="show-mobile mb-12" onClick={onNavigateProfile}>
           <Header user={user} classes="justify-center" />
         </div>
         <div className="flex justify-between items-center cursor-pointer">
-          <div className="hide-mobile">
+          <div className="hide-mobile" onClick={onNavigateProfile}>
             <Header user={user} />
           </div>
 

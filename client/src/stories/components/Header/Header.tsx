@@ -1,6 +1,7 @@
 import React from 'react'
 
-import { User } from '../../types'
+import { User } from '@/types'
+
 import { Avatar } from '../Avatar'
 import './header.css'
 

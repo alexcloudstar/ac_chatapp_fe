@@ -2,7 +2,8 @@ import { FC } from 'react'
 
 import './messagePreview.css'
 
-import { UserComponentType } from '../../types'
+import { UserComponentType } from '@/types'
+
 import { Avatar } from '../Avatar'
 
 type MessagePreviewProps = {
