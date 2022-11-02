@@ -7,9 +7,15 @@ type SearchTypeProps = {
   query: string
   icon?: JSX.Element
   classes?: string
+  placeholder?: string
 }
 
-export const Search = ({ query, icon, classes }: SearchTypeProps) => {
+export const Search = ({
+  query,
+  icon,
+  placeholder = 'Search...',
+  classes,
+}: SearchTypeProps) => {
   const [value, setValue] = useState(query)
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -22,7 +28,7 @@ export const Search = ({ query, icon, classes }: SearchTypeProps) => {
       <div className="relative">
         <input
           type="text"
-          placeholder="Search..."
+          placeholder={placeholder}
           value={value || query}
           onChange={onChange}
           onKeyDown={(e) => e.key === 'Enter' && onSearch()}

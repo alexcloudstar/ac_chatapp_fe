@@ -5,6 +5,7 @@ export type MessagesType = {
   message: string
   senderId: number
   sender: Pick<User, 'id' | 'username' | 'avatar'>
+  createdAt: string
 }
 
 export type ConversationType = {
@@ -15,6 +16,7 @@ export type ConversationType = {
   profanityWords: string[]
   userOwnerId: number
   users: Pick<User, 'id'>[]
+  createdAt: Date
 }
 
 export type CreateConversationType = {

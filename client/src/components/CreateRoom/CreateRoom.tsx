@@ -15,7 +15,7 @@ export type CreateRoomFormInputs = {
   userUsernames: string[]
   isPrivate: boolean
   name: string
-  profanityWords: string[]
+  profanityWords: string
 }
 
 const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
@@ -41,18 +41,23 @@ const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
   })
 
   const onSubmit: SubmitHandler<CreateRoomFormInputs> = async (data) => {
+    let profanityWords = data.profanityWords.includes(',')
+      ? data.profanityWords.split(',')
+      : data.profanityWords.split(' ')
+
+    profanityWords = profanityWords.map((x) => x.replace(/\s/g, ''))
+
     try {
       await addRoom({
         userUsernames: data.userUsernames,
         name: data.name,
-        profanityWords: data.profanityWords,
+        profanityWords,
         isPrivate,
       })
       refetch()
     } catch (error) {
       console.log(error)
     }
-
     toggleModal()
   }
 
@@ -92,7 +97,6 @@ const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
             )}
           </div>
 
-          {/* // TODO: Split by comma or space and transform into arr */}
           <div className="w-full">
             <input
               type="text"
