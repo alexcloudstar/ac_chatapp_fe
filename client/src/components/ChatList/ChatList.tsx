@@ -11,7 +11,6 @@ const ChatList = () => {
     data: conversations,
     error,
     isLoading,
-    refetch,
   } = useConversationsQuery(null, {
     refetchOnMountOrArgChange: true,
   })
