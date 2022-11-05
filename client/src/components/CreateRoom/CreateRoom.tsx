@@ -7,6 +7,7 @@ import {
 } from '@/store/services/conversations'
 import { useGetUsersQuery } from '@/store/services/users'
 import { Toggle } from '@/stories/components'
+import { ReduxQueryType, User } from '@/types'
 
 import { ApiState, CustomSelect } from '..'
 
@@ -19,7 +20,6 @@ export type CreateRoomFormInputs = {
 }
 
 const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
-  const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
   const [isPrivate, setIsPrivate] = useState<boolean>(false)
 
   const {
@@ -32,9 +32,14 @@ const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
     reValidateMode: 'onChange',
   })
 
-  const { data: users, error, isLoading } = useGetUsersQuery()
+  const {
+    data: users,
+    error,
+    isLoading,
+  } = useGetUsersQuery<ReduxQueryType<User[]>>()
 
-  const [addRoom, { error: addRoomError }] = useAddConversationMutation()
+  const [addRoom, { error: addRoomError }] =
+    useAddConversationMutation<ReduxQueryType<CreateRoomFormInputs>>()
 
   const { refetch } = useConversationsQuery(null, {
     refetchOnMountOrArgChange: true,
@@ -45,7 +50,7 @@ const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
       ? data.profanityWords.split(',')
       : data.profanityWords.split(' ')
 
-    profanityWords = profanityWords.map((x) => x.replace(/\s/g, ''))
+    profanityWords = profanityWords.map((word) => word.replace(/\s/g, ''))
 
     try {
       await addRoom({

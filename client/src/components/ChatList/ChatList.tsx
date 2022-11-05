@@ -1,4 +1,5 @@
 import { useConversationsQuery } from '@/store/services/conversations'
+import { ReduxQueryType } from '@/types'
 
 import { ApiState } from '../ApiState'
 
@@ -11,7 +12,7 @@ const ChatList = () => {
     data: conversations,
     error,
     isLoading,
-  } = useConversationsQuery(null, {
+  } = useConversationsQuery<ReduxQueryType<ConversationType[]>>(null, {
     refetchOnMountOrArgChange: true,
   })
 
@@ -28,7 +29,7 @@ const ChatList = () => {
   return (
     <div className={`${styles.container} pr-2`}>
       {conversations?.length ? (
-        conversations.map((conversation: ConversationType, index) => {
+        conversations.map((conversation: ConversationType) => {
           const lastMessage =
             conversation.messages[conversation.messages.length - 1]
 

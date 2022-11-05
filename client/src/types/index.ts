@@ -18,3 +18,14 @@ export type UserComponentType = {
   avatar: User['avatar']
   username: User['username']
 }
+
+export type ReduxQueryType<T> = {
+  data: T
+  error: {
+    data: {
+      message: string
+      error: string
+    }
+  }
+  isLoading: boolean
+}

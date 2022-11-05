@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { useCurrentUserQuery } from '@/store/services/users'
 import { Button, Header, Modal, Search } from '@/stories'
+import { ReduxQueryType, User } from '@/types'
 import { setLocalStorage } from '@/utils/localStorage'
 
 import { ApiState } from '../ApiState'
@@ -18,7 +19,11 @@ const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
 
   const [showModal, setShowModal] = useState<boolean>(false)
 
-  const { data: user, error, isLoading } = useCurrentUserQuery()
+  const {
+    data: user,
+    error,
+    isLoading,
+  } = useCurrentUserQuery<ReduxQueryType<User>>()
 
   const toggleModal = () => setShowModal(!showModal)
 
