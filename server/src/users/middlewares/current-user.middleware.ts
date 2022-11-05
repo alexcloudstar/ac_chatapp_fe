@@ -1,7 +1,11 @@
-import { Injectable, NestMiddleware } from '@nestjs/common';
-import { Request, Response, NextFunction } from 'express';
+import {
+  BadRequestException,
+  Injectable,
+  NestMiddleware,
+  NotFoundException,
+} from '@nestjs/common';
+import { NextFunction, Request, Response } from 'express';
 import { UsersService } from '../users.service';
-import { User } from '@prisma/client';
 import { JwtService } from '@nestjs/jwt';
 
 declare global {
@@ -11,6 +15,15 @@ declare global {
     }
   }
 }
+
+interface UserFromTokenPayload {
+  sub: number;
+  email: string;
+  username: string;
+  exp: number;
+  iat: number;
+}
+
 @Injectable()
 export class CurrentUserMiddleware implements NestMiddleware {
   constructor(
@@ -22,16 +35,21 @@ export class CurrentUserMiddleware implements NestMiddleware {
     const accessToken = req.headers.authorization?.split(' ')[1];
 
     if (accessToken) {
-      const userFromToken: {
-        sub: number;
-        email: string;
-        username: string;
-      } = this.jwtService.verify(accessToken, {
-        secret: process.env.JWT_SECRET,
-      });
+      const userFromToken: UserFromTokenPayload = this.jwtService.verify(
+        accessToken,
+        {
+          secret: process.env.JWT_SECRET,
+        },
+      );
 
-      const user = await this.usersService.find(userFromToken.sub);
-      req.currentUser = user;
+      if (Date.now() >= userFromToken.exp * 1000) {
+        throw new BadRequestException({
+          message: 'Token expired',
+          error: 'expiredToken',
+        });
+      }
+
+      req.currentUser = await this.usersService.find(userFromToken.sub);
     }
 
     next();

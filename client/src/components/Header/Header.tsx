@@ -29,7 +29,13 @@ const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
 
   const onNavigateProfile = () => navigate('/profile')
 
-  if (error) return <ApiState errorMessage={error?.data?.message} />
+  if (error)
+    return (
+      <ApiState
+        errorMessage={error?.data?.message}
+        error={error?.data?.error}
+      />
+    )
 
   if (isLoading) return <ApiState />
 
