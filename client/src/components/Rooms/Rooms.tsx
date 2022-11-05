@@ -2,15 +2,18 @@ import { SwiperSlide } from 'swiper/react'
 
 import { useGetUsersQuery } from '@/store/services/users'
 import { Room } from '@/stories'
+import { ReduxQueryType, User } from '@/types'
 
 import { ApiState } from '../ApiState'
 
 import { RoomsSlider } from './components'
 
-import { User } from '@/stories/types'
-
 const Rooms = () => {
-  const { data: users, error, isLoading } = useGetUsersQuery()
+  const {
+    data: users,
+    error,
+    isLoading,
+  } = useGetUsersQuery<ReduxQueryType<User[]>>()
 
   if (error)
     return (
