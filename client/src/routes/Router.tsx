@@ -12,7 +12,7 @@ const Router = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    // dispatch(setIsLoggedIn(!!localStorage.getItem('accessToken')))
+    dispatch(setIsLoggedIn(!!localStorage.getItem('accessToken')))
     dispatch(setToken(localStorage.getItem('accessToken') || ''))
   }, [dispatch])
 
