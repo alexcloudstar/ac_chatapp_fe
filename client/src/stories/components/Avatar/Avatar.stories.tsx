@@ -17,9 +17,10 @@ export const Image = Template.bind({})
 Image.args = {
   user: {
     username: 'johndoe',
-
     avatar: 'https://images.unsplash.com/photo-1661961112134-fbce0fdf3d99',
   },
+  width: 120,
+  height: 120,
 }
 
 export const Initials = Template.bind({})
@@ -28,4 +29,6 @@ Initials.args = {
     username: 'johndoe',
   },
   bgColor: '#3cb46c',
+  initialsWidth: 30,
+  initialsHeight: 22,
 }

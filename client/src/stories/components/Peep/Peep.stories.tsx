@@ -1,17 +1,17 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import React from 'react'
 
-import { Room } from './Room'
+import { Peep } from './Peep'
 
 export default {
-  title: 'Components/Room',
-  component: Room,
+  title: 'Components/Peep',
+  component: Peep,
   parameters: {
     layout: 'fullscreen',
   },
-} as ComponentMeta<typeof Room>
+} as ComponentMeta<typeof Peep>
 
-const Template: ComponentStory<typeof Room> = (args) => <Room {...args} />
+const Template: ComponentStory<typeof Peep> = (args) => <Peep {...args} />
 
 export const IsFavorite = Template.bind({})
 IsFavorite.args = {

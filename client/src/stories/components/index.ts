@@ -1,7 +1,7 @@
 export { Button } from './Button'
 export { Header } from './Header'
 export { Search } from './Search'
-export { Room } from './Room'
+export { Peep } from './Peep'
 export { Avatar } from './Avatar'
 export { MessagePreview } from './MessagePreview'
 export { Modal } from './Modal'

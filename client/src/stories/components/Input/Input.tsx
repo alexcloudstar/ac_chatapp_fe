@@ -6,6 +6,7 @@ type InputProps = {
   isRequired: boolean
   type: HTMLInputTypeAttribute | undefined
   name: string
+  defaultValue?: string
 }
 
 export const Input: FC<InputProps> = ({
@@ -13,6 +14,7 @@ export const Input: FC<InputProps> = ({
   type = 'text',
   isRequired,
   placeholder,
+  defaultValue,
 }) => {
   const {
     register,
@@ -26,6 +28,7 @@ export const Input: FC<InputProps> = ({
         type={type}
         className="mt-2 outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
         placeholder={placeholder}
+        defaultValue={defaultValue}
         {...register(name, { required: isRequired })}
       />
       {errors[name] && (

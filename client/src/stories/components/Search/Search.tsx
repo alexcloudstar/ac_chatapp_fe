@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 
 import { Button } from '../Button'
-import { Icon } from '../Icon'
-import './search.css'
 
 type SearchTypeProps = {
   query: string
@@ -25,7 +23,7 @@ export const Search = ({
   const onSearch = () => console.log('Search for', value)
 
   return (
-    <div className={`search_container ${classes ? classes : ''}`}>
+    <div className={`relative ${classes ? classes : ''}`}>
       <div className="relative">
         <input
           type="text"
@@ -33,12 +31,14 @@ export const Search = ({
           value={value || query}
           onChange={onChange}
           onKeyDown={(e) => e.key === 'Enter' && onSearch()}
-          className="search_search-input"
+          className="relative w-full h-10 py-0 px-3 text-[#ffffff99]/[60%] bg-[#1f232f] placeholder:text-[#ffffff99] rounded-xl outline-none"
         />
         {icon && (
-          <div className="search_icon-container">
-            <Icon icon={icon} onClick={onSearch} />
-          </div>
+          <Button
+            icon={icon}
+            onClick={onSearch}
+            classes="absolute top-0 right-0"
+          />
         )}
       </div>
     </div>
