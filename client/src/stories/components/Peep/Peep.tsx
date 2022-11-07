@@ -1,8 +1,6 @@
 import React, { FC, useState } from 'react'
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from 'react-icons/md'
 
-import styles from './peep.module.css'
-
 export type PeepProps = {
   owner: string
   isFavorite: boolean
@@ -25,7 +23,7 @@ export const Peep: FC<PeepProps> = ({
   return (
     <div className="relative w-fit mr-[15px]">
       <div
-        className={styles.container}
+        className="relative flex items-end w-[95px] min-w-[95px] h-[145px] rounded-[30px] pt-0 pr-5 pb-5 pl-5 text-white cursor-pointer"
         style={
           bgColor
             ? { background: bgColor }
@@ -37,9 +35,12 @@ export const Peep: FC<PeepProps> = ({
         }
         onClick={onClick}
       >
-        <span className={styles.owner}>{owner}</span>
+        <span className="pb-3 text-[12px]">{owner}</span>
       </div>
-      <button className={styles.icon} onClick={toggleFavorite}>
+      <button
+        className="absolute right-5 bottom-4 w-3 h-3 text-white"
+        onClick={toggleFavorite}
+      >
         {isFavoriteState ? <MdOutlineFavorite /> : <MdOutlineFavoriteBorder />}
       </button>
     </div>

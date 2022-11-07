@@ -16,7 +16,7 @@ export type User = {
 }
 
 export type UserComponentType = {
-  avatar: User['avatar']
+  avatar?: User['avatar']
   username: User['username']
 }
 
