@@ -18,10 +18,8 @@ export const tokenSlice = createSlice({
   reducers: {
     setIsLoggedIn: (state, action: PayloadAction<boolean>) => {
       state.isLoggedIn = action.payload
-      console.log('123')
     },
     setToken: (state, action: PayloadAction<string>) => {
-      console.log('123')
       state.token = action.payload
     },
   },

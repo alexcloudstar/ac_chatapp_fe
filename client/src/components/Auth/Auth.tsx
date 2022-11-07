@@ -1,17 +1,21 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
 
+import { setIsLoggedIn } from '@/store/slices/token'
 import { API_METHODS } from '@/types'
 import { fetchAPI } from '@/utils/api'
 import { setLocalStorage } from '@/utils/localStorage'
 
-import { AuthFormInputs, AuthProps } from './types'
+import { AuthFormInputs } from './types'
 
-const Auth: FC<AuthProps> = ({ setIsLoggedIn }) => {
+const Auth = () => {
   const [isRegister, setIsRegister] = useState<boolean>(false)
   const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
 
   const switchFormMode = () => setIsRegister(!isRegister)
+
+  const dispatch = useDispatch()
 
   const {
     register,
@@ -34,7 +38,7 @@ const Auth: FC<AuthProps> = ({ setIsLoggedIn }) => {
       }
 
       setLocalStorage('accessToken', APIData.accessToken)
-      setIsLoggedIn(true)
+      dispatch(setIsLoggedIn(true))
     } catch (error) {
       setApiErrorMessage('Something went wrong')
     }
