@@ -1,5 +1,5 @@
-import React, { FC, useState } from 'react'
-import { MdOutlineFavoriteBorder, MdOutlineFavorite } from 'react-icons/md'
+import { FC, useState } from 'react'
+import { MdOutlineFavorite, MdOutlineFavoriteBorder } from 'react-icons/md'
 
 export type PeepProps = {
   owner: string

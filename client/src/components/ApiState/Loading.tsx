@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Loading = () => (
   <div role="status">
     <svg
