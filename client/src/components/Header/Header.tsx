@@ -1,23 +1,25 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import { FaPlus, FaSearch } from 'react-icons/fa'
 import { FiLogOut } from 'react-icons/fi'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { useCurrentUserQuery } from '@/store/services/users'
+import { setIsLoggedIn, setToken } from '@/store/slices/token'
 import { Button, Header, Modal, Search } from '@/stories'
 import { ReduxQueryType, User } from '@/types'
 import { setLocalStorage } from '@/utils/localStorage'
 
 import { ApiState } from '../ApiState'
-import { AuthProps } from '../Auth/types'
 import { CreateRoom } from '../CreateRoom'
 
 import styles from './header.module.css'
 
-const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
-  const navigate = useNavigate()
-
+const ChatHeader = () => {
   const [showModal, setShowModal] = useState<boolean>(false)
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const {
     data: user,
@@ -29,7 +31,8 @@ const ChatHeader: FC<AuthProps> = ({ setIsLoggedIn }) => {
 
   const logout = () => {
     setLocalStorage('accessToken', '')
-    setIsLoggedIn(false)
+    dispatch(setIsLoggedIn(false))
+    dispatch(setToken(''))
   }
 
   const onNavigateProfile = () => navigate('/profile')
