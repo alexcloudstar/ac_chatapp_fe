@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { Button } from '../Button'
+import { Icon } from '../Icon'
 import './search.css'
 
 type SearchTypeProps = {
@@ -34,7 +35,11 @@ export const Search = ({
           onKeyDown={(e) => e.key === 'Enter' && onSearch()}
           className="search_search-input"
         />
-        {icon && <Button icon={icon} onClick={onSearch} />}
+        {icon && (
+          <div className="search_icon-container">
+            <Icon icon={icon} onClick={onSearch} />
+          </div>
+        )}
       </div>
     </div>
   )
