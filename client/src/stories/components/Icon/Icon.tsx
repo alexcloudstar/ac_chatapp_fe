@@ -24,6 +24,7 @@ export const Icon: FC<{
     | 'initial'
     | 'inherit'
     | undefined
+  textClasses?: string
 }> = ({
   icon,
   text,
@@ -32,6 +33,7 @@ export const Icon: FC<{
   hoverColor = 'text-red-500',
   hoverDuration = 'duration-150',
   transition = 'ease-in',
+  textClasses = '',
 }) => {
   const renderClass = () => {
     switch (textPosition) {
@@ -55,7 +57,7 @@ export const Icon: FC<{
     >
       <span className={`flex items-center ${renderClass()}`}>
         <>
-          {text && <span className="text-[14px] mr-1 ml-1">{text}</span>}
+          {text && <span className={`${textClasses}`}>{text}</span>}
           {icon}
         </>
       </span>

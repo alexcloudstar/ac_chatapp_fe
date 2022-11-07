@@ -19,7 +19,11 @@ export default {
 } as ComponentMeta<typeof Icon>
 
 const Template: ComponentStory<typeof Icon> = (args) => (
-  <Icon onClick={() => console.log('I was clicked')} {...args} />
+  <Icon
+    textClasses="text-[14px] mr-1 ml-1"
+    onClick={() => console.log('I was clicked')}
+    {...args}
+  />
 )
 
 export const Simple = Template.bind({})

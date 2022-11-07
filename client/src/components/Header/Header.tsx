@@ -8,6 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useCurrentUserQuery } from '@/store/services/users'
 import { setIsLoggedIn, setToken } from '@/store/slices/token'
 import { Button, Header, Modal, Search } from '@/stories'
+import { Icon } from '@/stories/components/Icon/Icon'
 import { ReduxQueryType, User } from '@/types'
 import { setLocalStorage } from '@/utils/localStorage'
 
@@ -65,19 +66,19 @@ const ChatHeader = () => {
           <Header user={user} classes="justify-center" />
         </div>
         <div className="flex justify-between items-center cursor-pointer">
-          {location.pathname !== '/profile' ? (
-            <div className="hide-mobile" onClick={onNavigateProfile}>
+          <div className="hide-mobile" onClick={onNavigateProfile}>
+            {location.pathname !== '/profile' ? (
               <Header user={user} />
-            </div>
-          ) : (
-            <span
-              onClick={onNavigateBack}
-              className="flex items-center ease-in duration-150 hover:text-red-500"
-            >
-              <MdOutlineKeyboardBackspace className="text-[30px] ml-8" />
-              <span className="whitespace-nowrap	ml-3">Go back</span>
-            </span>
-          )}
+            ) : (
+              <Icon
+                icon={
+                  <MdOutlineKeyboardBackspace className="text-[30px] ml-8" />
+                }
+                text="Go Back"
+                textClasses="whitespace-nowrap	ml-3"
+              />
+            )}
+          </div>
 
           <Search
             query=""
@@ -91,7 +92,11 @@ const ChatHeader = () => {
               classes={`${styles.btnCreateRoom} bg-blue-500  ease-in-out duration-300 hover:bg-blue-700`}
               onClick={toggleModal}
             />
-            <FiLogOut className="text-[24px] ml-8" onClick={logout} />
+
+            <Icon
+              icon={<FiLogOut className="text-[24px] ml-8" />}
+              onClick={logout}
+            />
           </div>
         </div>
       </div>
