@@ -1,22 +1,21 @@
 import React, { FC, useState } from 'react'
-import './room.css'
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from 'react-icons/md'
 
-export type RoomProps = {
+import styles from './peep.module.css'
+
+export type PeepProps = {
   owner: string
   isFavorite: boolean
   bgColor?: string
   bgImage?: string
-  classes?: string
   onClick: () => void
 }
 
-export const Room: FC<RoomProps> = ({
+export const Peep: FC<PeepProps> = ({
   owner,
   isFavorite = false,
   bgColor = 'linear-gradient(175deg, rgba(3,169,241,1) 0%, rgba(160,2,90,1) 100%)',
   bgImage,
-  classes,
   onClick,
 }) => {
   const [isFavoriteState, setIsFavoriteState] = useState(isFavorite)
@@ -24,9 +23,9 @@ export const Room: FC<RoomProps> = ({
   const toggleFavorite = () => setIsFavoriteState(!isFavoriteState)
 
   return (
-    <div className="relative">
+    <div className="relative w-fit mr-[15px]">
       <div
-        className={`room_container ${classes ? classes : ''}`}
+        className={styles.container}
         style={
           bgColor
             ? { background: bgColor }
@@ -38,16 +37,11 @@ export const Room: FC<RoomProps> = ({
         }
         onClick={onClick}
       >
-        <span className="room_owner">{owner}</span>
-
-        <button className="room_icon" onClick={toggleFavorite}>
-          {isFavoriteState ? (
-            <MdOutlineFavorite />
-          ) : (
-            <MdOutlineFavoriteBorder />
-          )}
-        </button>
+        <span className={styles.owner}>{owner}</span>
       </div>
+      <button className={styles.icon} onClick={toggleFavorite}>
+        {isFavoriteState ? <MdOutlineFavorite /> : <MdOutlineFavoriteBorder />}
+      </button>
     </div>
   )
 }

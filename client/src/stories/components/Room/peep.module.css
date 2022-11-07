@@ -1,4 +1,4 @@
-.room_container {
+.container {
   position: relative;
   display: flex;
   align-items: flex-end;
@@ -11,12 +11,12 @@
   border-radius: 30px;
 }
 
-.room_owner {
+.owner {
   padding-bottom: 10px;
   font-size: 12px;
 }
 
-.room_icon {
+.icon {
   position: absolute;
   right: 20px;
   bottom: 15px;

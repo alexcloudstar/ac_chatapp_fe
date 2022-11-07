@@ -74,6 +74,7 @@ const ChatHeader = () => {
                 icon={
                   <MdOutlineKeyboardBackspace className="text-[30px] ml-8" />
                 }
+                onClick={onNavigateBack}
                 text="Go Back"
                 textClasses="whitespace-nowrap	ml-3"
               />

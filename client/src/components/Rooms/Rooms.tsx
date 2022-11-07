@@ -35,7 +35,6 @@ const Rooms = () => {
               <Room
                 owner={user.username || 'Unknown'}
                 isFavorite={false}
-                classes="mr-[15px]"
                 bgImage={user.avatar}
                 onClick={() => console.log('Room 1 clicked')}
               />
