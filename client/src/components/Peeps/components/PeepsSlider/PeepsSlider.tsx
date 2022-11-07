@@ -5,11 +5,11 @@ import { Swiper } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/pagination'
 
-type RoomsSliderProps = {
+type PeepsSliderProps = {
   children: React.ReactNode
 }
 
-const RoomsSlider: FC<RoomsSliderProps> = ({ children }) => {
+const PeepsSlider: FC<PeepsSliderProps> = ({ children }) => {
   return (
     <Swiper
       breakpoints={{
@@ -35,4 +35,4 @@ const RoomsSlider: FC<RoomsSliderProps> = ({ children }) => {
   )
 }
 
-export default RoomsSlider
+export default PeepsSlider

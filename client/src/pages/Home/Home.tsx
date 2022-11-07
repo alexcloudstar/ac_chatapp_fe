@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { Rooms, ChatList } from '@/components'
+import { Peeps, ChatList } from '@/components'
 
 const Home = () => (
   <>
-    <Rooms />
+    <Peeps />
     <ChatList />
   </>
 )

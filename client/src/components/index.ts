@@ -1,5 +1,5 @@
 export { ChatHeader } from './Header'
-export { Rooms } from './Rooms'
+export { Peeps } from './Peeps'
 export { ChatList } from './ChatList'
 export { Auth } from './Auth'
 export { ApiState } from './ApiState'

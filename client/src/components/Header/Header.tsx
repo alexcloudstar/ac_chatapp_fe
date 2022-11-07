@@ -83,7 +83,7 @@ const ChatHeader = () => {
 
           <Search
             query=""
-            placeholder="Search for chatrooms"
+            placeholder="Search for rooms"
             icon={<FaSearch />}
             classes={styles.customInput}
           />

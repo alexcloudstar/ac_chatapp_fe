@@ -1,14 +1,14 @@
 import { SwiperSlide } from 'swiper/react'
 
 import { useGetUsersQuery } from '@/store/services/users'
-import { Room } from '@/stories'
+import { Peep } from '@/stories'
 import { ReduxQueryType, User } from '@/types'
 
 import { ApiState } from '../ApiState'
 
-import { RoomsSlider } from './components'
+import { PeepsSlider } from './components'
 
-const Rooms = () => {
+const Peeps = () => {
   const {
     data: users,
     error,
@@ -27,12 +27,12 @@ const Rooms = () => {
 
   return (
     <>
-      <h2 className="mt-[25px] mb-[15px]">Chatrooms</h2>
+      <h2 className="mt-[25px] mb-[15px]">Peeps</h2>
       <div>
-        <RoomsSlider>
+        <PeepsSlider>
           {users?.map((user: User) => (
             <SwiperSlide key={user.id}>
-              <Room
+              <Peep
                 owner={user.username || 'Unknown'}
                 isFavorite={false}
                 bgImage={user.avatar}
@@ -40,10 +40,10 @@ const Rooms = () => {
               />
             </SwiperSlide>
           ))}
-        </RoomsSlider>
+        </PeepsSlider>
       </div>
     </>
   )
 }
 
-export default Rooms
+export default Peeps
