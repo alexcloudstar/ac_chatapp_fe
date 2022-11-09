@@ -50,9 +50,15 @@ export const Icon: FC<{
     }
   }
 
+  // TODO: Fix hover property
+
+  console.log(hoverColor)
+
   return (
     <div
-      className={`flex justify-center items-center cursor-pointer ${transition} ${hoverDuration} hover:${hoverColor}`}
+      className={`flex justify-center items-center cursor-pointer ${transition} ${hoverDuration} hover:${
+        hoverColor ? hoverColor : 'text-red-500'
+      }`}
       onClick={onClick}
     >
       <span className={`flex items-center ${renderClass()}`}>
