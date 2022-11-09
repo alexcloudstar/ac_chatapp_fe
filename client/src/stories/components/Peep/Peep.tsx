@@ -25,13 +25,13 @@ export const Peep: FC<PeepProps> = ({
       <div
         className="relative flex items-end w-[95px] min-w-[95px] h-[145px] rounded-[30px] pt-0 pr-5 pb-5 pl-5 text-white cursor-pointer"
         style={
-          bgColor
-            ? { background: bgColor }
-            : {
+          bgImage
+            ? {
                 backgroundImage: `url(${bgImage || ''})`,
                 backgroundPosition: 'center',
                 backgroundSize: 'contain',
               }
+            : { background: bgColor }
         }
         onClick={onClick}
       >
