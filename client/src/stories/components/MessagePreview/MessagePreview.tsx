@@ -1,8 +1,7 @@
 import { FC } from 'react'
 
-import './messagePreview.css'
+import { UserComponentType } from '@/types'
 
-import { UserComponentType } from '../../types'
 import { Avatar } from '../Avatar'
 
 type MessagePreviewProps = {
@@ -18,15 +17,15 @@ export const MessagePreview: FC<MessagePreviewProps> = ({
   time,
   classes,
 }) => (
-  <div className={`mp_container ${classes ? classes : ''}`}>
-    <div className="mp_inner-container">
+  <div className={`flex justify-between ${classes ? classes : ''}`}>
+    <div className="flex mr-[50px]">
       <Avatar user={user} />
-      <div className="mp_username-message-container">
-        <span className="mp_username">{user.username}</span>
-        <p className="mp_message">{message}</p>
+      <div className="w-full ml-2">
+        <span className="pb-[10px] text-[15px]">{user.username}</span>
+        <p className="text-[13px]">{message}</p>
       </div>
     </div>
 
-    <span className="mp_time">{time}</span>
+    <span>{time}</span>
   </div>
 )

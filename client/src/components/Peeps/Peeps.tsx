@@ -1,40 +1,49 @@
 import { SwiperSlide } from 'swiper/react'
 
 import { useGetUsersQuery } from '@/store/services/users'
-import { Room } from '@/stories'
-import { User } from '@/stories/types'
+import { Peep } from '@/stories'
+import { ReduxQueryType, User } from '@/types'
 
 import { ApiState } from '../ApiState'
 
-import { RoomsSlider } from './components'
+import { PeepsSlider } from './components'
 
-const Rooms = () => {
-  const { data: users, error, isLoading } = useGetUsersQuery()
+const Peeps = () => {
+  const {
+    data: users,
+    error,
+    isLoading,
+  } = useGetUsersQuery<ReduxQueryType<User[]>>()
 
-  if (error) return <ApiState errorMessage={error?.data?.message} />
+  if (error)
+    return (
+      <ApiState
+        errorMessage={error?.data?.message}
+        error={error?.data?.error}
+      />
+    )
 
   if (isLoading) return <ApiState />
 
   return (
     <>
-      <h2 className="mt-[25px] mb-[15px]">Chatrooms</h2>
+      <h2 className="mt-[25px] mb-[15px]">Peeps</h2>
       <div>
-        <RoomsSlider>
+        <PeepsSlider>
           {users?.map((user: User) => (
             <SwiperSlide key={user.id}>
-              <Room
+              <Peep
                 owner={user.username || 'Unknown'}
                 isFavorite={false}
-                classes="mr-[15px]"
                 bgImage={user.avatar}
                 onClick={() => console.log('Room 1 clicked')}
               />
             </SwiperSlide>
           ))}
-        </RoomsSlider>
+        </PeepsSlider>
       </div>
     </>
   )
 }
 
-export default Rooms
+export default Peeps

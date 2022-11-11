@@ -1,7 +1,8 @@
 import { FC } from 'react'
 
 import { MessagePreview } from '@/stories'
-import { User, UserComponentType } from '@/stories/types'
+
+import { UserComponentType } from '@/stories/types'
 
 type PreviewProps = {
   user: UserComponentType

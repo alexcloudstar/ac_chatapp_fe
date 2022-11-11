@@ -2,7 +2,7 @@ export {
   Button,
   Header,
   Search,
-  Room,
+  Peep,
   Avatar,
   MessagePreview,
   Modal,

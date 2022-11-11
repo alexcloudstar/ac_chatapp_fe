@@ -1,1 +1,0 @@
-export { RoomsSlider } from './RoomsSlider'

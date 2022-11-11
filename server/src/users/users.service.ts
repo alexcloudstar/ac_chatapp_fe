@@ -8,6 +8,7 @@ import { User } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { CustomException } from '../exceptions/custom-exception';
 import { UpdateUserDto } from './dto/user-update.dto';
+import { CurrentUser } from './decorators/current-user.decorator';
 
 @Injectable()
 export class UsersService {
@@ -44,10 +45,15 @@ export class UsersService {
     }
   }
 
-  async update(id: number, body: UpdateUserDto, loggedInUser: User) {
+  async update(
+    id: number,
+    body: UpdateUserDto,
+    @CurrentUser() loggedInUser: User,
+  ) {
     if (id !== loggedInUser.id) throw new BadRequestException('Not authorized');
 
     try {
+      console.log(body);
       return await this.prisma.user.update({
         where: { id },
         data: { ...body },

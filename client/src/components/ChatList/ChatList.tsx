@@ -1,4 +1,5 @@
 import { useConversationsQuery } from '@/store/services/conversations'
+import { ReduxQueryType } from '@/types'
 
 import { ApiState } from '../ApiState'
 
@@ -11,21 +12,33 @@ const ChatList = () => {
     data: conversations,
     error,
     isLoading,
-    refetch,
-  } = useConversationsQuery(null, {
+  } = useConversationsQuery<ReduxQueryType<ConversationType[]>>(null, {
     refetchOnMountOrArgChange: true,
   })
 
-  if (error) return <ApiState errorMessage={error?.data?.message} />
+  if (error)
+    return (
+      <ApiState
+        errorMessage={error?.data?.message}
+        error={error?.data?.error}
+      />
+    )
 
   if (isLoading) return <ApiState />
 
   return (
     <div className={`${styles.container} pr-2`}>
       {conversations?.length ? (
-        conversations.map((conversation: ConversationType, index) => {
+        conversations.map((conversation: ConversationType) => {
           const lastMessage =
             conversation.messages[conversation.messages.length - 1]
+
+          const lastMessageTime = new Date(
+            lastMessage.createdAt
+          ).toLocaleString('ro-RO', {
+            hour: '2-digit',
+            minute: '2-digit',
+          })
 
           return (
             <Preview
@@ -39,7 +52,7 @@ const ChatList = () => {
                   ? lastMessage?.message
                   : 'No message yet'
               }
-              time={lastMessage.createdAt}
+              time={lastMessageTime}
             />
           )
         })
