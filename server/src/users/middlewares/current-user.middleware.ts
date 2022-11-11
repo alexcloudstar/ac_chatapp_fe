@@ -34,19 +34,19 @@ export class CurrentUserMiddleware implements NestMiddleware {
   async use(req: Request, res: Response, next: NextFunction) {
     const accessToken = req.headers.authorization?.split(' ')[1];
 
-    if (!!accessToken) {
-      throw new BadRequestException({
-        message: 'Bad Token',
-        error: 'badToken',
-      });
-    }
+    // if (!accessToken) {
+    //   throw new BadRequestException({
+    //     message: 'Bad Token',
+    //     error: 'badToken',
+    //   });
+    // }
 
     if (accessToken) {
-      const { exp } = this.jwtService.decode(
+      const decodedToken = this.jwtService.decode(
         accessToken,
       ) as UserFromTokenPayload;
 
-      if (Date.now() >= exp * 1000) {
+      if (Date.now() >= decodedToken?.exp * 1000) {
         throw new BadRequestException({
           message: 'Token expired',
           error: 'expiredToken',

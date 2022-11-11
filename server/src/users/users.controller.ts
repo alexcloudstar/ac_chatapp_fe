@@ -26,6 +26,7 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   @Get('/whoami')
   whoami(@CurrentUser() user: User) {
+    console.log(user);
     if (!user) throw new NotFoundException(`You are not logged in`);
 
     return user;

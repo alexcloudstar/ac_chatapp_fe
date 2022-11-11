@@ -51,7 +51,12 @@ export class AuthService {
     password: string,
   ): Promise<Omit<User, 'password'> | null> {
     const user = await this.prisma.user.findUnique({ where: { email } });
-    if (!user) throw new BadRequestException('User does not exist');
+    if (!user)
+      throw new BadRequestException({
+        message: 'User does not exist',
+        statusCode: 400,
+        error: 'user_does_not_exist',
+      });
 
     const valid = await argon2.verify(user.password, password);
 
