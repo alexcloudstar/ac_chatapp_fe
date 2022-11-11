@@ -12,7 +12,7 @@ const Peeps = () => {
   return (
     <>
       <h2 className="mt-[25px] mb-[15px]">Peeps</h2>
-      <div>
+      <div className="w-full">
         <PeepsSlider>
           {users?.map((user: User) => (
             <SwiperSlide key={user.id}>

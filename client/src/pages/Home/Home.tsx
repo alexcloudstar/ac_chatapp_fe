@@ -1,10 +1,9 @@
-import React from 'react'
-
-import { ChatList } from '@/components'
+import { ChatList, Peeps } from '@/components'
 
 const Home = () => {
   return (
-    <div className="flex items-center w-full h-full">
+    <div className="flex flex-col items-start w-full h-full">
+      <Peeps />
       <ChatList />
     </div>
   )
