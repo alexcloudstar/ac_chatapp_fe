@@ -8,7 +8,7 @@ import { useCurrentUserQuery } from '@/store/services/users'
 import { Button, Header, Modal, Search } from '@/stories'
 import { Icon } from '@/stories/components/Icon/Icon'
 import { ReduxQueryType, User } from '@/types'
-import { setLocalStorage } from '@/utils/localStorage'
+import { removeLocalStorage } from '@/utils/localStorage'
 
 import { CreateRoom } from '../CreateRoom'
 
@@ -26,7 +26,7 @@ const ChatHeader = () => {
   const toggleModal = () => setShowModal(!showModal)
 
   const logout = useCallback(() => {
-    setLocalStorage('accessToken', '')
+    removeLocalStorage('accessToken')
 
     navigate('/auth')
   }, [navigate])

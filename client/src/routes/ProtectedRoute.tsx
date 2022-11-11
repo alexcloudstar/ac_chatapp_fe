@@ -4,8 +4,8 @@ import { Navigate } from 'react-router-dom'
 import { useCurrentUserQuery } from '@/store/services/users'
 import { removeLocalStorage } from '@/utils/localStorage'
 
-const ProtectedRoute = ({ children }: { children: any }) => {
-  const { data: user, error, isLoading, refetch } = useCurrentUserQuery()
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { data: user, error, isLoading } = useCurrentUserQuery()
 
   if (!isLoading) {
     if ((!isLoading && error) || !user) {
