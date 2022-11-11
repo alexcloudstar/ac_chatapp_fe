@@ -2,17 +2,14 @@ import { useCallback, useState } from 'react'
 import { FaPlus, FaSearch } from 'react-icons/fa'
 import { FiLogOut } from 'react-icons/fi'
 import { MdOutlineKeyboardBackspace } from 'react-icons/md'
-import { useDispatch } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { useCurrentUserQuery } from '@/store/services/users'
-import { setIsLoggedIn, setToken } from '@/store/slices/token'
 import { Button, Header, Modal, Search } from '@/stories'
 import { Icon } from '@/stories/components/Icon/Icon'
 import { ReduxQueryType, User } from '@/types'
-import { setLocalStorage } from '@/utils/localStorage'
+import { removeLocalStorage } from '@/utils/localStorage'
 
-import { ApiState } from '../ApiState'
 import { CreateRoom } from '../CreateRoom'
 
 import styles from './header.module.css'
@@ -22,37 +19,21 @@ const ChatHeader = () => {
 
   const location = useLocation()
 
-  const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const {
-    data: user,
-    error,
-    isLoading,
-  } = useCurrentUserQuery<ReduxQueryType<User>>()
+  const { data: user } = useCurrentUserQuery<ReduxQueryType<User>>()
 
   const toggleModal = () => setShowModal(!showModal)
 
   const logout = useCallback(() => {
-    setLocalStorage('accessToken', '')
-    dispatch(setIsLoggedIn(false))
-    dispatch(setToken(''))
+    removeLocalStorage('accessToken')
+
     navigate('/auth')
-  }, [dispatch, navigate])
+  }, [navigate])
 
   const onNavigateBack = () => navigate(-1)
 
   const onNavigateProfile = () => navigate('/profile')
-
-  if (isLoading) return <ApiState />
-
-  if (error)
-    return (
-      <ApiState
-        errorMessage={error?.data?.message}
-        error={error?.data?.error}
-      />
-    )
 
   return (
     <>
@@ -61,7 +42,7 @@ const ChatHeader = () => {
           <CreateRoom toggleModal={toggleModal} />
         </Modal>
       )}
-      <div className={styles.container}>
+      <header className={styles.container}>
         <div className="show-mobile mb-12" onClick={onNavigateProfile}>
           <Header user={user} classes="justify-center" />
         </div>
@@ -100,7 +81,7 @@ const ChatHeader = () => {
             />
           </div>
         </div>
-      </div>
+      </header>
     </>
   )
 }

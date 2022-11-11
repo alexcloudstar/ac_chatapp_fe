@@ -1,9 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import { IProfileFormProps } from '@/pages/Profile/profile'
-import { API_METHODS } from '@/types'
-
-import { User } from '@/stories/types'
+import { IProfileFormProps } from '@/pages/profile/Profile'
+import { User, API_METHODS } from '@/types'
 
 export const usersAPI = createApi({
   reducerPath: 'usersAPI',
@@ -22,7 +20,7 @@ export const usersAPI = createApi({
       }),
       providesTags: ['User'],
     }),
-    getUsers: builder.query<User[], User[]>({
+    getUsers: builder.query<User[], void>({
       query: () => ({
         url: '/users/',
         method: API_METHODS.GET,

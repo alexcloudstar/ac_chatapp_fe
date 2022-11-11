@@ -1,1 +1,1 @@
-export { HeaderLayout } from './HeaderLayout'
+export { Floating } from './Floating'

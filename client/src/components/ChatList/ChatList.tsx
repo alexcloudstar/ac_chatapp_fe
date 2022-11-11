@@ -1,33 +1,19 @@
 import { useConversationsQuery } from '@/store/services/conversations'
 import { ReduxQueryType } from '@/types'
 
-import { ApiState } from '../ApiState'
-
 import styles from './chatlist.module.css'
 import { Preview } from './components'
 import { ConversationType } from './types'
 
 const ChatList = () => {
-  const {
-    data: conversations,
-    error,
-    isLoading,
-  } = useConversationsQuery<ReduxQueryType<ConversationType[]>>(null, {
+  const { data: conversations } = useConversationsQuery<
+    ReduxQueryType<ConversationType[]>
+  >(null, {
     refetchOnMountOrArgChange: true,
   })
 
-  if (isLoading) return <ApiState />
-
-  if (error)
-    return (
-      <ApiState
-        errorMessage={error?.data?.message}
-        error={error?.data?.error}
-      />
-    )
-
   return (
-    <div className={`${styles.container} pr-2`}>
+    <div className={`${styles.container} pr-2 w-full`}>
       {conversations?.length ? (
         conversations.map((conversation: ConversationType) => {
           const lastMessage =

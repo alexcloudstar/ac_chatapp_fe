@@ -1,16 +1,11 @@
-import React from 'react'
-
-import { Peeps, ChatList } from '@/components'
-import { useIsLoggedIn } from '@/hooks/useIsLoggedIn'
+import { ChatList, Peeps } from '@/components'
 
 const Home = () => {
-  useIsLoggedIn()
-
   return (
-    <>
+    <div className="flex flex-col items-start w-full h-full">
       <Peeps />
       <ChatList />
-    </>
+    </div>
   )
 }
 

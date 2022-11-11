@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+import { API_METHODS } from '@/types'
+
 import {
   ConversationType,
   CreateConversationType,
 } from '@/components/ChatList/types'
-import { API_METHODS } from '@/types'
 
 export const conversationsAPI = createApi({
   reducerPath: 'conversationsAPI',
