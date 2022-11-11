@@ -44,6 +44,8 @@ const Auth = () => {
     }
   }
 
+  // TODO: Check if the password user entered on login is ok & after set the token in local storage
+
   return (
     <div className="flex flex-col h-fit min-h-[350px] justify-between text-center pt-[50px] pr-[30px] pl-[30px] pb-[30px] text-white bg-[#596787]/[70%] rounded-[40px] shadow-floating-container">
       <h1>Please {isRegister ? 'register' : 'login'}</h1>

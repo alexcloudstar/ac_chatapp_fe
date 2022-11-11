@@ -1,10 +1,13 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
-import { useCurrentUserQuery } from '@/store/services/users'
+import {
+  useCurrentUserQuery,
+  useUpdateUserMutation,
+} from '@/store/services/users'
 import { ReduxQueryType, User } from '@/types'
 
-interface ProfileFormProps {
+export interface IProfileFormProps {
   username: User['username']
   avatar: User['avatar']
   password: User['password']
@@ -14,22 +17,42 @@ interface ProfileFormProps {
 
 const Profile = () => {
   const {
-    data: user,
+    data: me,
     error,
     isLoading,
   } = useCurrentUserQuery<ReduxQueryType<User>>()
+
+  const [updateUser, { error: updateUserError }] =
+    useUpdateUserMutation<ReduxQueryType<IProfileFormProps>>()
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ProfileFormProps>()
+  } = useForm<IProfileFormProps>()
 
-  const onSubmit = (data: ProfileFormProps) => {
-    console.log(data)
+  // TODO: Check for empty string & exclude from request
+
+  const onSubmit = async (data: IProfileFormProps) => {
+    // await updateUser({
+    //   id: me.id,
+    //   body: data,
+    // })
+
+    //Check for empty string & exclude from request
+    const body = Object.keys(data).reduce((acc, key) => {
+      if (data[key] !== '') {
+        acc[key] = data[key]
+      }
+      return acc
+    })
+
+    console.log(body)
   }
 
   if (isLoading) return <div>Loading...</div>
+
+  // console.log(updateUserError)
 
   return (
     <div className="flex flex-col justify-center items-center h-full">
@@ -43,7 +66,7 @@ const Profile = () => {
           type="text"
           className="outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white mb-3"
           placeholder="Name"
-          defaultValue={user?.name}
+          defaultValue={me?.name}
           {...register('name', { required: true })}
         />
         {errors.name && (
@@ -54,7 +77,7 @@ const Profile = () => {
           type="text"
           className="outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white mb-3"
           placeholder="Username"
-          defaultValue={user?.username}
+          defaultValue={me?.username}
           {...register('username', { required: true })}
         />
         {errors.username && (
@@ -65,7 +88,7 @@ const Profile = () => {
           type="text"
           className="outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white mb-3"
           placeholder="Avatar"
-          defaultValue={user?.avatar}
+          defaultValue={me?.avatar}
           {...register('avatar')}
         />
         {errors.avatar && (
@@ -76,7 +99,7 @@ const Profile = () => {
           type="email"
           className="outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white mb-3"
           placeholder="Email"
-          defaultValue={user?.email}
+          defaultValue={me?.email}
           {...register('email', { required: true })}
         />
         {errors.email && (

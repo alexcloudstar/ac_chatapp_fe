@@ -1,7 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import { User } from '@/stories/types'
+import { IProfileFormProps } from '@/pages/Profile/profile'
 import { API_METHODS } from '@/types'
+
+import { User } from '@/stories/types'
 
 export const usersAPI = createApi({
   reducerPath: 'usersAPI',
@@ -29,7 +31,24 @@ export const usersAPI = createApi({
         },
       }),
     }),
+    updateUser: builder.mutation<User, { id: number; body: IProfileFormProps }>(
+      {
+        query: (payload: { id: number; body: IProfileFormProps }) => ({
+          url: `/users/${payload.id}`,
+          method: API_METHODS.PATCH,
+          body: { ...payload.body },
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+            Authorization: `Bearer ${
+              localStorage.getItem('accessToken') || ''
+            }`,
+          },
+        }),
+        invalidatesTags: ['User'],
+      }
+    ),
   }),
 })
 
-export const { useCurrentUserQuery, useGetUsersQuery } = usersAPI
+export const { useCurrentUserQuery, useGetUsersQuery, useUpdateUserMutation } =
+  usersAPI

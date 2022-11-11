@@ -22,7 +22,6 @@ export const conversationsAPI = createApi({
       }),
       providesTags: ['Conversations'],
     }),
-    // TODO invalidateTags on creating a new conversation
     addConversation: builder.mutation<
       CreateConversationType,
       CreateConversationType
