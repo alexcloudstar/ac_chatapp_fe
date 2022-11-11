@@ -9,7 +9,7 @@ import { useGetUsersQuery } from '@/store/services/users'
 import { Toggle } from '@/stories/components'
 import { ReduxQueryType, User } from '@/types'
 
-import { ApiState, CustomSelect } from '..'
+import { CustomSelect } from '..'
 
 export type CreateRoomFormInputs = {
   userOwnerId: number
@@ -32,13 +32,9 @@ const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
     reValidateMode: 'onChange',
   })
 
-  const {
-    data: users,
-    error,
-    isLoading,
-  } = useGetUsersQuery<ReduxQueryType<User[]>>()
+  const { data: users } = useGetUsersQuery<ReduxQueryType<User[]>>()
 
-  const [addRoom, { error: addRoomError }] =
+  const [addRoom] =
     useAddConversationMutation<ReduxQueryType<CreateRoomFormInputs>>()
 
   const { refetch } = useConversationsQuery(null, {
@@ -71,15 +67,6 @@ const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
       value: user.username || user.email,
       label: user.username || user.email,
     })) ?? []
-
-  if (error)
-    return (
-      <ApiState
-        errorMessage={error?.data?.message || addRoomError?.data?.message}
-      />
-    )
-
-  if (isLoading) return <ApiState />
 
   return (
     <form

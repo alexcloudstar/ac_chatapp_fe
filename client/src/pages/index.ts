@@ -1,2 +1,4 @@
 export { Home } from './home'
-export { Profile } from './Profile'
+export { NotFound } from './notfound'
+export { Profile } from './profile'
+export { Auth } from './auth'

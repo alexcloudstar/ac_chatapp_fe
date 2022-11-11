@@ -1,17 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 
+import { authAPI } from './services/auth'
 import { conversationsAPI } from './services/conversations'
 import { usersAPI } from './services/users'
-import { tokenSlice } from './slices/token'
 
-const middlewaresArr = [usersAPI.middleware]
+const middlewaresArr = [usersAPI.middleware, authAPI.middleware]
 
 export const store = configureStore({
   reducer: {
     [usersAPI.reducerPath]: usersAPI.reducer,
+    [authAPI.reducerPath]: authAPI.reducer,
     [conversationsAPI.reducerPath]: conversationsAPI.reducer,
-    [tokenSlice.name]: tokenSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(middlewaresArr),

@@ -1,18 +1,18 @@
 import { useForm } from 'react-hook-form'
 
-import { useIsLoggedIn } from '@/hooks/useIsLoggedIn'
 import {
   useCurrentUserQuery,
   useUpdateUserMutation,
 } from '@/store/services/users'
+import { Avatar } from '@/stories'
 import { ReduxQueryType, User } from '@/types'
 
 export interface IProfileFormProps {
-  username: User['username']
-  avatar: User['avatar']
-  password: User['password']
-  email: User['email']
-  name: User['name']
+  username?: User['username']
+  avatar?: User['avatar']
+  password?: User['password']
+  email?: User['email']
+  name?: User['name']
 }
 
 const Profile = () => {
@@ -34,30 +34,22 @@ const Profile = () => {
   // TODO: Check for empty string & exclude from request
 
   const onSubmit = async (data: IProfileFormProps) => {
-    // await updateUser({
-    //   id: me.id,
-    //   body: data,
-    // })
+    const body = Object.fromEntries(
+      Object.entries(data).filter(([_, v]) => v !== '')
+    )
 
-    //Check for empty string & exclude from request
-    const body = Object.keys(data).reduce((acc, key) => {
-      if (data[key] !== '') {
-        acc[key] = data[key]
-      }
-      return acc
+    await updateUser({
+      id: me.id,
+      body,
     })
-
-    console.log(body)
   }
-
-  useIsLoggedIn()
 
   if (isLoading) return <div>Loading...</div>
 
-  // console.log(updateUserError)
-
   return (
     <div className="flex flex-col justify-center items-center h-full">
+      <Avatar user={me} width={120} height={120} classes="mb-5" />
+
       <h1 className="text-2xl mb-10">Configure your profile</h1>
       <form
         action="POST"

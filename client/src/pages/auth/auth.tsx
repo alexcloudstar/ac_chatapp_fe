@@ -1,72 +1,49 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { RootState } from '@/store'
-import { setIsLoggedIn, setToken } from '@/store/slices/token'
-import { API_METHODS } from '@/types'
-import { fetchAPI } from '@/utils/api'
-import { getLocalStorage, setLocalStorage } from '@/utils/localStorage'
-
-import { AuthFormInputs } from './types'
+import { useSigninMutation } from '@/store/services/auth'
+import { useCurrentUserQuery } from '@/store/services/users'
+import { AuthFormInputs } from '@/types'
+import { setLocalStorage } from '@/utils/localStorage'
 
 const Auth = () => {
-  const { isLoggedIn, token } = useSelector((state: RootState) => state.token)
   const navigate = useNavigate()
   const [isRegister, setIsRegister] = useState<boolean>(false)
   const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
 
   const switchFormMode = () => setIsRegister(!isRegister)
 
-  const dispatch = useDispatch()
+  const [signin] = useSigninMutation()
+  const { refetch } = useCurrentUserQuery()
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<AuthFormInputs>()
+  } = useForm<AuthFormInputs>({
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+  })
 
-  const onSubmit: SubmitHandler<AuthFormInputs> = async (data) => {
-    const url = `http://localhost:4000/auth/${isRegister ? 'signup' : 'signin'}`
+  const onSubmit: SubmitHandler<AuthFormInputs> = async (formData) => {
+    const res = await signin(formData)
 
-    try {
-      const APIData: {
-        accessToken: string
-        error: string
-        message: string
-      } = await fetchAPI(url, API_METHODS.POST, '', data)
-
-      if (APIData.error) {
-        return setApiErrorMessage(APIData.message)
-      }
-
-      if (APIData.accessToken) {
-        setLocalStorage('accessToken', APIData.accessToken)
-        dispatch(setIsLoggedIn(true))
-        dispatch(setToken(APIData.accessToken))
-        navigate('/')
-      }
-    } catch (error) {
-      setApiErrorMessage('Something went wrong')
+    if (res?.error?.data.error === 'invalid_credentials') {
+      setApiErrorMessage(res?.error?.data.message)
+      return
     }
+
+    setLocalStorage('accessToken', res.data.accessToken)
+    refetch()
+    navigate('/')
   }
 
-  useEffect(() => {
-    const accessToken = getLocalStorage('accessToken')
-
-    if (accessToken && !isLoggedIn && !token) {
-      dispatch(setIsLoggedIn(true))
-      dispatch(setToken(accessToken))
-      navigate('/')
-    }
-  }, [dispatch, isLoggedIn, navigate, token])
-
-  // TODO: Check if the password user entered on login is ok & after set the token in local storage
-
   return (
-    <div className="flex flex-col h-fit min-h-[350px] justify-between text-center pt-[50px] pr-[30px] pl-[30px] pb-[30px] text-white bg-[#596787]/[70%] rounded-[40px] shadow-floating-container">
-      <h1>Please {isRegister ? 'register' : 'login'}</h1>
+    <div className="flex flex-col justify-around w-[80%] md:w-[40%] h-[50%] pt-[50px] pr-[30px] pl-[30px] pb-[30px] text-white rounded-[40px] shadow-floating-container">
+      <div className="text-center ">
+        <h1 className="text-[24px]">Welcome 👋🏻</h1>
+      </div>
       <form
         action="POST"
         onSubmit={handleSubmit(onSubmit)}
