@@ -1,3 +1,30 @@
-export { default as Router } from './Router'
-export { routes } from './routes'
-export { type RoutesType } from './routes'
+import { Home, NotFound, Profile, Auth } from '@/pages'
+
+export type RoutesType = {
+  key: string
+  path: string
+  component: () => React.ReactNode
+}
+
+export const routes: RoutesType[] = [
+  {
+    key: 'auth',
+    path: '/auth',
+    component: Auth,
+  },
+  {
+    key: 'home',
+    path: '/',
+    component: Home,
+  },
+  {
+    key: 'profile',
+    path: '/profile',
+    component: Profile,
+  },
+  {
+    key: 'not_found',
+    path: '*',
+    component: NotFound,
+  },
+]
