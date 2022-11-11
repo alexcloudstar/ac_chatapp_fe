@@ -30,3 +30,9 @@ export type ReduxQueryType<T> = {
   }
   isLoading: boolean
 }
+
+export type AuthFormInputs = {
+  email: string
+  password: string
+  username?: string
+}

@@ -65,7 +65,11 @@ export class AuthService {
       return result;
     }
 
-    throw new UnauthorizedException('Invalid credentials');
+    throw new UnauthorizedException({
+      message: 'Invalid credentials',
+      error: 'invalid_credentials',
+      statusCode: 401,
+    });
   }
 
   async signin(user: Omit<User, 'password'>): Promise<{ accessToken: string }> {
