@@ -4,14 +4,15 @@ import {
   useCurrentUserQuery,
   useUpdateUserMutation,
 } from '@/store/services/users'
+import { Avatar } from '@/stories'
 import { ReduxQueryType, User } from '@/types'
 
 export interface IProfileFormProps {
-  username: User['username']
-  avatar: User['avatar']
-  password: User['password']
-  email: User['email']
-  name: User['name']
+  username?: User['username']
+  avatar?: User['avatar']
+  password?: User['password']
+  email?: User['email']
+  name?: User['name']
 }
 
 const Profile = () => {
@@ -45,10 +46,10 @@ const Profile = () => {
 
   if (isLoading) return <div>Loading...</div>
 
-  // console.log(updateUserError)
-
   return (
     <div className="flex flex-col justify-center items-center h-full">
+      <Avatar user={me} width={120} height={120} classes="mb-5" />
+
       <h1 className="text-2xl mb-10">Configure your profile</h1>
       <form
         action="POST"

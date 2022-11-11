@@ -26,7 +26,7 @@ export const Avatar: FC<AvatarProps> = ({
   initialsWidth = 15,
   initialsHeight = 7,
 }) => (
-  <div className={classes}>
+  <div className={classes} style={{ width, height }}>
     {user?.avatar ? (
       <img
         src={user?.avatar}

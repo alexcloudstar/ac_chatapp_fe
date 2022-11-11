@@ -1,9 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-interface IProfileFormProps {
-  firstName: string
-}
-
+import { IProfileFormProps } from '@/pages/profile/Profile'
 import { User, API_METHODS } from '@/types'
 
 export const usersAPI = createApi({
