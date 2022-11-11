@@ -23,7 +23,7 @@ export const usersAPI = createApi({
       }),
       providesTags: ['User'],
     }),
-    getUsers: builder.query<User[], User[]>({
+    getUsers: builder.query<User[], void>({
       query: () => ({
         url: '/users/',
         method: API_METHODS.GET,

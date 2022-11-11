@@ -14,7 +14,7 @@ const Auth = () => {
 
   const switchFormMode = () => setIsRegister(!isRegister)
 
-  const [signin, { error }] = useSigninMutation()
+  const [signin] = useSigninMutation()
   const { refetch } = useCurrentUserQuery()
 
   const {

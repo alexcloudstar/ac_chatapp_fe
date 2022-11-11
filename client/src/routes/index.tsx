@@ -1,3 +1,4 @@
+import { Floating } from '@/Layouts'
 import { Home, NotFound, Profile, Auth } from '@/pages'
 
 import ProtectedRoute from './ProtectedRoute'
@@ -19,7 +20,9 @@ export const routes: RoutesType[] = [
     path: '/',
     component: (
       <ProtectedRoute>
-        <Home />
+        <Floating>
+          <Home />
+        </Floating>
       </ProtectedRoute>
     ),
   },
@@ -28,7 +31,9 @@ export const routes: RoutesType[] = [
     path: '/profile',
     component: (
       <ProtectedRoute>
-        <Profile />
+        <Floating>
+          <Profile />
+        </Floating>
       </ProtectedRoute>
     ),
   },
