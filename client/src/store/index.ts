@@ -1,4 +1,4 @@
-import { Middleware, configureStore } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 
 import { conversationsAPI } from './services/conversations'

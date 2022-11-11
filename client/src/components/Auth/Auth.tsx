@@ -1,15 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-import { setIsLoggedIn } from '@/store/slices/token'
+import { RootState } from '@/store'
+import { setIsLoggedIn, setToken } from '@/store/slices/token'
 import { API_METHODS } from '@/types'
 import { fetchAPI } from '@/utils/api'
-import { setLocalStorage } from '@/utils/localStorage'
+import { getLocalStorage, setLocalStorage } from '@/utils/localStorage'
 
 import { AuthFormInputs } from './types'
 
 const Auth = () => {
+  const { isLoggedIn, token } = useSelector((state: RootState) => state.token)
+  const navigate = useNavigate()
   const [isRegister, setIsRegister] = useState<boolean>(false)
   const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
 
@@ -37,12 +41,26 @@ const Auth = () => {
         return setApiErrorMessage(APIData.message)
       }
 
-      setLocalStorage('accessToken', APIData.accessToken)
-      dispatch(setIsLoggedIn(true))
+      if (APIData.accessToken) {
+        setLocalStorage('accessToken', APIData.accessToken)
+        dispatch(setIsLoggedIn(true))
+        dispatch(setToken(APIData.accessToken))
+        navigate('/')
+      }
     } catch (error) {
       setApiErrorMessage('Something went wrong')
     }
   }
+
+  useEffect(() => {
+    const accessToken = getLocalStorage('accessToken')
+
+    if (accessToken && !isLoggedIn && !token) {
+      dispatch(setIsLoggedIn(true))
+      dispatch(setToken(accessToken))
+      navigate('/')
+    }
+  }, [dispatch, isLoggedIn, navigate, token])
 
   // TODO: Check if the password user entered on login is ok & after set the token in local storage
 

@@ -20,8 +20,9 @@ export const usersAPI = createApi({
           Authorization: `Bearer ${localStorage.getItem('accessToken') || ''}`,
         },
       }),
+      providesTags: ['User'],
     }),
-    getUsers: builder.query<User[], void>({
+    getUsers: builder.query<User[], User[]>({
       query: () => ({
         url: '/users/',
         method: API_METHODS.GET,
@@ -30,6 +31,7 @@ export const usersAPI = createApi({
           Authorization: `Bearer ${localStorage.getItem('accessToken') || ''}`,
         },
       }),
+      providesTags: ['User'],
     }),
     updateUser: builder.mutation<User, { id: number; body: IProfileFormProps }>(
       {

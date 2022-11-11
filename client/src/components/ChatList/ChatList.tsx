@@ -16,6 +16,8 @@ const ChatList = () => {
     refetchOnMountOrArgChange: true,
   })
 
+  if (isLoading) return <ApiState />
+
   if (error)
     return (
       <ApiState
@@ -23,8 +25,6 @@ const ChatList = () => {
         error={error?.data?.error}
       />
     )
-
-  if (isLoading) return <ApiState />
 
   return (
     <div className={`${styles.container} pr-2`}>

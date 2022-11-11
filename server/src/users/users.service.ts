@@ -53,7 +53,6 @@ export class UsersService {
     if (id !== loggedInUser.id) throw new BadRequestException('Not authorized');
 
     try {
-      console.log(body);
       return await this.prisma.user.update({
         where: { id },
         data: { ...body },

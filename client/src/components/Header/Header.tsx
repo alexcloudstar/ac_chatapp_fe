@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { FaPlus, FaSearch } from 'react-icons/fa'
 import { FiLogOut } from 'react-icons/fi'
 import { MdOutlineKeyboardBackspace } from 'react-icons/md'
@@ -33,16 +33,18 @@ const ChatHeader = () => {
 
   const toggleModal = () => setShowModal(!showModal)
 
-  const logout = () => {
+  const logout = useCallback(() => {
     setLocalStorage('accessToken', '')
     dispatch(setIsLoggedIn(false))
     dispatch(setToken(''))
-    navigate('/')
-  }
+    navigate('/auth')
+  }, [dispatch, navigate])
 
   const onNavigateBack = () => navigate(-1)
 
   const onNavigateProfile = () => navigate('/profile')
+
+  if (isLoading) return <ApiState />
 
   if (error)
     return (
@@ -51,8 +53,6 @@ const ChatHeader = () => {
         error={error?.data?.error}
       />
     )
-
-  if (isLoading) return <ApiState />
 
   return (
     <>

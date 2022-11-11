@@ -1,6 +1,6 @@
-import React from 'react'
 import { useForm } from 'react-hook-form'
 
+import { useIsLoggedIn } from '@/hooks/useIsLoggedIn'
 import {
   useCurrentUserQuery,
   useUpdateUserMutation,
@@ -49,6 +49,8 @@ const Profile = () => {
 
     console.log(body)
   }
+
+  useIsLoggedIn()
 
   if (isLoading) return <div>Loading...</div>
 

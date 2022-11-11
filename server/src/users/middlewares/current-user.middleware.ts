@@ -46,6 +46,15 @@ export class CurrentUserMiddleware implements NestMiddleware {
         accessToken,
       ) as UserFromTokenPayload;
 
+      if (!decodedToken) {
+        req.currentUser = null;
+
+        throw new BadRequestException({
+          message: 'Token expired',
+          error: 'expiredToken',
+        });
+      }
+
       if (Date.now() >= decodedToken?.exp * 1000) {
         throw new BadRequestException({
           message: 'Token expired',
