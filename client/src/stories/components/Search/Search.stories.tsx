@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
-import React from 'react'
 import { FaSearch } from 'react-icons/fa'
 
 import { Search } from './Search'

@@ -1,15 +1,19 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
+import { CurrentUserMiddleware } from './middlewares/current-user.middleware';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
-import { AuthService } from './auth.service';
-import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
-import { APP_INTERCEPTOR } from '@nestjs/core';
-import { CurrentUserMiddleware } from './middlewares/current-user.middleware';
+import { JwtModule } from '@nestjs/jwt';
+import { PrismaService } from '../prisma.service';
 
 @Module({
+  imports: [
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: process.env.JWT_EXPIRES_IN },
+    }),
+  ],
   controllers: [UsersController],
-  providers: [UsersService, AuthService, PrismaService],
+  providers: [UsersService, PrismaService],
 })
 export class UsersModule {
   configure(consumer: MiddlewareConsumer) {

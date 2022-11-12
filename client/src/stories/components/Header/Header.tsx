@@ -1,26 +1,23 @@
 import React from 'react'
 
-import { User } from '../../types'
+import { User } from '@/types'
+
 import { Avatar } from '../Avatar'
-import './header.css'
 
 type HeaderProps = {
-  user?: User
+  user?: Pick<User & { avatar?: string }, 'username' | 'avatar'>
+  classes?: string
 }
 
-export const Header = ({ user }: HeaderProps) => {
-  return (
-    <div className="header_container">
-      {user ? (
-        <>
-          <Avatar user={user} />
-          <h1 className="header_username">
-            {user?.firstName} {user?.lastName}
-          </h1>
-        </>
-      ) : (
-        <h1>Please login</h1>
-      )}
-    </div>
-  )
-}
+export const Header = ({ user, classes }: HeaderProps) => (
+  <div className={`${classes || ''} flex h-fit items-center`}>
+    {user ? (
+      <>
+        <Avatar user={user} />
+        <h1 className="pl-3 text-[27px] font-normal">{user?.username}</h1>
+      </>
+    ) : (
+      <h1>Please login</h1>
+    )}
+  </div>
+)

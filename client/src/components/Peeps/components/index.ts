@@ -1,0 +1,1 @@
+export { PeepsSlider } from './PeepsSlider'

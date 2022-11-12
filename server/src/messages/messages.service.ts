@@ -23,6 +23,14 @@ export class MessagesService {
       where: {
         chatroomId: roomId,
       },
+      include: {
+        sender: {
+          select: {
+            id: true,
+            username: true,
+          },
+        },
+      },
     });
 
     if (!messages.length) throw new NotFoundException('No messages found');
@@ -44,18 +52,19 @@ export class MessagesService {
 
     if (!message) throw new NotFoundException('No message found');
 
-    if (!room.users.find((user) => user.id === userId))
+    if (
+      !room.users.find((user) => user.id === userId) &&
+      userId !== room.userOwnerId
+    )
       throw new NotFoundException('Please join the room first');
 
-    const newMessage: Message = await this.prismaService.message.create({
+    return await this.prismaService.message.create({
       data: {
         message,
         senderId: userId,
         chatroomId: roomId,
       },
     });
-
-    return newMessage;
   }
 
   async updateMessage(

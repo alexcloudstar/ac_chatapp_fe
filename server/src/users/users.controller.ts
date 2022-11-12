@@ -6,26 +6,24 @@ import {
   NotFoundException,
   Param,
   Patch,
-  Post,
-  Session,
+  Request,
+  UseGuards,
 } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { CurrentUser } from 'src/users/decorators/current-user.decorator';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
-import { AuthService } from './auth.service';
-import { CreateUserDto } from './dto/create-user.dto';
+
 import { UpdateUserDto } from './dto/user-update.dto';
 import { UserDto } from './dto/user.dto';
 import { UsersService } from './users.service';
+import { JwtAuthGuard } from '../utils/jwt/jwt-auth.guard';
 
 @Serialize(UserDto)
 @Controller('users')
 export class UsersController {
-  constructor(
-    private usersService: UsersService,
-    private authService: AuthService,
-  ) {}
+  constructor(private usersService: UsersService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get('/whoami')
   whoami(@CurrentUser() user: User) {
     if (!user) throw new NotFoundException(`You are not logged in`);
@@ -33,11 +31,13 @@ export class UsersController {
     return user;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
-  findAll(): Promise<User[]> {
-    return this.usersService.findAll();
+  findAll(@CurrentUser() user: User): Promise<User[]> {
+    return this.usersService.findAll(user.id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('/:id')
   async findOne(@Param('id') id: string, @CurrentUser() user: User) {
     try {
@@ -47,40 +47,13 @@ export class UsersController {
     }
   }
 
-  @Post('/signup')
-  async signup(
-    @Body() body: CreateUserDto,
-    @Session() session: any,
-  ): Promise<User> {
-    const user = await this.authService.signup(body.email, body.password);
-
-    session.userId = user.id;
-
-    return user;
-  }
-
-  @Post('/signin')
-  async signin(
-    @Body() body: CreateUserDto,
-    @Session() session: any,
-  ): Promise<User> {
-    const user = await this.authService.signin(body.email, body.password);
-
-    session.userId = user.id;
-
-    return user;
-  }
-
-  @Post('/signout')
-  signOut(@Session() session: any) {
-    session.userId = null;
-  }
-
+  @UseGuards(JwtAuthGuard)
   @Delete('/:id')
   removeUser(@Param('id') id: string, @CurrentUser() user: User) {
     return this.usersService.remove(parseInt(id), user);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch('/:id')
   updateUser(
     @Param('id') id: string,

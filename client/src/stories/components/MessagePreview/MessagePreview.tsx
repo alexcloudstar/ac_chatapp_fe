@@ -1,38 +1,31 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 
-import './messagePreview.css'
+import { UserComponentType } from '@/types'
 
 import { Avatar } from '../Avatar'
 
 type MessagePreviewProps = {
-  user: {
-    firstName: string
-    lastName: string
-  }
+  user: UserComponentType
   message: string
-  avatar: string
   time: string
+  classes?: string
 }
 
 export const MessagePreview: FC<MessagePreviewProps> = ({
   user,
   message,
-  avatar,
   time,
-}) => {
-  return (
-    <div className="mp_container">
-      <div className="mp_inner-container">
-        <Avatar user={user} avatar={avatar} />
-        <div className="mp_username-message-container">
-          <span className="mp_username">
-            {user.firstName} {user.lastName}
-          </span>
-          <p className="mp_message">{message}</p>
-        </div>
+  classes,
+}) => (
+  <div className={`flex justify-between ${classes ? classes : ''}`}>
+    <div className="flex mr-[50px]">
+      <Avatar user={user} />
+      <div className="w-full ml-2">
+        <span className="pb-[10px] text-[15px]">{user.username}</span>
+        <p className="text-[13px]">{message}</p>
       </div>
-
-      <span className="mp_time">{time}</span>
     </div>
-  )
-}
+
+    <span>{time}</span>
+  </div>
+)

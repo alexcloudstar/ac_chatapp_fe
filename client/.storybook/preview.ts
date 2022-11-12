@@ -8,4 +8,12 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  previewHead: (head) => `
+    ${head}
+    <style>
+      html, body {
+        background: chocolate !important;
+      }
+    </style>
+  `,
 }

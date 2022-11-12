@@ -8,6 +8,8 @@ async function bootstrap() {
   const prismaService = app.get(PrismaService);
   await prismaService.enableShutdownHooks(app);
 
+  app.enableCors();
+
   await app.listen(4000);
 }
 bootstrap();

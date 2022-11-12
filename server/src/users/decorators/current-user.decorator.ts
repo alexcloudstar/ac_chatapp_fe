@@ -1,4 +1,8 @@
-import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+import {
+  BadRequestException,
+  createParamDecorator,
+  ExecutionContext,
+} from '@nestjs/common';
 
 export const CurrentUser = createParamDecorator(
   (data: never, context: ExecutionContext) => {

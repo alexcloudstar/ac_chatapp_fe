@@ -2,8 +2,8 @@ export {
   Button,
   Header,
   Search,
-  Room,
+  Peep,
   Avatar,
   MessagePreview,
+  Modal,
 } from './components'
-export { Page } from './Pages'

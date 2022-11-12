@@ -1,9 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-  Param,
-} from '@nestjs/common';
+import { BadRequestException, Injectable, Param } from '@nestjs/common';
 import { Chatroom } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 
@@ -30,17 +25,33 @@ export class ChatroomsService {
     });
   }
 
-  create(
+  async create(
     userOwnerId: number,
-    userIds: string[],
+    userUsernames: string[],
     isPrivate: boolean,
     name: string,
     profanityWords: string[],
   ): Promise<Chatroom> {
-    if (!userOwnerId)
-      throw new NotFoundException('You are not logged in to create a chatroom');
+    const usersId = await this.prisma.user.findMany({
+      where: {
+        OR: [
+          {
+            username: {
+              in: userUsernames,
+            },
+          },
+        ],
+      },
+      select: {
+        id: true,
+      },
+    });
 
-    const usersArrIds = userIds?.map((id) => ({ id: +id }));
+    const usersArrIds: { id: number }[] = usersId?.map((user) => ({
+      id: user.id,
+    }));
+
+    usersArrIds.push({ id: userOwnerId });
 
     return this.prisma.chatroom.create({
       data: {
@@ -50,6 +61,12 @@ export class ChatroomsService {
         profanityWords,
         users: {
           connect: usersArrIds,
+        },
+        messages: {
+          create: {
+            message: 'Welcome to the chatroom! ⚡️',
+            senderId: userOwnerId,
+          },
         },
       },
       include: {
@@ -114,6 +131,24 @@ export class ChatroomsService {
         users: {
           disconnect: { id: userId },
         },
+      },
+    });
+  }
+
+  async findJoined(userId: number): Promise<Chatroom[]> {
+    if (!userId) throw new BadRequestException('Please login');
+
+    return this.prisma.chatroom.findMany({
+      where: {
+        users: {
+          some: {
+            id: userId,
+          },
+        },
+      },
+      include: {
+        users: true,
+        messages: true,
       },
     });
   }
