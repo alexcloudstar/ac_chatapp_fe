@@ -9,6 +9,7 @@ import { PrismaService } from 'src/prisma.service';
 import { CustomException } from '../exceptions/custom-exception';
 import { UpdateUserDto } from './dto/user-update.dto';
 import { CurrentUser } from './decorators/current-user.decorator';
+import * as argon2 from 'argon2';
 
 @Injectable()
 export class UsersService {
@@ -51,11 +52,19 @@ export class UsersService {
     @CurrentUser() loggedInUser: User,
   ) {
     if (id !== loggedInUser.id) throw new BadRequestException('Not authorized');
+    let hashedPw = null;
+
+    if (body.password) {
+      hashedPw = await argon2.hash(body.password);
+    }
 
     try {
       return await this.prisma.user.update({
         where: { id },
-        data: { ...body },
+        data: {
+          ...body,
+          password: body.password ? hashedPw : loggedInUser.password,
+        },
       });
     } catch (error) {
       if (error.code === 'P2002')
