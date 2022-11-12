@@ -29,7 +29,7 @@ export const Peep: FC<PeepProps> = ({
             ? {
                 backgroundImage: `url(${bgImage || ''})`,
                 backgroundPosition: 'center',
-                backgroundSize: 'contain',
+                backgroundSize: 'cover',
               }
             : { background: bgColor }
         }
