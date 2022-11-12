@@ -13,7 +13,7 @@ export const Icon: FC<{
   text?: string
   textPosition?: TextPosition
   onClick?: () => void
-  textHoverColor?: string
+  hoverColor?: string
   hoverDuration?: string
   transition?:
     | 'ease-in'
@@ -31,7 +31,7 @@ export const Icon: FC<{
   text,
   textPosition = TextPosition.RIGHT,
   onClick,
-  textHoverColor = 'red-600',
+  hoverColor = 'text-red-600',
   hoverDuration = 'duration-150',
   transition = 'ease-in',
   textClasses = '',
@@ -51,11 +51,11 @@ export const Icon: FC<{
     }
   }
 
-  console.log(textHoverColor)
+  console.log(hoverColor)
 
   return (
     <div
-      className={`flex justify-center items-center cursor-pointer ${transition} ${hoverDuration} hover:text-${textHoverColor}`}
+      className={`flex justify-center items-center cursor-pointer ${transition} ${hoverDuration} hover:${hoverColor}`}
       onClick={onClick}
     >
       <span className={`flex items-center ${renderClass()}`}>
