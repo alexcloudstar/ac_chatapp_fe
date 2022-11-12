@@ -12,7 +12,7 @@ export const Icon: FC<{
   text?: string
   textPosition?: TextPosition
   onClick?: () => void
-  hoverColor?: string
+  textHoverColor?: string
   hoverDuration?: string
   transition?:
     | 'ease-in'
@@ -30,7 +30,7 @@ export const Icon: FC<{
   text,
   textPosition = TextPosition.RIGHT,
   onClick,
-  hoverColor = 'text-red-500',
+  textHoverColor = 'red-600',
   hoverDuration = 'duration-150',
   transition = 'ease-in',
   textClasses = '',
@@ -50,13 +50,11 @@ export const Icon: FC<{
     }
   }
 
-  // TODO: Fix hover property
+  console.log(textHoverColor)
 
   return (
     <div
-      className={`flex justify-center items-center cursor-pointer ${transition} ${hoverDuration} hover:${
-        hoverColor ? hoverColor : 'text-red-500'
-      }`}
+      className={`flex justify-center items-center cursor-pointer ${transition} ${hoverDuration} hover:text-${textHoverColor}`}
       onClick={onClick}
     >
       <span className={`flex items-center ${renderClass()}`}>

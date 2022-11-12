@@ -29,7 +29,7 @@ const Template: ComponentStory<typeof Icon> = (args) => (
 export const Simple = Template.bind({})
 Simple.args = {
   icon: <BsArrowLeft className="text-[40px]" />,
-  hoverColor: 'text-orange-500',
+  textHoverColor: 'orange-500',
 }
 
 export const TextLeft = Template.bind({})
@@ -37,7 +37,7 @@ TextLeft.args = {
   icon: <BsTranslate />,
   text: 'Translate',
   textPosition: TextPosition.LEFT,
-  hoverColor: 'text-orange-500',
+  textHoverColor: 'orange-500',
 }
 
 export const TextRight = Template.bind({})
@@ -45,7 +45,7 @@ TextRight.args = {
   icon: <BsArrowsAngleExpand />,
   text: 'Fullscreen',
   textPosition: TextPosition.RIGHT,
-  hoverColor: 'text-orange-500',
+  textHoverColor: 'orange-500',
 }
 
 export const TextTop = Template.bind({})
@@ -53,7 +53,7 @@ TextTop.args = {
   icon: <BsSlack />,
   text: 'Slack message',
   textPosition: TextPosition.TOP,
-  hoverColor: 'text-orange-500',
+  textHoverColor: 'orange-500',
 }
 
 export const TextBottom = Template.bind({})
@@ -61,5 +61,5 @@ TextBottom.args = {
   icon: <BsZoomIn />,
   text: 'Zoom in',
   textPosition: TextPosition.BOTTOM,
-  hoverColor: 'text-orange-500',
+  textHoverColor: 'orange-500',
 }
