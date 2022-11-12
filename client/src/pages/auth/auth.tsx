@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
-import { useSigninMutation } from '@/store/services/auth'
+import { useSigninMutation, useSignupMutation } from '@/store/services/auth'
 import { useCurrentUserQuery } from '@/store/services/users'
 import { AuthFormInputs } from '@/types'
 import { setLocalStorage } from '@/utils/localStorage'
@@ -15,6 +15,7 @@ const Auth = () => {
   const switchFormMode = () => setIsRegister(!isRegister)
 
   const [signin] = useSigninMutation()
+  const [signup] = useSignupMutation()
   const { refetch } = useCurrentUserQuery()
 
   const {
@@ -27,7 +28,13 @@ const Auth = () => {
   })
 
   const onSubmit: SubmitHandler<AuthFormInputs> = async (formData) => {
-    const res = await signin(formData)
+    let res
+
+    if (isRegister) {
+      res = await signup(formData)
+    } else {
+      res = await signin(formData)
+    }
 
     if (res?.error?.data.error === 'invalid_credentials') {
       setApiErrorMessage(res?.error?.data.message)

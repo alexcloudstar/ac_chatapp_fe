@@ -39,10 +39,13 @@ export const Avatar: FC<AvatarProps> = ({
       />
     ) : (
       <span
-        className={`inline-block text-white rounded-full`}
+        className={`text-white rounded-full flex justify-center items-center`}
         style={{
           backgroundColor: bgColor,
           padding: `${initialsHeight}px ${initialsWidth}px`,
+          width: `${width}px`,
+          height: `${height}px`,
+          fontSize: `${width / 3}px`,
         }}
       >
         {user.username[0].toLocaleUpperCase()}

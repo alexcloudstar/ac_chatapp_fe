@@ -36,3 +36,8 @@ export type AuthFormInputs = {
   password: string
   username?: string
 }
+
+export type ApiResponseState = {
+  type: 'success' | 'error'
+  message: string
+}

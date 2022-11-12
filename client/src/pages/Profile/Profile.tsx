@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import {
@@ -5,17 +6,20 @@ import {
   useUpdateUserMutation,
 } from '@/store/services/users'
 import { Avatar } from '@/stories'
-import { ReduxQueryType, User } from '@/types'
+import { ApiResponseState, ReduxQueryType, User } from '@/types'
 
 export interface IProfileFormProps {
   username?: User['username']
   avatar?: User['avatar']
   password?: User['password']
+  confirmPassword?: User['password']
   email?: User['email']
   name?: User['name']
 }
 
 const Profile = () => {
+  const [apiResponse, setApiResponse] = useState<ApiResponseState>()
+
   const {
     data: me,
     error,
@@ -28,6 +32,7 @@ const Profile = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<IProfileFormProps>()
 
@@ -38,10 +43,19 @@ const Profile = () => {
       Object.entries(data).filter(([_, v]) => v !== '')
     )
 
+    if (body.password !== body.confirmPassword) {
+      return setApiResponse({
+        type: 'error',
+        message: 'Passwords do not match',
+      })
+    }
+
     await updateUser({
       id: me.id,
       body,
     })
+
+    setApiResponse({ type: 'success', message: 'Profile updated successfully' })
   }
 
   if (isLoading) return <div>Loading...</div>
@@ -104,6 +118,7 @@ const Profile = () => {
           type="password"
           className="outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white mb-3"
           placeholder="Password"
+          defaultValue={me?.password}
           {...register('password')}
         />
         {errors.password && (
@@ -114,7 +129,7 @@ const Profile = () => {
           type="password"
           className="outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white mb-3"
           placeholder="Confirm Password"
-          {...register('password')}
+          {...register('confirmPassword')}
         />
         {errors.password && (
           <p className="mt-5 mb-5 text-red-500">This field is required</p>
@@ -127,6 +142,16 @@ const Profile = () => {
           Submit
         </button>
       </form>
+
+      {apiResponse && (
+        <p
+          className={`text-${
+            apiResponse.type === 'error' ? 'red' : 'green'
+          }-500 text-lg font-semibold `}
+        >
+          {apiResponse.message}
+        </p>
+      )}
     </div>
   )
 }
