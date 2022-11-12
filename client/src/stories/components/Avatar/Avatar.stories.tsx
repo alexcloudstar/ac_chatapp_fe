@@ -30,5 +30,5 @@ Initials.args = {
   },
   bgColor: '#3cb46c',
   initialsWidth: 30,
-  initialsHeight: 22,
+  initialsHeight: 30,
 }
