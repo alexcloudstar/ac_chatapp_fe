@@ -1,4 +1,3 @@
-import React from 'react'
 // TODO: create some Not found route
 const NotFound = () => {
   return (

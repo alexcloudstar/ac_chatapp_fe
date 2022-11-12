@@ -8,6 +8,7 @@ export enum TextPosition {
 }
 
 export const Icon: FC<{
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   icon: ReactElement<any, any>
   text?: string
   textPosition?: TextPosition

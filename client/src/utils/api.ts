@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { API_METHODS } from '@/types'
+import { API_METHODS } from 'types'
 
 export const fetchAPI = async (
   url = '',

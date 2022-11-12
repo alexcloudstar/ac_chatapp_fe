@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { UserComponentType } from '@/types'
+import { UserComponentType } from 'types'
 
 import { Avatar } from '../Avatar'
 

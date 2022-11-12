@@ -1,4 +1,4 @@
-import { ChatList, Peeps } from '@/components'
+import { ChatList, Peeps } from 'components'
 
 const Home = () => {
   return (

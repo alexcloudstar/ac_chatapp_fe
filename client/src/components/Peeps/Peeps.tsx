@@ -1,8 +1,8 @@
 import { SwiperSlide } from 'swiper/react'
 
-import { useGetUsersQuery } from '@/store/services/users'
-import { Peep } from '@/stories'
-import { ReduxQueryType, User } from '@/types'
+import { useGetUsersQuery } from 'store/services/users'
+import { Peep } from 'stories'
+import { ReduxQueryType, User } from 'types'
 
 import { PeepsSlider } from './components'
 

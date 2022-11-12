@@ -4,9 +4,9 @@ import { useForm } from 'react-hook-form'
 import {
   useCurrentUserQuery,
   useUpdateUserMutation,
-} from '@/store/services/users'
-import { Avatar } from '@/stories'
-import { ApiResponseState, ReduxQueryType, User } from '@/types'
+} from 'store/services/users'
+import { Avatar } from 'stories'
+import { ApiResponseState, ReduxQueryType, User } from 'types'
 
 export interface IProfileFormProps {
   username?: User['username']

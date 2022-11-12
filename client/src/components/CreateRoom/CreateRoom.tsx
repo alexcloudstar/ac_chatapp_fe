@@ -4,10 +4,10 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import {
   useAddConversationMutation,
   useConversationsQuery,
-} from '@/store/services/conversations'
-import { useGetUsersQuery } from '@/store/services/users'
-import { Toggle } from '@/stories/components'
-import { ReduxQueryType, User } from '@/types'
+} from 'store/services/conversations'
+import { useGetUsersQuery } from 'store/services/users'
+import { Toggle } from 'stories/components'
+import { ReduxQueryType, User } from 'types'
 
 import { CustomSelect } from '..'
 

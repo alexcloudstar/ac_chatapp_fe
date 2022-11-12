@@ -4,11 +4,11 @@ import { FiLogOut } from 'react-icons/fi'
 import { MdOutlineKeyboardBackspace } from 'react-icons/md'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { useCurrentUserQuery } from '@/store/services/users'
-import { Button, Header, Modal, Search } from '@/stories'
-import { Icon } from '@/stories/components/Icon/Icon'
-import { ReduxQueryType, User } from '@/types'
-import { removeLocalStorage } from '@/utils/localStorage'
+import { useCurrentUserQuery } from 'store/services/users'
+import { Button, Header, Modal, Search } from 'stories'
+import { Icon } from 'stories/components/Icon/Icon'
+import { ReduxQueryType, User } from 'types'
+import { removeLocalStorage } from 'utils/localStorage'
 
 import { CreateRoom } from '../CreateRoom'
 
