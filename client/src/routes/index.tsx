@@ -1,5 +1,5 @@
-import { Floating } from '@/Layouts'
-import { Home, NotFound, Profile, Auth } from '@/pages'
+import { Floating } from 'Layouts'
+import { Home, NotFound, Profile, Auth } from 'pages'
 
 import ProtectedRoute from './ProtectedRoute'
 

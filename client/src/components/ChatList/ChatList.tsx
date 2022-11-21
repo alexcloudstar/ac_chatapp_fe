@@ -1,5 +1,5 @@
-import { useConversationsQuery } from '@/store/services/conversations'
-import { ReduxQueryType } from '@/types'
+import { useConversationsQuery } from 'store/services/conversations'
+import { ReduxQueryType } from 'types'
 
 import styles from './chatlist.module.css'
 import { Preview } from './components'

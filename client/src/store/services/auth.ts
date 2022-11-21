@@ -1,10 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-interface IProfileFormProps {
-  firstName: string
-}
-
-import { User, API_METHODS, AuthFormInputs } from '@/types'
+import { API_METHODS, AuthFormInputs } from 'types'
 
 export const authAPI = createApi({
   reducerPath: 'authAPI',

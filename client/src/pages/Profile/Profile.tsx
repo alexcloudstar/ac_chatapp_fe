@@ -4,9 +4,9 @@ import { useForm } from 'react-hook-form'
 import {
   useCurrentUserQuery,
   useUpdateUserMutation,
-} from '@/store/services/users'
-import { Avatar } from '@/stories'
-import { ApiResponseState, ReduxQueryType, User } from '@/types'
+} from 'store/services/users'
+import { Avatar } from 'stories'
+import { ApiResponseState, ReduxQueryType, User } from 'types'
 
 export interface IProfileFormProps {
   username?: User['username']
@@ -20,26 +20,21 @@ export interface IProfileFormProps {
 const Profile = () => {
   const [apiResponse, setApiResponse] = useState<ApiResponseState>()
 
-  const {
-    data: me,
-    error,
-    isLoading,
-  } = useCurrentUserQuery<ReduxQueryType<User>>()
+  const { data: me, isLoading } = useCurrentUserQuery<ReduxQueryType<User>>()
 
-  const [updateUser, { error: updateUserError }] =
+  const [updateUser] =
     useUpdateUserMutation<ReduxQueryType<IProfileFormProps>>()
 
   const {
     register,
     handleSubmit,
-    watch,
+
     formState: { errors },
   } = useForm<IProfileFormProps>()
 
-  // TODO: Check for empty string & exclude from request
-
   const onSubmit = async (data: IProfileFormProps) => {
     const body = Object.fromEntries(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       Object.entries(data).filter(([_, v]) => v !== '')
     )
 
@@ -67,6 +62,7 @@ const Profile = () => {
       <h1 className="text-2xl mb-10">Configure your profile</h1>
       <form
         action="POST"
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col justify-center items-center w-6/12"
       >

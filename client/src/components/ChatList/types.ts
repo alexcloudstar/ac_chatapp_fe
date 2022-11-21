@@ -1,4 +1,4 @@
-import { User } from '@/stories/types'
+import { User } from 'types'
 
 export type MessagesType = {
   id: number

@@ -2,10 +2,10 @@ import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
-import { useSigninMutation, useSignupMutation } from '@/store/services/auth'
-import { useCurrentUserQuery } from '@/store/services/users'
-import { AuthFormInputs } from '@/types'
-import { setLocalStorage } from '@/utils/localStorage'
+import { useSigninMutation, useSignupMutation } from 'store/services/auth'
+import { useCurrentUserQuery } from 'store/services/users'
+import { AuthFormInputs, ReduxQueryType } from 'types'
+import { setLocalStorage } from 'utils/localStorage'
 
 const Auth = () => {
   const navigate = useNavigate()
@@ -14,8 +14,8 @@ const Auth = () => {
 
   const switchFormMode = () => setIsRegister(!isRegister)
 
-  const [signin] = useSigninMutation()
-  const [signup] = useSignupMutation()
+  const [signin, { error: signInError }] = useSigninMutation()
+  const [signup, { error: signupError }] = useSignupMutation()
   const { refetch } = useCurrentUserQuery()
 
   const {
@@ -36,10 +36,14 @@ const Auth = () => {
       res = await signin(formData)
     }
 
-    if (res?.error?.data.error === 'invalid_credentials') {
-      setApiErrorMessage(res?.error?.data.message)
-      return
-    }
+    if (res?.error?.data.error === 'user_already_exists')
+      return setApiErrorMessage(res?.error?.data.message)
+
+    if (res?.error?.data.error === 'invalid_credentials')
+      return setApiErrorMessage(res?.error?.data.message)
+
+    if (res?.error)
+      return setApiErrorMessage('Something went wrong, please try again later')
 
     setLocalStorage('accessToken', res.data.accessToken)
     refetch()

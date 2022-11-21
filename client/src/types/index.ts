@@ -28,6 +28,7 @@ export type ReduxQueryType<T> = {
       error: string
     }
   }
+
   isLoading: boolean
 }
 
@@ -40,4 +41,19 @@ export type AuthFormInputs = {
 export type ApiResponseState = {
   type: 'success' | 'error'
   message: string
+}
+
+export type DataType = {
+  data?: {
+    data?: {
+      token: string
+    }
+  }
+  error?: {
+    data: {
+      message: string
+      error: string
+    }
+    status: number
+  }
 }

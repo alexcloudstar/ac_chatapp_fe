@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
-
-import React, { FC } from 'react'
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { FC } from 'react'
 import { Control, Controller } from 'react-hook-form'
 import Select from 'react-select'
 
-import { randomColor } from '@/utils/generateRandomColor'
+import { randomColor } from 'utils/generateRandomColor'
 
 import { CreateRoomFormInputs } from '../CreateRoom/CreateRoom'
 
@@ -27,7 +28,8 @@ const CustomSelect: FC<CustomSelectProps> = ({
       backgroundColor: '#03a9f1 ',
       fontSize: 18,
     }),
-    multiValue: (provided, state) => ({
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    multiValue: (provided: any, _state: any) => ({
       ...provided,
       color: '#fff',
       fontSize: 18,
