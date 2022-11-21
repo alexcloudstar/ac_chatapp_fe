@@ -1,3 +1,6 @@
+import { useEffect } from 'react'
+
+import { useAppDispatch, useAppSelector } from 'store'
 import { useConversationsQuery } from 'store/services/conversations'
 import { ReduxQueryType } from 'types'
 
@@ -6,16 +9,28 @@ import { Preview } from './components'
 import { ConversationType } from './types'
 
 const ChatList = () => {
+  const dispatch = useAppDispatch()
+  const conversationsState = useAppSelector((state) => state.conversations)
+
   const { data: conversations } = useConversationsQuery<
     ReduxQueryType<ConversationType[]>
   >(null, {
     refetchOnMountOrArgChange: true,
   })
 
+  useEffect(() => {
+    if (conversations) {
+      dispatch({
+        type: 'conversations/setConversations',
+        payload: conversations,
+      })
+    }
+  }, [conversations, dispatch])
+
   return (
     <div className={`${styles.container} pr-2 w-full`}>
-      {conversations?.length ? (
-        conversations.map((conversation: ConversationType) => {
+      {conversationsState?.length ? (
+        conversationsState.map((conversation: ConversationType) => {
           const lastMessage =
             conversation.messages[conversation.messages.length - 1]
 
@@ -27,19 +42,22 @@ const ChatList = () => {
           })
 
           return (
-            <Preview
-              key={conversation.id}
-              user={{
-                avatar: 'https://i.pravatar.cc/150?img=1',
-                username: lastMessage?.sender?.username,
-              }}
-              message={
-                conversation.messages.length
-                  ? lastMessage?.message
-                  : 'No message yet'
-              }
-              time={lastMessageTime}
-            />
+            <>
+              <Preview
+                conversationName={conversation.name}
+                key={conversation.id}
+                user={{
+                  avatar: 'https://i.pravatar.cc/150?img=1',
+                  username: lastMessage?.sender?.username,
+                }}
+                message={
+                  conversation.messages.length
+                    ? lastMessage?.message
+                    : 'No message yet'
+                }
+                time={lastMessageTime}
+              />
+            </>
           )
         })
       ) : (

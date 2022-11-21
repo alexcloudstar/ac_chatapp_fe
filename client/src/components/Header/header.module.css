@@ -1,23 +1,4 @@
-.customInput {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-
-  /* margin-top: 25px; */
-}
-
-.customInput button {
-  background-color: #596787;
-}
-
 .btnCreateRoom {
   position: initial;
   margin-left: 15px;
-}
-
-@media (min-width: 768px) {
-  .customInput > div {
-    width: 50%;
-  }
 }

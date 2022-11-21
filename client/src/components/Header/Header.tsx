@@ -1,11 +1,12 @@
 import { useCallback, useState } from 'react'
-import { FaPlus, FaSearch } from 'react-icons/fa'
+import { FaPlus } from 'react-icons/fa'
 import { FiLogOut } from 'react-icons/fi'
 import { MdOutlineKeyboardBackspace } from 'react-icons/md'
 import { useLocation, useNavigate } from 'react-router-dom'
 
+import { SearchBar } from 'components/SearchBar'
 import { useCurrentUserQuery } from 'store/services/users'
-import { Button, Header, Modal, Search } from 'stories'
+import { Button, Header, Modal } from 'stories'
 import { Icon } from 'stories/components/Icon/Icon'
 import { ReduxQueryType, User } from 'types'
 import { removeLocalStorage } from 'utils/localStorage'
@@ -62,12 +63,7 @@ const ChatHeader = () => {
             )}
           </div>
 
-          <Search
-            query=""
-            placeholder="Search for rooms"
-            icon={<FaSearch />}
-            classes={styles.customInput}
-          />
+          <SearchBar />
           <div className="flex items-center">
             <Button
               icon={<FaPlus />}

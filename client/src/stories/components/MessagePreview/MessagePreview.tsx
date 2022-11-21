@@ -9,6 +9,7 @@ type MessagePreviewProps = {
   message: string
   time: string
   classes?: string
+  conversationName: string
 }
 
 export const MessagePreview: FC<MessagePreviewProps> = ({
@@ -16,12 +17,15 @@ export const MessagePreview: FC<MessagePreviewProps> = ({
   message,
   time,
   classes,
+  conversationName,
 }) => (
   <div className={`flex justify-between ${classes ? classes : ''}`}>
     <div className="flex mr-[50px]">
       <Avatar user={user} />
       <div className="w-full ml-2">
-        <span className="pb-[10px] text-[15px]">{user.username}</span>
+        <span className="pb-[10px] text-[15px]">
+          <strong>{conversationName}</strong> - {user.username}
+        </span>
         <p className="text-[13px]">{message}</p>
       </div>
     </div>
