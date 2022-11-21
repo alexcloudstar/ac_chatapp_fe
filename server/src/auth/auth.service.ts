@@ -20,7 +20,12 @@ export class AuthService {
   ): Promise<{ accessToken: string }> {
     const user = await this.prisma.user.findUnique({ where: { email } });
 
-    if (user) throw new BadRequestException('User already exists');
+    if (user)
+      throw new BadRequestException({
+        message: 'User already exists',
+        statusCode: 400,
+        error: 'user_already_exists',
+      });
 
     const hash = await argon2.hash(password);
 
