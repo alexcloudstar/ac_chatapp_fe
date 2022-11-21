@@ -51,8 +51,6 @@ export const Icon: FC<{
     }
   }
 
-  console.log(hoverColor)
-
   return (
     <div
       className={`flex justify-center items-center cursor-pointer ${transition} ${hoverDuration} hover:${hoverColor}`}
