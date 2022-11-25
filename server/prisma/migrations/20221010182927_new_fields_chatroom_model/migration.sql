@@ -1,5 +1,0 @@
--- AlterTable
-ALTER TABLE "chatrooms" ADD COLUMN     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-ADD COLUMN     "isPrivate" BOOLEAN NOT NULL DEFAULT false,
-ADD COLUMN     "name" TEXT NOT NULL DEFAULT 'Doe Room',
-ADD COLUMN     "profanityWords" TEXT[];
