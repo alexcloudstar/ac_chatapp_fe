@@ -1,16 +1,17 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import {
   ConversationType,
   CreateConversationType,
-} from 'components/ChatList/types'
-import { API_METHODS } from 'types'
+} from 'components/ChatList/types';
+import { API_URL } from 'config/env';
+import { API_METHODS } from 'types';
 
 export const conversationsAPI = createApi({
   reducerPath: 'conversationsAPI',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000' }),
+  baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   tagTypes: ['Conversations'],
-  endpoints: (builder) => ({
+  endpoints: builder => ({
     conversations: builder.query<ConversationType[], null>({
       query: () => ({
         url: '/chatrooms/joined',
@@ -38,7 +39,7 @@ export const conversationsAPI = createApi({
       invalidatesTags: ['Conversations'],
     }),
   }),
-})
+});
 
 export const { useConversationsQuery, useAddConversationMutation } =
-  conversationsAPI
+  conversationsAPI;
