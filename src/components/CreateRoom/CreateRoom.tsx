@@ -35,9 +35,8 @@ const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
 
   const { data: users } = useGetUsersQuery<ReduxQueryType<User[]>>()
 
-  const [addRoom] = useAddConversationMutation<
-    ReduxQueryType<CreateRoomFormInputs>
-  >()
+  const [addRoom] =
+    useAddConversationMutation<ReduxQueryType<CreateRoomFormInputs>>()
 
   const { refetch } = useGetConversationsQuery(null, {
     refetchOnMountOrArgChange: true,
@@ -61,8 +60,10 @@ const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
         isPrivate,
       })
       refetch()
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.log(error)
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
       setErrorMessage(error?.message)
     }
     toggleModal()
@@ -78,6 +79,7 @@ const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
     <>
       <form
         method="POST"
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col justify-center items-end"
       >

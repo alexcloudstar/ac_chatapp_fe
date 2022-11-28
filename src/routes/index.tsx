@@ -1,13 +1,14 @@
-import { Floating } from 'Layouts';
-import { Home, NotFound, Profile, Auth, Chat } from 'pages';
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { Floating } from 'Layouts'
+import { Home, NotFound, Profile, Auth, Chat } from 'pages'
 
-import ProtectedRoute from './ProtectedRoute';
+import ProtectedRoute from './ProtectedRoute'
 
 export type RoutesType = {
-  key: string;
-  path: string;
-  component: React.ReactNode;
-};
+  key: string
+  path: string
+  component: React.ReactNode
+}
 
 export const routes: RoutesType[] = [
   {
@@ -61,4 +62,4 @@ export const routes: RoutesType[] = [
       </ProtectedRoute>
     ),
   },
-];
+]
