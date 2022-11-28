@@ -25,6 +25,7 @@
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.3",
     "react-select": "^5.5.9",
+    "socket.io-client": "^4.5.4",
     "swiper": "^8.4.4"
   },
   "devDependencies": {

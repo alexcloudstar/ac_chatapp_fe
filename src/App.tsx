@@ -1,13 +1,13 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-import { routes } from './routes';
+import { routes } from './routes'
 
 const App = () => {
   return (
-    <main className='flex flex-col justify-center items-center w-full h-full bg-[#596787]/[70%]'>
+    <main className="flex flex-col justify-center items-center w-full h-full bg-[#596787]/[70%]">
       <BrowserRouter>
         <Routes>
-          {routes.map(route => (
+          {routes.map((route) => (
             <Route
               key={route.key}
               path={route.path}
@@ -17,7 +17,7 @@ const App = () => {
         </Routes>
       </BrowserRouter>
     </main>
-  );
-};
+  )
+}
 
-export default App;
+export default App

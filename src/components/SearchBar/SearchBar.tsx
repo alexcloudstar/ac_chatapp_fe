@@ -3,7 +3,7 @@ import { FaSearch } from 'react-icons/fa'
 import { useDispatch } from 'react-redux'
 
 import { ConversationType } from 'components/ChatList/types'
-import { useConversationsQuery } from 'store/services/conversations'
+import { useGetConversationsQuery } from 'store/services/conversations'
 import {
   filterConversations,
   setConversations,
@@ -17,7 +17,7 @@ const SearchBar = () => {
   const dispatch = useDispatch()
   const [query, setQuery] = useState<string>('')
 
-  const { data: conversations } = useConversationsQuery<
+  const { data: conversations } = useGetConversationsQuery<
     ReduxQueryType<ConversationType[]>
   >(null, {
     refetchOnMountOrArgChange: false,

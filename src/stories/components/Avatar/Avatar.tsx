@@ -48,7 +48,7 @@ export const Avatar: FC<AvatarProps> = ({
           fontSize: `${width / 3}px`,
         }}
       >
-        {user.username[0].toLocaleUpperCase()}
+        {user?.username[0].toLocaleUpperCase()}
       </span>
     )}
   </div>

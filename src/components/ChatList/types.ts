@@ -4,7 +4,7 @@ export type MessagesType = {
   id: number
   message: string
   senderId: number
-  sender: Pick<User, 'id' | 'username' | 'avatar'>
+  sender: Pick<User, 'id' | 'name' | 'username' | 'avatar'>
   createdAt: string
 }
 
@@ -19,9 +19,14 @@ export type ConversationType = {
   createdAt: Date
 }
 
-export type CreateConversationType = {
+export type CreateConversationType = Pick<
+  ConversationType,
+  'name' | 'profanityWords' | 'isPrivate'
+> & {
   userUsernames: string[]
-  name: string
-  profanityWords: string[]
-  isPrivate: boolean
 }
+
+export type UpdateConversationType = Pick<
+  ConversationType,
+  'id' | 'name' | 'profanityWords' | 'isPrivate'
+>

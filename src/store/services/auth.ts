@@ -1,14 +1,13 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { API_URL } from 'config/env';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import { API_METHODS, AuthFormInputs } from 'types';
+import { API_METHODS, AuthFormInputs, User } from 'types'
 
 export const authAPI = createApi({
   reducerPath: 'authAPI',
-  baseQuery: fetchBaseQuery({ baseUrl: `${API_URL}/auth/` }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000/auth/' }),
   tagTypes: ['Auth'],
 
-  endpoints: builder => ({
+  endpoints: (builder) => ({
     signin: builder.mutation<AuthFormInputs, AuthFormInputs>({
       query: (payload: AuthFormInputs) => ({
         url: 'signin/',
@@ -25,15 +24,18 @@ export const authAPI = createApi({
       }),
       invalidatesTags: ['Auth'],
     }),
-    signout: builder.mutation<null, null>({
-      query: () => ({
-        url: 'signup/',
+    signout: builder.mutation<User['id'], User['id']>({
+      query: (payload: User['id']) => ({
+        url: `signout/${payload}`,
         method: API_METHODS.POST,
       }),
       invalidatesTags: ['Auth'],
     }),
   }),
-});
+})
 
-export const { useSigninMutation, useSignupMutation, useSignoutMutation } =
-  authAPI;
+export const {
+  useSigninMutation,
+  useSignupMutation,
+  useSignoutMutation,
+} = authAPI

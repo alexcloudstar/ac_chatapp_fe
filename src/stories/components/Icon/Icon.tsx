@@ -26,6 +26,7 @@ export const Icon: FC<{
     | 'inherit'
     | undefined
   textClasses?: string
+  classes?: string
 }> = ({
   icon,
   text,
@@ -35,6 +36,7 @@ export const Icon: FC<{
   hoverDuration = 'duration-150',
   transition = 'ease-in',
   textClasses = '',
+  classes = '',
 }) => {
   const renderClass = () => {
     switch (textPosition) {
@@ -53,7 +55,7 @@ export const Icon: FC<{
 
   return (
     <div
-      className={`flex justify-center items-center cursor-pointer ${transition} ${hoverDuration} hover:${hoverColor}`}
+      className={`flex justify-center items-center cursor-pointer ${transition} ${hoverDuration} hover:${hoverColor} ${classes}`}
       onClick={onClick}
     >
       <span className={`flex items-center ${renderClass()}`}>

@@ -1,15 +1,14 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { API_URL } from 'config/env';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import { IProfileFormProps } from 'pages/Profile/Profile';
-import { User, API_METHODS } from 'types';
+import { IProfileFormProps } from 'pages/profile/Profile'
+import { User, API_METHODS } from 'types'
 
 export const usersAPI = createApi({
   reducerPath: 'usersAPI',
-  baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000' }),
   tagTypes: ['User'],
 
-  endpoints: builder => ({
+  endpoints: (builder) => ({
     currentUser: builder.query<User, void>({
       query: () => ({
         url: '/users/whoami',
@@ -35,7 +34,7 @@ export const usersAPI = createApi({
     updateUser: builder.mutation<User, { id: number; body: IProfileFormProps }>(
       {
         query: (payload: { id: number; body: IProfileFormProps }) => ({
-          url: `/users/${payload.id}`,
+          url: `/users/update-user/${payload.id}`,
           method: API_METHODS.PATCH,
           body: { ...payload.body },
           headers: {
@@ -49,7 +48,10 @@ export const usersAPI = createApi({
       }
     ),
   }),
-});
+})
 
-export const { useCurrentUserQuery, useGetUsersQuery, useUpdateUserMutation } =
-  usersAPI;
+export const {
+  useCurrentUserQuery,
+  useGetUsersQuery,
+  useUpdateUserMutation,
+} = usersAPI

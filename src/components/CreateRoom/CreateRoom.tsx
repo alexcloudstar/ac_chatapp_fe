@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import {
   useAddConversationMutation,
-  useConversationsQuery,
+  useGetConversationsQuery,
 } from 'store/services/conversations'
 import { useGetUsersQuery } from 'store/services/users'
 import { Toggle } from 'stories/components'
@@ -21,6 +21,7 @@ export type CreateRoomFormInputs = {
 
 const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
   const [isPrivate, setIsPrivate] = useState<boolean>(false)
+  const [errorMessage, setErrorMessage] = useState<string>('')
 
   const {
     register,
@@ -34,10 +35,11 @@ const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
 
   const { data: users } = useGetUsersQuery<ReduxQueryType<User[]>>()
 
-  const [addRoom] =
-    useAddConversationMutation<ReduxQueryType<CreateRoomFormInputs>>()
+  const [addRoom] = useAddConversationMutation<
+    ReduxQueryType<CreateRoomFormInputs>
+  >()
 
-  const { refetch } = useConversationsQuery(null, {
+  const { refetch } = useGetConversationsQuery(null, {
     refetchOnMountOrArgChange: true,
   })
 
@@ -48,6 +50,9 @@ const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
 
     profanityWords = profanityWords.map((word) => word.replace(/\s/g, ''))
 
+    if (!data.userUsernames || !data.userUsernames.length)
+      return setErrorMessage('Please select at least one user')
+
     try {
       await addRoom({
         userUsernames: data.userUsernames,
@@ -56,8 +61,9 @@ const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
         isPrivate,
       })
       refetch()
-    } catch (error) {
+    } catch (error: any) {
       console.log(error)
+      setErrorMessage(error?.message)
     }
     toggleModal()
   }
@@ -69,63 +75,66 @@ const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
     })) ?? []
 
   return (
-    <form
-      action="POST"
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col justify-center items-end"
-    >
-      <div className="w-full flex flex-col">
-        <div className="flex w-full">
-          <div className="w-full">
-            <input
-              type="text"
-              className="mt-2 outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-              placeholder="Room name"
-              {...register('name', { required: true })}
-            />
+    <>
+      <form
+        method="POST"
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col justify-center items-end"
+      >
+        <div className="w-full flex flex-col">
+          <div className="flex w-full">
+            <div className="w-full">
+              <input
+                type="text"
+                className="mt-2 outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                placeholder="Room name"
+                {...register('name', { required: true })}
+              />
 
-            {errors.name && (
-              <p className="mt-5 mb-5 text-red-500">This field is required</p>
-            )}
+              {errors.name && (
+                <p className="mt-5 mb-5 text-red-500">This field is required</p>
+              )}
+            </div>
+
+            <div className="w-full">
+              <input
+                type="text"
+                className="mt-2 outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                placeholder="Profanity Words"
+                {...register('profanityWords', { required: true })}
+              />
+
+              {errors.profanityWords && (
+                <p className="mt-5 mb-5 text-red-500">This field is required</p>
+              )}
+            </div>
           </div>
 
-          <div className="w-full">
-            <input
-              type="text"
-              className="mt-2 outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-              placeholder="Profanity Words"
-              {...register('profanityWords', { required: true })}
-            />
+          <div className="flex w-full mt-5">
+            <div className="w-full">
+              <CustomSelect options={usersOptions} control={control} />
+            </div>
 
-            {errors.profanityWords && (
-              <p className="mt-5 mb-5 text-red-500">This field is required</p>
-            )}
+            <div className="w-full flex justify-center items-center">
+              <p className="text-gray-900 dark:text-gray-100 mr-5 text-lg">
+                Private
+              </p>
+              <Toggle isOn={isPrivate} setIsOn={setIsPrivate} />
+            </div>
           </div>
         </div>
 
-        <div className="flex w-full mt-5">
-          <div className="w-full">
-            <CustomSelect options={usersOptions} control={control} />
-          </div>
-
-          <div className="w-full flex justify-center items-center">
-            <p className="text-gray-900 dark:text-gray-100 mr-5 text-lg">
-              Private
-            </p>
-            <Toggle isOn={isPrivate} setIsOn={setIsPrivate} />
-          </div>
+        <div className="mt-5">
+          <button
+            type="submit"
+            className="mt-5 mb-5 bg-white p-2 text-black rounded-xl	w-24"
+          >
+            Create
+          </button>
         </div>
-      </div>
-
-      <div className="mt-5">
-        <button
-          type="submit"
-          className="mt-5 mb-5 bg-white p-2 text-black rounded-xl	w-24"
-        >
-          Create
-        </button>
-      </div>
-    </form>
+      </form>
+      {errorMessage && <p className="mt-5 mb-5 text-red-500">{errorMessage}</p>}
+    </>
   )
 }
 

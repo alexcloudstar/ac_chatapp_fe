@@ -13,6 +13,7 @@ export type User = {
   avatar: string
   createdAt: string
   password?: string
+  isOnline?: boolean
 }
 
 export type UserComponentType = {
@@ -41,4 +42,14 @@ export type AuthFormInputs = {
 export type ApiResponseState = {
   type: 'success' | 'error'
   message: string
+}
+
+export type SendMessageType = {
+  roomId: number
+  message: string
+}
+
+export type RemoveMessageType = {
+  roomId: number
+  messageId: string
 }

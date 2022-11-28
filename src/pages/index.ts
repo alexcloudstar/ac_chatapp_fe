@@ -1,4 +1,5 @@
-export { Home } from './Home';
-export { NotFound } from './NotFound';
-export { Profile } from './Profile';
-export { Auth } from './Auth';
+export { Home } from './home'
+export { NotFound } from './notfound'
+export { Profile } from './profile'
+export { Auth } from './auth'
+export { Chat } from './chat'
