@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { FaTrashAlt } from 'react-icons/fa'
 import { useParams } from 'react-router-dom'

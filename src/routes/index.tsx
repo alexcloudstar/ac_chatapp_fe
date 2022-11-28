@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Floating } from 'Layouts'
 import { Home, NotFound, Profile, Auth, Chat } from 'pages'
 

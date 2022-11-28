@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import React, { ChangeEvent, useRef, useState } from 'react'
 import { BiSend } from 'react-icons/bi'
 import { useParams } from 'react-router-dom'

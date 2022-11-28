@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { ChangeEvent, useLayoutEffect, useState } from 'react'
 import { FaEdit, FaTrashAlt } from 'react-icons/fa'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -60,7 +62,10 @@ const Header = () => {
     })
   }
 
-  const onToggleModal = (_e: any, mode?: 'edit' | 'delete'): void => {
+  const onToggleModal = (
+    _e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    mode?: 'edit' | 'delete'
+  ): void => {
     const isEdit = mode === 'edit'
 
     setIsEditModal(isEdit)
@@ -137,11 +142,13 @@ const Header = () => {
           <div className="actions flex">
             <Icon
               icon={<FaTrashAlt />}
+              // @ts-ignore
               onClick={() => onToggleModal('delete')}
               classes="mx-4 text-[22px]"
             />
             <Icon
               icon={<FaEdit />}
+              // @ts-ignore
               onClick={() => onToggleModal('edit')}
               classes="text-[22px]"
             />

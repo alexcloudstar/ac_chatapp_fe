@@ -4,7 +4,10 @@ import { CgCloseO } from 'react-icons/cg'
 type ModalProps = {
   children: React.ReactNode
   title: string
-  onClose: (_e: any, mode?: 'edit' | 'delete') => void
+  onClose: (
+    _e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    mode?: 'edit' | 'delete'
+  ) => void
   hasFooter?: boolean
   footerContent?: React.ReactNode
   classes?: string

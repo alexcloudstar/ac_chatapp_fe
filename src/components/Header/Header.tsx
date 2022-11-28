@@ -91,6 +91,7 @@ const ChatHeader = () => {
 
             <Icon
               icon={<FiLogOut className="text-[24px] ml-8" />}
+              // eslint-disable-next-line @typescript-eslint/no-misused-promises
               onClick={logout}
             />
           </div>
