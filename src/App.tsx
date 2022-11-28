@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { routes } from './routes';
 
 const App = () => {
-
   return (
     <main className='flex flex-col justify-center items-center w-full h-full bg-[#596787]/[70%]'>
       <BrowserRouter>
