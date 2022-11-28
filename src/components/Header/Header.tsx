@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { FiLogOut } from 'react-icons/fi';
 import { MdOutlineKeyboardBackspace } from 'react-icons/md';
@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 
 import { SearchBar } from 'components/SearchBar';
-import { Header as ConversationHeader } from 'pages/chat/components';
+import { Header as ConversationHeader } from 'pages/Chat/components';
 import { useCurrentUserQuery } from 'store/services/users';
 import { Button, Header, Modal } from 'stories';
 import { Icon } from 'stories/components/Icon/Icon';
