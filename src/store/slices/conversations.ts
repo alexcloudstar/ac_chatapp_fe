@@ -1,30 +1,30 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 
-import { ConversationType } from 'components/ChatList/types';
+import { ConversationType } from 'components/ChatList/types'
 
-import type { PayloadAction } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit'
 
-const initialState: ConversationType[] = [];
+const initialState: ConversationType[] = []
 
 export const conversationSlice = createSlice({
   name: 'conversations',
   initialState,
   reducers: {
     setConversations: (_state, action: PayloadAction<ConversationType[]>) => {
-      return action.payload;
+      return action.payload
     },
-    getConversations: state => {
-      return state;
+    getConversations: (state) => {
+      return state
     },
     filterConversations: (state, action: PayloadAction<string>) => {
-      return state.filter(conversation =>
+      return state.filter((conversation) =>
         conversation.name.toLowerCase().includes(action.payload)
-      );
+      )
     },
   },
-});
+})
 
 export const { setConversations, getConversations, filterConversations } =
-  conversationSlice.actions;
+  conversationSlice.actions
 
-export default conversationSlice.reducer;
+export default conversationSlice.reducer
