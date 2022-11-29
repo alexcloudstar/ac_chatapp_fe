@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import { io } from 'socket.io-client'
 
 import { MessagesType } from 'components/ChatList/types'
+import { API_URL } from 'config/env'
 import {
   useDeleteMessageMutation,
   useGetRoomMessagesQuery,
@@ -16,7 +17,7 @@ import { ReduxQueryType, RemoveMessageType, User } from 'types'
 
 import { Message } from '../Message'
 
-const socket = io('http://localhost:4000')
+const socket = io(API_URL)
 
 const Messages = () => {
   const { roomId } = useParams()

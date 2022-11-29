@@ -5,11 +5,12 @@ import {
   CreateConversationType,
   UpdateConversationType,
 } from 'components/ChatList/types'
+import { API_URL } from 'config/env'
 import { API_METHODS } from 'types'
 
 export const conversationsAPI = createApi({
   reducerPath: 'conversationsAPI',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000' }),
+  baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   tagTypes: ['Conversations'],
   endpoints: (builder) => ({
     getConversations: builder.query<ConversationType[], null>({

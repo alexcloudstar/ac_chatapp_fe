@@ -6,12 +6,13 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { io } from 'socket.io-client'
 
+import { API_URL } from 'config/env'
 import { useSigninMutation, useSignupMutation } from 'store/services/auth'
 import { useCurrentUserQuery } from 'store/services/users'
 import { AuthFormInputs } from 'types'
 import { setLocalStorage } from 'utils/localStorage'
 
-const socket = io('http://localhost:4000')
+const socket = io(API_URL)
 
 const Auth = () => {
   const navigate = useNavigate()

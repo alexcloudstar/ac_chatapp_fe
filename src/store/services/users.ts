@@ -1,11 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+import { API_URL } from 'config/env'
 import { IProfileFormProps } from 'pages/Profile/Profile'
 import { User, API_METHODS } from 'types'
 
 export const usersAPI = createApi({
   reducerPath: 'usersAPI',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000' }),
+  baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   tagTypes: ['User'],
 
   endpoints: (builder) => ({

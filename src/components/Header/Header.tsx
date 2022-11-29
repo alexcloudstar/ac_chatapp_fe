@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { io } from 'socket.io-client'
 
 import { SearchBar } from 'components/SearchBar'
+import { API_URL } from 'config/env'
 import { Header as ConversationHeader } from 'pages/Chat/components'
 import { useCurrentUserQuery } from 'store/services/users'
 import { Button, Header, Modal } from 'stories'
@@ -18,7 +19,7 @@ import { CreateRoom } from '../CreateRoom'
 
 import styles from './header.module.css'
 
-const socket = io('http://localhost:4000')
+const socket = io(API_URL)
 
 const ChatHeader = () => {
   const [showModal, setShowModal] = useState<boolean>(false)
