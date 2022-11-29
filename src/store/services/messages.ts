@@ -1,11 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 import { ConversationType } from 'components/ChatList/types'
+import { API_URL } from 'config/env'
 import { API_METHODS, RemoveMessageType, SendMessageType } from 'types'
 
 export const messagesAPI = createApi({
   reducerPath: 'messagesAPI',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000' }),
+  baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   tagTypes: ['Messages'],
   endpoints: (builder) => ({
     getRoomMessages: builder.query<ConversationType[], { roomId: number }>({

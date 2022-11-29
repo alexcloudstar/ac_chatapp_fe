@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react'
 import { io } from 'socket.io-client'
 import { SwiperSlide } from 'swiper/react'
 
+import { API_URL } from 'config/env'
 import { useGetUsersQuery } from 'store/services/users'
 import { Peep } from 'stories'
 import { ReduxQueryType, User } from 'types'
 
 import { PeepsSlider } from './components'
 
-const socket = io('http://localhost:4000')
+const socket = io(API_URL)
 
 const Peeps = () => {
   const [peeps, setPeeps] = useState<User[]>([])
