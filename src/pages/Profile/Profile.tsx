@@ -45,9 +45,16 @@ const Profile = () => {
       })
     }
 
+    if (body.password) {
+      return await updateUser({
+        id: me.id,
+        body: body,
+      })
+    }
+
     await updateUser({
       id: me.id,
-      body,
+      body: data,
     })
 
     setApiResponse({

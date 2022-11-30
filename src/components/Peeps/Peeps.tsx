@@ -43,7 +43,7 @@ const Peeps = () => {
 
   return (
     <>
-      <h2 className="mt-[25px] mb-[15px]">Peeps</h2>
+      {peeps?.length ? <h2 className="mt-[25px] mb-[15px]">Peeps</h2> : null}
       <div className="w-full">
         <PeepsSlider>
           {peeps?.map((user: User) => (
