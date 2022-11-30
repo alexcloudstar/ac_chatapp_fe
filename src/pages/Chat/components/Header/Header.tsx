@@ -98,7 +98,6 @@ const Header = () => {
 
   return (
     <>
-      <h1>Hello Wooooooorld</h1>
       {isModalOpen && (
         <Modal
           title={modalContent.title}
@@ -136,20 +135,24 @@ const Header = () => {
           )}
         </Modal>
       )}
-      <div className="conversation-header flex items-center justify-center">
+      <div className="conversation-header flex items-center justify-evenly w-3/12">
         <h1 className="mr-2">{chatroomName}</h1>
         {conversation?.userOwnerId === user?.id && (
           <div className="actions flex">
             <Icon
               icon={<FaTrashAlt />}
               // @ts-ignore
-              onClick={() => onToggleModal('delete')}
+              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+                onToggleModal(e, 'delete')
+              }
               classes="mx-4 text-[22px]"
             />
             <Icon
               icon={<FaEdit />}
               // @ts-ignore
-              onClick={() => onToggleModal('edit')}
+              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+                onToggleModal(e, 'edit')
+              }
               classes="text-[22px]"
             />
           </div>

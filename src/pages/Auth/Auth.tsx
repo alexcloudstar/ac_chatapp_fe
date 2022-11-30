@@ -9,7 +9,7 @@ import { io } from 'socket.io-client'
 import { API_URL } from 'config/env'
 import { useSigninMutation, useSignupMutation } from 'store/services/auth'
 import { useCurrentUserQuery } from 'store/services/users'
-import { AuthFormInputs } from 'types'
+import { AuthFormInputs, ReduxQueryType, User } from 'types'
 import { setLocalStorage } from 'utils/localStorage'
 
 const socket = io(API_URL)
@@ -23,7 +23,8 @@ const Auth = () => {
 
   const [signin] = useSigninMutation()
   const [signup] = useSignupMutation()
-  const { refetch } = useCurrentUserQuery()
+
+  const { data: me, refetch } = useCurrentUserQuery<ReduxQueryType<User>>()
 
   const {
     register,
@@ -43,8 +44,10 @@ const Auth = () => {
       res = await signin(formData)
     }
 
-    // @ts-ignore
-    if (res?.error)
+    if (
+      // @ts-ignore
+      res?.error
+    )
       return setApiErrorMessage('Something went wrong, please try again later')
 
     // @ts-ignore
@@ -57,14 +60,14 @@ const Auth = () => {
       // @ts-ignore
       return setApiErrorMessage(res?.error?.data.message)
 
+    socket.emit('isOnline', {
+      userId: me?.id,
+      isOnline: true,
+    })
+
     // @ts-ignore
     setLocalStorage('accessToken', res.data.accessToken)
     refetch()
-
-    socket.emit('isOnline', {
-      userId: 11,
-      isOnline: true,
-    })
 
     navigate('/')
   }

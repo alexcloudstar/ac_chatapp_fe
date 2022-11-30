@@ -17,11 +17,12 @@ export type ConversationType = {
   userOwnerId: number
   users: Pick<User, 'id'>[]
   createdAt: Date
+  roomAvatar?: string
 }
 
 export type CreateConversationType = Pick<
   ConversationType,
-  'name' | 'profanityWords' | 'isPrivate'
+  'name' | 'profanityWords' | 'isPrivate' | 'roomAvatar'
 > & {
   userUsernames: string[]
 }
