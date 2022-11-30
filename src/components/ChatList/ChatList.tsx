@@ -56,7 +56,7 @@ const ChatList = () => {
               <Preview
                 conversationName={conversation.name}
                 user={{
-                  avatar: 'https://i.pravatar.cc/150?img=1',
+                  avatar: conversation.roomAvatar,
                   username: lastMessage?.sender?.username,
                 }}
                 message={
@@ -65,6 +65,8 @@ const ChatList = () => {
                     : 'No message yet'
                 }
                 time={lastMessageTime}
+                width={45}
+                height={45}
               />
             </div>
           )

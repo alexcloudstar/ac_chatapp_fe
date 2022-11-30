@@ -7,7 +7,7 @@ type SizeProps = {
   height: number
 }
 
-type AvatarProps = {
+export type AvatarProps = {
   user: UserComponentType
   bgColor?: string
   classes?: string
@@ -38,7 +38,7 @@ export const Avatar: FC<AvatarProps> = ({
         <img
           src={user?.avatar}
           alt={`${`${user.username}` || ''} avatar`}
-          className={`mr-[17px] rounded-full`}
+          className={`mr-[17px] rounded-full object-cover`}
           style={{
             width: `${width}px`,
             height: `${height}px`,

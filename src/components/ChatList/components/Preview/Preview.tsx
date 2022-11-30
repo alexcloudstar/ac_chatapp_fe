@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 import { MessagePreview } from 'stories'
+import { AvatarProps } from 'stories/components/Avatar/Avatar'
 import { UserComponentType } from 'types'
 
 type PreviewProps = {
@@ -8,6 +9,8 @@ type PreviewProps = {
   message: string
   time: string
   conversationName: string
+  width?: AvatarProps['width']
+  height?: AvatarProps['height']
 }
 
 const Preview: FC<PreviewProps> = ({
@@ -15,6 +18,8 @@ const Preview: FC<PreviewProps> = ({
   message,
   time,
   conversationName,
+  width,
+  height,
 }) => {
   return (
     <>
@@ -24,6 +29,8 @@ const Preview: FC<PreviewProps> = ({
         time={time}
         message={message}
         classes="text-[13px] mb-[25px]"
+        width={width}
+        height={height}
       />
     </>
   )

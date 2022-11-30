@@ -17,6 +17,7 @@ export type CreateRoomFormInputs = {
   isPrivate: boolean
   name: string
   profanityWords: string
+  roomAvatar?: string
 }
 
 const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
@@ -58,6 +59,7 @@ const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
         name: data.name,
         profanityWords,
         isPrivate,
+        roomAvatar: data?.roomAvatar ?? ``,
       })
       refetch()
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -101,7 +103,7 @@ const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
             <div className="w-full">
               <input
                 type="text"
-                className="mt-2 outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                className="mt-2 ml-2 outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                 placeholder="Profanity Words"
                 {...register('profanityWords', { required: true })}
               />
@@ -117,6 +119,17 @@ const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
               <CustomSelect options={usersOptions} control={control} />
             </div>
 
+            <div className="w-full">
+              <input
+                type="text"
+                className="ml-2 outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                placeholder="Room Avatar"
+                {...register('roomAvatar', { required: false })}
+              />
+            </div>
+          </div>
+
+          <div className="flex w-full mt-5">
             <div className="w-full flex justify-center items-center">
               <p className="text-gray-900 dark:text-gray-100 mr-5 text-lg">
                 Private
