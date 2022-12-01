@@ -129,7 +129,6 @@ const Messages = () => {
                 user?.id === message.senderId ? 'justify-start' : 'justify-end'
               } group`}
             >
-              {/* Todo: Add this just on hover */}
               {user?.id === message.senderId && (
                 <Icon
                   icon={
