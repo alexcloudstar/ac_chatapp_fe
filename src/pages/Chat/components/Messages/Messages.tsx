@@ -4,8 +4,9 @@ import { FaTrashAlt } from 'react-icons/fa'
 import { useParams } from 'react-router-dom'
 import { io } from 'socket.io-client'
 
-import { MessagesType } from 'components/ChatList/types'
+import { ConversationType, MessagesType } from 'components/ChatList/types'
 import { API_URL } from 'config/env'
+import { useGetConversationQuery } from 'store/services/conversations'
 import {
   useDeleteMessageMutation,
   useGetRoomMessagesQuery,
@@ -47,6 +48,10 @@ const Messages = () => {
       refetchOnMountOrArgChange: false,
     }
   )
+
+  const { data: conversation } = useGetConversationQuery<
+    ReduxQueryType<ConversationType>
+  >({ roomId: parsedRoomId })
 
   const [deleteMessage] =
     useDeleteMessageMutation<ReduxQueryType<RemoveMessageType>>()
@@ -105,27 +110,40 @@ const Messages = () => {
 
   return (
     <div className="messages overflow-y-auto pr-[30px]">
-      {messagesState?.map((message) => (
-        <Fragment key={message.id}>
-          <div
-            className={`flex mt-6 mb-6 ${
-              user?.id === message.senderId ? 'justify-start' : 'justify-end'
-            } group`}
-          >
-            {/* Todo: Add this just on hover */}
-            {user?.id === message.senderId && (
-              <Icon
-                icon={
-                  <FaTrashAlt className="text-[20px] mr-8 hidden group-hover:block cursor-pointer" />
-                }
-                onClick={() => onDeleteMessage(message.id.toString())}
-              />
-            )}
-            <Avatar user={message.sender} classes="mr-2" />
-            <Message message={message} />
-          </div>
-        </Fragment>
-      ))}
+      {messagesState?.map((message) => {
+        const isProfanityWord = conversation?.profanityWords.some(
+          (pWord) => pWord === message.message
+        )
+
+        const checkedMessage = isProfanityWord
+          ? {
+              ...message,
+              message: '****',
+            }
+          : message
+
+        return (
+          <Fragment key={message.id}>
+            <div
+              className={`flex mt-6 mb-6 ${
+                user?.id === message.senderId ? 'justify-start' : 'justify-end'
+              } group`}
+            >
+              {/* Todo: Add this just on hover */}
+              {user?.id === message.senderId && (
+                <Icon
+                  icon={
+                    <FaTrashAlt className="text-[20px] mr-8 hidden group-hover:block cursor-pointer" />
+                  }
+                  onClick={() => onDeleteMessage(message.id.toString())}
+                />
+              )}
+              <Avatar user={message.sender} classes="mr-2" />
+              <Message message={checkedMessage} />
+            </div>
+          </Fragment>
+        )
+      })}
       {user?.id !== isTyping?.user.id && isTyping.isTyping && (
         <div>{isTyping.user.username} is typing...</div>
       )}
