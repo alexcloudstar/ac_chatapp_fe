@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
+import EmojiPicker, { EmojiClickData } from 'emoji-picker-react'
 import React, { ChangeEvent, useRef, useState } from 'react'
 import { BiSend } from 'react-icons/bi'
+import { MdOutlineClose } from 'react-icons/md'
 import { useParams } from 'react-router-dom'
 import { io } from 'socket.io-client'
 
@@ -15,6 +17,7 @@ const Footer = () => {
   const [textMessage, setTextMessage] = useState<string>('')
   const { roomId } = useParams()
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
+  const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState<boolean>(false)
 
   const [sendMessage] =
     useSendMessageMutation<ReduxQueryType<SendMessageType>>()
@@ -54,16 +57,37 @@ const Footer = () => {
     }
   }
 
+  const onOpenEmojiPicker = () => setIsEmojiPickerOpen(!isEmojiPickerOpen)
+
+  const onEmojiClick = (event: EmojiClickData) =>
+    setTextMessage(`${textMessage} ${event.emoji}`)
+
   return (
     <div className="footer w-full flex items-center">
       <textarea
         placeholder="Enter your message"
-        className="mr-10 h-50 w-full h-20 p-2 rounded-lg resize-none outline-none text-blue-500"
+        className="h-50 w-full h-20 p-2 rounded-lg resize-none outline-none text-blue-500"
         value={textMessage}
         onChange={onChange}
         ref={textareaRef}
         onKeyDown={onKeyDown}
       />
+
+      <div className="mx-10" onClick={onOpenEmojiPicker}>
+        {!isEmojiPickerOpen ? (
+          <span className="text-4xl cursor-pointer">😀</span>
+        ) : (
+          <div className="absolute bottom-0 right-0">
+            <span
+              className="flex items-center justify-end text-2xl cursor-pointer"
+              onClick={onOpenEmojiPicker}
+            >
+              <MdOutlineClose />
+            </span>
+            <EmojiPicker onEmojiClick={onEmojiClick} />
+          </div>
+        )}
+      </div>
       <button
         className="mt-5 mb-5 bg-blue-500 ease-in-out duration-300 hover:bg-blue-700 p-2 text-white rounded-xl w-24 flex items-center justify-around cursor-pointer h-20"
         onClick={onSendMessage}
