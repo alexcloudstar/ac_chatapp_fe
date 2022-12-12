@@ -50,6 +50,10 @@ const ChatHeader = () => {
 
   const onNavigateProfile = () => navigate('/profile')
 
+  const headerPathQuery =
+    !location.pathname.includes('profile') &&
+    !location.pathname.includes('chat')
+
   return (
     <>
       {showModal && (
@@ -63,8 +67,7 @@ const ChatHeader = () => {
         </div>
         <div className="flex justify-between items-center cursor-pointer">
           <div className="hide-mobile" onClick={onNavigateProfile}>
-            {location.pathname !== '/profile' &&
-            !location.pathname.includes('chat') ? (
+            {location.pathname !== '/profile' && headerPathQuery ? (
               <Header user={user} />
             ) : (
               <Icon
@@ -78,11 +81,7 @@ const ChatHeader = () => {
             )}
           </div>
 
-          {!location.pathname.includes('chat') ? (
-            <SearchBar />
-          ) : (
-            <ConversationHeader />
-          )}
+          {headerPathQuery ? <SearchBar /> : <ConversationHeader />}
           <div className="flex items-center">
             <Button
               icon={<FaPlus />}

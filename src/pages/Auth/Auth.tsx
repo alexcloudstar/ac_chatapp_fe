@@ -46,7 +46,11 @@ const Auth = () => {
 
     if (
       // @ts-ignore
-      res?.error
+      res?.error &&
+      // @ts-ignore
+      res?.error?.data?.error !== 'invalid_credentials' &&
+      // @ts-ignore
+      res?.error?.data?.error !== 'user_already_exists'
     )
       return setApiErrorMessage('Something went wrong, please try again later')
 

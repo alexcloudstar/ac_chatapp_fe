@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Floating } from 'Layouts'
-import { Home, NotFound, Profile, Auth, Chat } from 'pages'
+import { Home, NotFound, Profile, Auth, Chat, PeepProfile } from 'pages'
 
 import ProtectedRoute from './ProtectedRoute'
 
@@ -48,6 +48,18 @@ export const routes: RoutesType[] = [
       <ProtectedRoute>
         <Floating>
           <Chat />
+        </Floating>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    key: 'peepProfile',
+    path: '/profile/:username',
+    component: (
+      // @ts-ignore
+      <ProtectedRoute>
+        <Floating>
+          <PeepProfile />
         </Floating>
       </ProtectedRoute>
     ),
