@@ -21,6 +21,17 @@ export const usersAPI = createApi({
       }),
       providesTags: ['User'],
     }),
+    getUser: builder.query<User['username'], User['username']>({
+      query: (payload) => ({
+        url: `/users/${payload}`,
+        method: API_METHODS.GET,
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          Authorization: `Bearer ${localStorage.getItem('accessToken') || ''}`,
+        },
+      }),
+      providesTags: ['User'],
+    }),
     getUsers: builder.query<User[], void>({
       query: () => ({
         url: '/users/',
@@ -51,5 +62,9 @@ export const usersAPI = createApi({
   }),
 })
 
-export const { useCurrentUserQuery, useGetUsersQuery, useUpdateUserMutation } =
-  usersAPI
+export const {
+  useCurrentUserQuery,
+  useGetUserQuery,
+  useGetUsersQuery,
+  useUpdateUserMutation,
+} = usersAPI
