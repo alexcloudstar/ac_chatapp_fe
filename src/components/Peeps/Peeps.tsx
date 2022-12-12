@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { io } from 'socket.io-client'
 import { SwiperSlide } from 'swiper/react'
 
@@ -14,6 +15,10 @@ const socket = io(API_URL)
 const Peeps = () => {
   const [peeps, setPeeps] = useState<User[]>([])
   const { data: users, refetch } = useGetUsersQuery<ReduxQueryType<User[]>>()
+  const navigate = useNavigate()
+
+  const onViewPeepProfile = (username: User['username']) =>
+    navigate(`/profile/${username}`)
 
   useEffect(() => {
     if (users) {
@@ -53,7 +58,7 @@ const Peeps = () => {
                   owner={user.username || 'Unknown'}
                   isFavorite={false}
                   bgImage={user.avatar}
-                  onClick={() => console.log('Room 1 clicked')}
+                  onClick={() => onViewPeepProfile(user.username)}
                 />
                 <div
                   className={`online-status ${
