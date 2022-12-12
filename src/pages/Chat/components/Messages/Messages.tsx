@@ -40,7 +40,7 @@ const Messages = () => {
 
   const parsedRoomId = roomId ? +roomId : -1
 
-  const { data: messages } = useGetRoomMessagesQuery<
+  const { data: messages, refetch } = useGetRoomMessagesQuery<
     ReduxQueryType<MessagesType[]>
   >(
     { roomId: parsedRoomId },
@@ -84,10 +84,12 @@ const Messages = () => {
       setMessagesState([...messagesState, data])
     })
 
+    refetch()
+
     return () => {
       socket.off('chat')
     }
-  }, [messagesState])
+  }, [messagesState, refetch])
 
   useLayoutEffect(() => {
     socket.on(
