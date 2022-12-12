@@ -38,10 +38,6 @@ const PeepProfile = () => {
           ></span>
         </p>
       </div>
-      <div>
-        <button className="bg-red-700 text-white">Send message</button>
-        {/* <button className="bg-red-700 text-white">Create room</button> */}
-      </div>
     </div>
   )
 }
