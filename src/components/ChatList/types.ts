@@ -15,7 +15,7 @@ export type ConversationType = {
   name: string
   profanityWords: string[]
   userOwnerId: number
-  users: Pick<User, 'id'>[]
+  users: Pick<User, 'id' | 'username' | 'email'>[]
   createdAt: Date
   roomAvatar?: string
 }
@@ -30,4 +30,6 @@ export type CreateConversationType = Pick<
 export type UpdateConversationType = Pick<
   ConversationType,
   'id' | 'name' | 'profanityWords' | 'isPrivate'
->
+> & {
+  users: string[]
+}

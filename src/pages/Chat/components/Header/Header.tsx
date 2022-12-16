@@ -1,19 +1,22 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { ChangeEvent, useLayoutEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { FaEdit, FaTrashAlt } from 'react-icons/fa'
 import { useNavigate, useParams } from 'react-router-dom'
 
+import { CustomSelect } from 'components'
 import {
   ConversationType,
   UpdateConversationType,
 } from 'components/ChatList/types'
+import { CreateRoomFormInputs } from 'components/CreateRoom/CreateRoom'
 import {
   useDeleteConversationMutation,
   useGetConversationQuery,
   useUpdateConversationMutation,
 } from 'store/services/conversations'
-import { useCurrentUserQuery } from 'store/services/users'
+import { useCurrentUserQuery, useGetUsersQuery } from 'store/services/users'
 import { Icon, Modal } from 'stories/components'
 import { ReduxQueryType, User } from 'types'
 
@@ -28,11 +31,40 @@ const Header = () => {
     useState<ConversationType['name']>('')
   const [chatroomName, setChatroomName] = useState<ConversationType['name']>('')
 
+  const { control } = useForm<CreateRoomFormInputs>({
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+  })
+
+  const parsedRoomId = roomId ? +roomId : -1
+
   const { data: user } = useCurrentUserQuery<ReduxQueryType<User>>()
 
-  const { data: conversation } = useGetConversationQuery<
+  const { data: conversation, refetch } = useGetConversationQuery<
     ReduxQueryType<ConversationType>
-  >({ roomId: roomId ? +roomId : -1 })
+  >({ roomId: parsedRoomId })
+
+  const { data: me } = useCurrentUserQuery<ReduxQueryType<User>>()
+
+  const { data: users } = useGetUsersQuery<ReduxQueryType<User[]>>()
+
+  const joinedUsers =
+    conversation?.users
+      ?.filter((user) => user.username !== me.username)
+      ?.map((user) => ({
+        value: user.username || user.email,
+        label: user.username || user.email,
+      })) ?? []
+
+  const allUsers =
+    users?.map((user) => ({
+      value: user.username || user.email,
+      label: user.username || user.email,
+    })) ?? []
+
+  const [selectedUsers, setSelectedUsers] = useState<string[]>(
+    joinedUsers.map((user) => user.value)
+  )
 
   const [updateRoom] =
     useUpdateConversationMutation<ReduxQueryType<UpdateConversationType>>()
@@ -49,7 +81,7 @@ const Header = () => {
   const onChange = (e: ChangeEvent<HTMLInputElement>): void =>
     setRoomNameValue(e.target.value)
 
-  const onChangeName = async (): Promise<void> => {
+  const onUpdateRoom = async (): Promise<void> => {
     setIsEditModal(false)
     setIsModalOpen(false)
     setChatroomName(roomNameValue)
@@ -59,7 +91,10 @@ const Header = () => {
       name: roomNameValue ?? conversation?.name,
       profanityWords: conversation?.profanityWords,
       isPrivate: conversation?.isPrivate,
+      users: selectedUsers,
     })
+
+    refetch()
   }
 
   const onToggleModal = (
@@ -84,7 +119,7 @@ const Header = () => {
     title: 'Edit room',
     content: 'Please enter you new room name',
     confirmText: 'Save',
-    onConfirm: onChangeName,
+    onConfirm: onUpdateRoom,
   }
 
   const modalContent: ModalContentType = isEditModal
@@ -125,13 +160,23 @@ const Header = () => {
         >
           <p className="text-center">{modalContent.content}</p>
           {isEditModal && (
-            <input
-              type="text"
-              className="w-full border border-gray-300 rounded-md p-2 mt-4 text-red-700"
-              placeholder="Room name"
-              value={roomNameValue}
-              onChange={onChange}
-            />
+            <>
+              <input
+                type="text"
+                className="w-full border border-gray-300 rounded-md p-2 mt-4 text-red-700"
+                placeholder="Room name"
+                value={roomNameValue}
+                onChange={onChange}
+              />
+              <div className="w-full">
+                <CustomSelect
+                  defaultValue={joinedUsers}
+                  options={allUsers}
+                  control={control}
+                  setSelectedUsers={setSelectedUsers}
+                />
+              </div>
+            </>
           )}
         </Modal>
       )}
