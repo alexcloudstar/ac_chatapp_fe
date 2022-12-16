@@ -24,7 +24,7 @@ export const conversationsAPI = createApi({
       }),
       providesTags: ['Conversations'],
     }),
-    getConversation: builder.query<ConversationType, { roomId: string }>({
+    getConversation: builder.query<ConversationType, { roomId: number }>({
       query: ({ roomId }) => ({
         url: `/chatrooms/${roomId}`,
         method: API_METHODS.GET,

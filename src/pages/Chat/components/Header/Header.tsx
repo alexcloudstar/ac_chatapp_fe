@@ -36,11 +36,13 @@ const Header = () => {
     reValidateMode: 'onChange',
   })
 
+  const parsedRoomId = roomId ? +roomId : -1
+
   const { data: user } = useCurrentUserQuery<ReduxQueryType<User>>()
 
   const { data: conversation, refetch } = useGetConversationQuery<
     ReduxQueryType<ConversationType>
-  >({ roomId: roomId ?? '-1' })
+  >({ roomId: parsedRoomId })
 
   const { data: me } = useCurrentUserQuery<ReduxQueryType<User>>()
 

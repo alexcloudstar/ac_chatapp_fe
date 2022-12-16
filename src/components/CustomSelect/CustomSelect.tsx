@@ -5,10 +5,6 @@ import { FC } from 'react'
 import { Control, Controller } from 'react-hook-form'
 import Select from 'react-select'
 
-import { UpdateConversationType } from 'components/ChatList/types'
-import { User } from 'types'
-import { randomColor } from 'utils/generateRandomColor'
-
 import { CreateRoomFormInputs } from '../CreateRoom/CreateRoom'
 
 type OptionsType = {
