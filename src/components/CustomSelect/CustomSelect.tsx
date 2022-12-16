@@ -5,20 +5,27 @@ import { FC } from 'react'
 import { Control, Controller } from 'react-hook-form'
 import Select from 'react-select'
 
-import { randomColor } from 'utils/generateRandomColor'
-
 import { CreateRoomFormInputs } from '../CreateRoom/CreateRoom'
 
+type OptionsType = {
+  value: string
+  label: string
+}
+
 type CustomSelectProps = {
-  options: { value: string; label: string }[]
+  options: OptionsType[]
   selectStyle?: unknown
   control: Control<CreateRoomFormInputs, any>
+  defaultValue?: OptionsType[]
+  setSelectedUsers?: React.Dispatch<React.SetStateAction<string[]>>
 }
 
 const CustomSelect: FC<CustomSelectProps> = ({
   options,
   selectStyle,
   control,
+  defaultValue,
+  setSelectedUsers,
 }) => {
   const defaultSelectStyle = {
     option: (provided: any, state: any) => ({
@@ -33,29 +40,32 @@ const CustomSelect: FC<CustomSelectProps> = ({
       ...provided,
       color: '#fff',
       fontSize: 18,
-      background: randomColor(),
     }),
   }
 
   const style = selectStyle ? selectStyle : defaultSelectStyle
+
+  const defaultOptions: OptionsType[] = defaultValue ?? []
 
   return (
     <>
       <Controller
         name="userUsernames"
         control={control}
-        render={({ field: { value, onChange, onBlur } }) => {
+        render={({ field: { onChange, onBlur } }) => {
           return (
             <Select
               styles={style}
               options={options}
               isMulti={true}
-              onChange={(options) =>
-                onChange(options?.map((option) => option.value))
-              }
+              onChange={(options) => {
+                const userValues = options?.map((option) => option.value)
+                onChange(userValues)
+
+                setSelectedUsers && setSelectedUsers(userValues)
+              }}
               onBlur={onBlur}
-              value={options.filter((option) => value?.includes(option.value))}
-              defaultValue={[options[2], options[3]]}
+              defaultValue={defaultOptions}
             />
           )
         }}
