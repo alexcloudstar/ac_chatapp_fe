@@ -14,6 +14,7 @@ export type User = {
   createdAt: string
   password?: string
   isOnline?: boolean
+  isAdmin?: boolean
 }
 
 export type UserComponentType = {

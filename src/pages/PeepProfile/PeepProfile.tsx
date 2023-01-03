@@ -1,8 +1,10 @@
 import { useParams } from 'react-router-dom'
 
-import { useGetUserQuery } from 'store/services/users'
+import { useCurrentUserQuery, useGetUserQuery } from 'store/services/users'
 import { Avatar } from 'stories'
 import { ReduxQueryType, User } from 'types'
+
+import { Admin } from './components'
 
 const PeepProfile = () => {
   const { username } = useParams<{ username: string }>()
@@ -10,6 +12,8 @@ const PeepProfile = () => {
   const { data: user, isLoading } = useGetUserQuery<ReduxQueryType<User>>(
     username ?? ''
   )
+
+  const { data: currentUser } = useCurrentUserQuery<ReduxQueryType<User>>()
 
   if (isLoading) return <div>Loading...</div>
 
@@ -37,6 +41,7 @@ const PeepProfile = () => {
             } w-3.5 h-3.5 rounded-[50px] inline-block`}
           ></span>
         </p>
+        {currentUser?.isAdmin && <Admin />}
       </div>
     </div>
   )

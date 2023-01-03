@@ -70,6 +70,13 @@ const Profile = () => {
       <Avatar user={me} width={120} height={120} classes="mb-5" />
 
       <h1 className="text-2xl mb-10">Configure your profile</h1>
+
+      {me?.isAdmin ? (
+        <h2 className="text-sm mb-10 bg-lime-700 p-3 rounded-full">Admin</h2>
+      ) : (
+        <h2 className="text-sm mb-10 p-3 rounded-full">User</h2>
+      )}
+
       <form
         action="POST"
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
