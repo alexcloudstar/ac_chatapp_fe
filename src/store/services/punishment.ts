@@ -1,9 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import {
-  ConversationType,
-  UpdateConversationType,
-} from 'components/ChatList/types'
+import { ConversationType } from 'components/ChatList/types'
 import { API_URL } from 'config/env'
 import { API_METHODS, PunishmentType } from 'types'
 
