@@ -12,28 +12,6 @@ export const punishmentAPI = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   tagTypes: ['Punishments'],
   endpoints: (builder) => ({
-    // getConversations: builder.query<ConversationType[], null>({
-    //   query: () => ({
-    //     url: '/chatrooms/joined',
-    //     method: API_METHODS.GET,
-    //     headers: {
-    //       'Content-type': 'application/json; charset=UTF-8',
-    //       Authorization: `Bearer ${localStorage.getItem('accessToken') || ''}`,
-    //     },
-    //   }),
-    //   providesTags: ['Conversations'],
-    // }),
-    // getConversation: builder.query<ConversationType, { roomId: number }>({
-    //   query: ({ roomId }) => ({
-    //     url: `/chatrooms/${roomId}`,
-    //     method: API_METHODS.GET,
-    //     headers: {
-    //       'Content-type': 'application/json; charset=UTF-8',
-    //       Authorization: `Bearer ${localStorage.getItem('accessToken') || ''}`,
-    //     },
-    //   }),
-    //   providesTags: ['Conversations'],
-    // }),
     addPunishment: builder.mutation<PunishmentType, PunishmentType>({
       query: (payload: PunishmentType) => ({
         url: '/admin/punish/',
@@ -46,22 +24,7 @@ export const punishmentAPI = createApi({
       }),
       invalidatesTags: ['Punishments'],
     }),
-    // TODO: Still need to implement this
-    updateConversation: builder.mutation<
-      UpdateConversationType,
-      UpdateConversationType
-    >({
-      query: (payload: UpdateConversationType) => ({
-        url: `/chatrooms/${payload.id}`,
-        method: API_METHODS.PATCH,
-        body: { ...payload },
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-          Authorization: `Bearer ${localStorage.getItem('accessToken') || ''}`,
-        },
-      }),
-      invalidatesTags: ['Punishments'],
-    }),
+
     deletePunishment: builder.mutation<
       ConversationType['id'],
       ConversationType['id']
@@ -79,8 +42,5 @@ export const punishmentAPI = createApi({
   }),
 })
 
-export const {
-  useAddPunishmentMutation,
-  useUpdateConversationMutation,
-  useDeletePunishmentMutation,
-} = punishmentAPI
+export const { useAddPunishmentMutation, useDeletePunishmentMutation } =
+  punishmentAPI
