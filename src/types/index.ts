@@ -1,3 +1,5 @@
+import { ConversationType } from 'components/ChatList/types'
+
 export enum API_METHODS {
   GET = 'GET',
   POST = 'POST',
@@ -53,4 +55,20 @@ export type SendMessageType = {
 export type RemoveMessageType = {
   roomId: number
   messageId: string
+}
+
+export enum PunishmentEnum {
+  MUTE = 'MUTE',
+  BAN = 'BAN',
+  KICK = 'KICK',
+  WARN = 'WARN',
+}
+
+export type PunishmentType = {
+  chatroomId: ConversationType['id']
+  currentUser: User
+  userId: User['id']
+  reason: string
+  type: PunishmentEnum
+  duration: number
 }
