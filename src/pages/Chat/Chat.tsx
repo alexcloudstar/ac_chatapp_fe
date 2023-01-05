@@ -17,10 +17,12 @@ const Chat = () => {
 
   const onClose = () => navigate(-1)
 
+  console.log(currentUser)
+
   return (
     <>
       {currentUser?.punishments?.length &&
-      currentUser.punishments.every(
+      currentUser.punishments.some(
         (punish) => punish.chatroomId === parseInt(roomId ?? '-1')
       ) ? (
         <Modal
@@ -39,15 +41,11 @@ const Chat = () => {
           }
         >
           <div className="flex flex-col items-center justify-center h-full">
-            {currentUser?.punishments.map((punish) => {
-              return (
-                <p key={punish.id}>
-                  Unforutantely, you have{' '}
-                  <strong className="text-red-500">{punish.type}</strong>{' '}
-                  {punish.duration} minutes from this chat
-                </p>
-              )
-            })}
+            <p>
+              Unfortunately you have{' '}
+              <strong className="text-red-500">punishment</strong>, visit your
+              profile for more informations
+            </p>
           </div>
         </Modal>
       ) : null}

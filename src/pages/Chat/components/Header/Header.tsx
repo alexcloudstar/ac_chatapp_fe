@@ -50,7 +50,7 @@ const Header = () => {
 
   const joinedUsers =
     conversation?.users
-      ?.filter((user) => user.username !== me.username)
+      ?.filter((user) => user?.username !== me?.username)
       ?.map((user) => ({
         value: user.username || user.email,
         label: user.username || user.email,

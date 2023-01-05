@@ -80,3 +80,5 @@ export type PunishmentType = {
 export type UnpunishType = {
   punishmentId?: PunishmentType['id']
 }
+
+export type CheckPunishmentType = { userId: PunishmentType['userId'] }
