@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { FC, useCallback, useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import {
@@ -7,12 +7,7 @@ import {
   useDeletePunishmentMutation,
 } from 'store/services/punishment'
 import { useCurrentUserQuery, useGetUserQuery } from 'store/services/users'
-import {
-  CheckPunishmentType,
-  PunishmentType,
-  ReduxQueryType,
-  User,
-} from 'types'
+import { PunishmentType, ReduxQueryType, User } from 'types'
 
 const Punishments: FC<{ punishments: User['punishments'] }> = ({
   punishments,
