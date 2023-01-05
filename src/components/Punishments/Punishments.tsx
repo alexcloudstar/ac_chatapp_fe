@@ -1,14 +1,18 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { FC } from 'react'
+import { useParams } from 'react-router-dom'
 
 import { useDeletePunishmentMutation } from 'store/services/punishment'
-import { useGetUsersQuery } from 'store/services/users'
+import { useGetUserQuery } from 'store/services/users'
 import { PunishmentType, User } from 'types'
 
 const Punishments: FC<{ punishments: User['punishments'] }> = ({
   punishments,
 }) => {
-  const { refetch } = useGetUsersQuery()
+  const { username } = useParams<{ username: string }>()
+
+  const { refetch } = useGetUserQuery(username ?? '')
+
   const [deletePunishment] = useDeletePunishmentMutation()
 
   const onDeletePunishment = async (punishmentId: PunishmentType['id']) => {

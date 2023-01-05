@@ -6,7 +6,11 @@ import { useParams } from 'react-router-dom'
 import { CustomSelect } from 'components'
 import { useGetConversationsQuery } from 'store/services/conversations'
 import { useAddPunishmentMutation } from 'store/services/punishment'
-import { useCurrentUserQuery, useGetUsersQuery } from 'store/services/users'
+import {
+  useCurrentUserQuery,
+  useGetUserQuery,
+  useGetUsersQuery,
+} from 'store/services/users'
 import { Modal } from 'stories'
 import { PunishmentEnum } from 'types'
 
@@ -22,6 +26,7 @@ const Confirmation: FC<ConfirmationPropsType> = ({ onClose, punishment }) => {
   const [reason, setReason] = useState<string>('')
 
   const { data: me } = useCurrentUserQuery()
+  const { refetch } = useGetUserQuery(username ?? '')
   const { data: users } = useGetUsersQuery()
   const { data: conversations } = useGetConversationsQuery(null)
 
@@ -82,6 +87,7 @@ const Confirmation: FC<ConfirmationPropsType> = ({ onClose, punishment }) => {
         createdAt: new Date().toISOString(),
       })
 
+      refetch()
       onClose()
     }
   }
