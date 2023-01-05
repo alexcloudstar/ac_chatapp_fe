@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { Punishments } from 'components'
 import {
   useCurrentUserQuery,
   useUpdateUserMutation,
@@ -28,7 +29,6 @@ const Profile = () => {
   const {
     register,
     handleSubmit,
-
     formState: { errors },
   } = useForm<IProfileFormProps>()
 
@@ -70,6 +70,15 @@ const Profile = () => {
       <Avatar user={me} width={120} height={120} classes="mb-5" />
 
       <h1 className="text-2xl mb-10">Configure your profile</h1>
+
+      {me?.isAdmin ? (
+        <h2 className="text-sm mb-10 bg-lime-700 p-3 rounded-full">Admin</h2>
+      ) : (
+        <h2 className="text-sm mb-10 bg-gray-700 p-3 rounded-full">User</h2>
+      )}
+
+      {me && me.punishments && <Punishments punishments={me?.punishments} />}
+
       <form
         action="POST"
         // eslint-disable-next-line @typescript-eslint/no-misused-promises

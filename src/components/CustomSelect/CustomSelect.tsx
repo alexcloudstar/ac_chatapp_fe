@@ -18,6 +18,8 @@ type CustomSelectProps = {
   control: Control<CreateRoomFormInputs, any>
   defaultValue?: OptionsType[]
   setSelectedUsers?: React.Dispatch<React.SetStateAction<string[]>>
+  selectClassName?: string
+  placeholder?: string
 }
 
 const CustomSelect: FC<CustomSelectProps> = ({
@@ -26,6 +28,8 @@ const CustomSelect: FC<CustomSelectProps> = ({
   control,
   defaultValue,
   setSelectedUsers,
+  selectClassName,
+  placeholder,
 }) => {
   const defaultSelectStyle = {
     option: (provided: any, state: any) => ({
@@ -55,9 +59,10 @@ const CustomSelect: FC<CustomSelectProps> = ({
         render={({ field: { onChange, onBlur } }) => {
           return (
             <Select
+              className={selectClassName}
               styles={style}
               options={options}
-              isMulti={true}
+              isMulti
               onChange={(options) => {
                 const userValues = options?.map((option) => option.value)
                 onChange(userValues)
@@ -66,6 +71,7 @@ const CustomSelect: FC<CustomSelectProps> = ({
               }}
               onBlur={onBlur}
               defaultValue={defaultOptions}
+              placeholder={placeholder}
             />
           )
         }}

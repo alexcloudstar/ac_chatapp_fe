@@ -73,7 +73,7 @@ const Header = () => {
     useDeleteConversationMutation<ReduxQueryType<ConversationType['id']>>()
 
   const onDeleteRoom = async (): Promise<void> => {
-    await deleteRoom(roomId ?? '')
+    await deleteRoom(parsedRoomId)
     setIsModalOpen(false)
     navigate('/')
   }
@@ -87,7 +87,7 @@ const Header = () => {
     setChatroomName(roomNameValue)
 
     await updateRoom({
-      id: roomId ?? '',
+      id: parsedRoomId,
       name: roomNameValue ?? conversation?.name,
       profanityWords: conversation?.profanityWords,
       isPrivate: conversation?.isPrivate,
