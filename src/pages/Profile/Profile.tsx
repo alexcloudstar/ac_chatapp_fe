@@ -74,7 +74,7 @@ const Profile = () => {
       {me?.isAdmin ? (
         <h2 className="text-sm mb-10 bg-lime-700 p-3 rounded-full">Admin</h2>
       ) : (
-        <h2 className="text-sm mb-10 p-3 rounded-full">User</h2>
+        <h2 className="text-sm mb-10 bg-gray-700 p-3 rounded-full">User</h2>
       )}
 
       {me && me.punishments && <Punishments punishments={me?.punishments} />}

@@ -3,8 +3,8 @@ import { FC } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { useDeletePunishmentMutation } from 'store/services/punishment'
-import { useGetUserQuery } from 'store/services/users'
-import { PunishmentType, User } from 'types'
+import { useCurrentUserQuery, useGetUserQuery } from 'store/services/users'
+import { PunishmentType, ReduxQueryType, User } from 'types'
 
 const Punishments: FC<{ punishments: User['punishments'] }> = ({
   punishments,
@@ -13,12 +13,16 @@ const Punishments: FC<{ punishments: User['punishments'] }> = ({
 
   const { refetch } = useGetUserQuery(username ?? '')
 
+  const { data: user } = useCurrentUserQuery<ReduxQueryType<User>>()
+
   const [deletePunishment] = useDeletePunishmentMutation()
 
   const onDeletePunishment = async (punishmentId: PunishmentType['id']) => {
     await deletePunishment({ punishmentId })
     refetch()
   }
+
+  console.log(user)
 
   return (
     <div className="flex flex-col">
@@ -37,12 +41,14 @@ const Punishments: FC<{ punishments: User['punishments'] }> = ({
             <h3 className="text-sm mb-10 bg-red-700 p-3 rounded-full mr-4">
               given by: {punishment.givenBy}
             </h3>
-            <button
-              className="text-sm mb-10 bg-green-700 p-3 rounded-md"
-              onClick={() => onDeletePunishment(punishment.id)}
-            >
-              Remove
-            </button>
+            {user?.isAdmin && (
+              <button
+                className="text-sm mb-10 bg-green-700 p-3 rounded-md"
+                onClick={() => onDeletePunishment(punishment.id)}
+              >
+                Remove
+              </button>
+            )}
           </div>
         )
       })}

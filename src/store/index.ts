@@ -5,6 +5,7 @@ import { useDispatch, TypedUseSelectorHook, useSelector } from 'react-redux'
 import { authAPI } from './services/auth'
 import { conversationsAPI } from './services/conversations'
 import { messagesAPI } from './services/messages'
+import { punishmentAPI } from './services/punishment'
 import { usersAPI } from './services/users'
 import { conversationSlice } from './slices/conversations'
 
@@ -17,6 +18,7 @@ export const store = configureStore({
     [conversationsAPI.reducerPath]: conversationsAPI.reducer,
     [conversationSlice.name]: conversationSlice.reducer,
     [messagesAPI.reducerPath]: messagesAPI.reducer,
+    [punishmentAPI.reducerPath]: punishmentAPI.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(middlewaresArr),
