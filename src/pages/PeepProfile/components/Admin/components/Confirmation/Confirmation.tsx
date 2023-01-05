@@ -73,7 +73,7 @@ const Confirmation: FC<ConfirmationPropsType> = ({ onClose, punishment }) => {
   const onSubmit = async () => {
     if (punishment && me) {
       await addPunishment({
-        chatroomId: selectedRoom[0].toString(),
+        chatroomId: parseInt(selectedRoom[0]),
         currentUser: me,
         userId: users?.find((user) => user.username === username)?.id ?? -1,
         reason: reason,
@@ -124,7 +124,7 @@ const Confirmation: FC<ConfirmationPropsType> = ({ onClose, punishment }) => {
         options={
           conversations?.map((conversation) => ({
             label: conversation.name,
-            value: conversation.id,
+            value: conversation.id.toString(),
           })) ?? []
         }
         control={control}
