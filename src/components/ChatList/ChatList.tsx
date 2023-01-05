@@ -51,7 +51,7 @@ const ChatList = () => {
             <div
               className="cursor-pointer"
               key={conversation.id}
-              onClick={() => onConversationClick(conversation.id)}
+              onClick={() => onConversationClick(conversation.id.toString())}
             >
               <Preview
                 conversationName={conversation.name}
