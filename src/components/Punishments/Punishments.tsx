@@ -22,8 +22,6 @@ const Punishments: FC<{ punishments: User['punishments'] }> = ({
     refetch()
   }
 
-  console.log(user)
-
   return (
     <div className="flex flex-col">
       {punishments?.map((punishment) => {
