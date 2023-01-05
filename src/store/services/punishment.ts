@@ -1,8 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import { ConversationType } from 'components/ChatList/types'
 import { API_URL } from 'config/env'
-import { API_METHODS, PunishmentType } from 'types'
+import { API_METHODS, PunishmentType, UnpunishType } from 'types'
 
 export const punishmentAPI = createApi({
   reducerPath: 'punishmentAPI',
@@ -21,13 +20,9 @@ export const punishmentAPI = createApi({
       }),
       invalidatesTags: ['Punishments'],
     }),
-
-    deletePunishment: builder.mutation<
-      ConversationType['id'],
-      ConversationType['id']
-    >({
-      query: (payload: ConversationType['id']) => ({
-        url: `/chatrooms/${payload}`,
+    deletePunishment: builder.mutation<UnpunishType, UnpunishType>({
+      query: (payload: UnpunishType) => ({
+        url: `/admin/${payload.punishmentId ?? -1}`,
         method: API_METHODS.DELETE,
         headers: {
           'Content-type': 'application/json; charset=UTF-8',

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { Punishments } from 'components'
 import {
   useCurrentUserQuery,
   useUpdateUserMutation,
@@ -28,7 +29,6 @@ const Profile = () => {
   const {
     register,
     handleSubmit,
-
     formState: { errors },
   } = useForm<IProfileFormProps>()
 
@@ -76,6 +76,8 @@ const Profile = () => {
       ) : (
         <h2 className="text-sm mb-10 p-3 rounded-full">User</h2>
       )}
+
+      {me && me.punishments && <Punishments punishments={me?.punishments} />}
 
       <form
         action="POST"

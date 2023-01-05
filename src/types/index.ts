@@ -17,6 +17,7 @@ export type User = {
   password?: string
   isOnline?: boolean
   isAdmin?: boolean
+  punishments: PunishmentType[]
 }
 
 export type UserComponentType = {
@@ -71,4 +72,11 @@ export type PunishmentType = {
   reason: string
   type: PunishmentEnum
   duration: number
+  createdAt: string
+  id?: number
+  givenBy?: User['username']
+}
+
+export type UnpunishType = {
+  punishmentId?: PunishmentType['id']
 }

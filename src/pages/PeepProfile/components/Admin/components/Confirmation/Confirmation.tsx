@@ -79,6 +79,7 @@ const Confirmation: FC<ConfirmationPropsType> = ({ onClose, punishment }) => {
         reason: reason,
         type: punishment,
         duration: parseInt(punishmentTime[0]),
+        createdAt: new Date().toISOString(),
       })
 
       onClose()
