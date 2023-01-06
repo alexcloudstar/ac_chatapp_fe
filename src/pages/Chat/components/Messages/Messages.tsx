@@ -104,7 +104,11 @@ const Messages = () => {
         })
       }
     )
-  })
+
+    return () => {
+      socket.off('typing')
+    }
+  }, [])
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
