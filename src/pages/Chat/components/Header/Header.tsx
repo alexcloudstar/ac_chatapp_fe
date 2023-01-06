@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { FaEdit, FaTrashAlt } from 'react-icons/fa'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { CustomSelect } from 'components'
+import { MultiSelect } from 'components'
 import {
   ConversationType,
   UpdateConversationType,
@@ -50,7 +50,7 @@ const Header = () => {
 
   const joinedUsers =
     conversation?.users
-      ?.filter((user) => user.username !== me.username)
+      ?.filter((user) => user?.username !== me?.username)
       ?.map((user) => ({
         value: user.username || user.email,
         label: user.username || user.email,
@@ -169,11 +169,11 @@ const Header = () => {
                 onChange={onChange}
               />
               <div className="w-full">
-                <CustomSelect
+                <MultiSelect
                   defaultValue={joinedUsers}
                   options={allUsers}
                   control={control}
-                  setSelectedUsers={setSelectedUsers}
+                  setState={setSelectedUsers}
                 />
               </div>
             </>
