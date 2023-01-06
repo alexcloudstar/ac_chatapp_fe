@@ -9,7 +9,7 @@ import { useGetUsersQuery } from 'store/services/users'
 import { Toggle } from 'stories/components'
 import { ReduxQueryType, User } from 'types'
 
-import { CustomSelect } from '..'
+import { MultiSelect } from '..'
 
 export type CreateRoomFormInputs = {
   userOwnerId: number
@@ -116,7 +116,7 @@ const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
 
           <div className="flex w-full mt-5">
             <div className="w-full">
-              <CustomSelect options={usersOptions} control={control} />
+              <MultiSelect options={usersOptions} control={control} />
             </div>
 
             <div className="w-full">

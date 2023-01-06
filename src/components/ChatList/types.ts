@@ -9,7 +9,7 @@ export type MessagesType = {
 }
 
 export type ConversationType = {
-  id: string
+  id: number
   isPrivate: boolean
   messages: MessagesType[]
   name: string

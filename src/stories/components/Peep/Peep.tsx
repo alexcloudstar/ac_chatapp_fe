@@ -7,6 +7,7 @@ export type PeepProps = {
   bgColor?: string
   bgImage?: string
   onClick: () => void
+  isFavButton?: boolean
 }
 
 export const Peep: FC<PeepProps> = ({
@@ -15,6 +16,7 @@ export const Peep: FC<PeepProps> = ({
   bgColor = 'linear-gradient(175deg, rgba(3,169,241,1) 0%, rgba(160,2,90,1) 100%)',
   bgImage,
   onClick,
+  isFavButton = false,
 }) => {
   const [isFavoriteState, setIsFavoriteState] = useState(isFavorite)
 
@@ -37,12 +39,18 @@ export const Peep: FC<PeepProps> = ({
       >
         <span className="pb-3 text-[12px]">{owner}</span>
       </div>
-      <button
-        className="absolute right-5 bottom-4 w-3 h-3 text-white"
-        onClick={toggleFavorite}
-      >
-        {isFavoriteState ? <MdOutlineFavorite /> : <MdOutlineFavoriteBorder />}
-      </button>
+      {isFavButton ? (
+        <button
+          className="absolute right-5 bottom-4 w-3 h-3 text-white"
+          onClick={toggleFavorite}
+        >
+          {isFavoriteState ? (
+            <MdOutlineFavorite />
+          ) : (
+            <MdOutlineFavoriteBorder />
+          )}
+        </button>
+      ) : null}
     </div>
   )
 }

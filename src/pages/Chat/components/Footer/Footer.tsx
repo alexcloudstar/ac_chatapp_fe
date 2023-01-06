@@ -36,24 +36,26 @@ const Footer = () => {
     setTextMessage(e.target.value)
   }
 
-  const onSendMessage = async () => {
-    await sendMessage({ roomId: roomId ? +roomId : -1, message: textMessage })
+  const onSendMessage = () => {
+    setTimeout(async () => {
+      await sendMessage({ roomId: roomId ? +roomId : -1, message: textMessage })
 
-    socket.emit('chat', {
-      id: Math.random() * 10000,
-      message: textMessage,
-      sender: { id: user?.id, username: user?.name || user?.username },
-      senderId: user?.id,
-    })
+      socket.emit('chat', {
+        id: Math.random() * 10000,
+        message: textMessage,
+        sender: { id: user?.id, username: user?.name || user?.username },
+        senderId: user?.id,
+      })
 
-    setTextMessage('')
-    textareaRef.current?.focus()
+      setTextMessage('')
+      textareaRef.current?.focus()
+    }, 300)
   }
 
-  const onKeyDown = async (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
-      await onSendMessage()
+      onSendMessage()
     }
   }
 
