@@ -1,6 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+
 import { FC } from 'react'
 import { Control, Controller } from 'react-hook-form'
 import Select from 'react-select'
@@ -12,7 +13,7 @@ type OptionsType = {
   label: string
 }
 
-type CustomSelectProps = {
+type MultiSelectProps = {
   options: OptionsType[]
   selectStyle?: unknown
   control: Control<CreateRoomFormInputs, any>
@@ -22,7 +23,7 @@ type CustomSelectProps = {
   placeholder?: string
 }
 
-const CustomSelect: FC<CustomSelectProps> = ({
+const MultiSelect: FC<MultiSelectProps> = ({
   options,
   selectStyle,
   control,
@@ -49,7 +50,7 @@ const CustomSelect: FC<CustomSelectProps> = ({
 
   const style = selectStyle ? selectStyle : defaultSelectStyle
 
-  const defaultOptions: OptionsType[] = defaultValue ?? []
+  const defaultOptions: MultiSelectProps['options'] = defaultValue ?? []
 
   return (
     <>
@@ -67,7 +68,7 @@ const CustomSelect: FC<CustomSelectProps> = ({
                 const userValues = options?.map((option) => option.value)
                 onChange(userValues)
 
-                setSelectedUsers && setSelectedUsers(userValues)
+                return setSelectedUsers && setSelectedUsers(userValues)
               }}
               onBlur={onBlur}
               defaultValue={defaultOptions}
@@ -80,4 +81,4 @@ const CustomSelect: FC<CustomSelectProps> = ({
   )
 }
 
-export default CustomSelect
+export default MultiSelect

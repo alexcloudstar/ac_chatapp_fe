@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
-import { CustomSelect } from 'components'
+import { MultiSelect } from 'components'
 import { useGetConversationsQuery } from 'store/services/conversations'
 import { useAddPunishmentMutation } from 'store/services/punishment'
 import {
@@ -92,6 +93,8 @@ const Confirmation: FC<ConfirmationPropsType> = ({ onClose, punishment }) => {
     }
   }
 
+  console.log(conversations)
+
   return (
     <Modal
       title="Are you sure?"
@@ -114,29 +117,32 @@ const Confirmation: FC<ConfirmationPropsType> = ({ onClose, punishment }) => {
         </div>
       }
     >
+      <h1 className="text-orange-500 font-bold text-center">
+        TODO: Change dropdowns from multi select to select
+      </h1>
       <p className="text-center">
         Are you want to{' '}
         <strong className="text-red-500">{punishment?.toLowerCase()}</strong>{' '}
         user <strong>{username}</strong>?
       </p>
-      <CustomSelect
+      <MultiSelect
         options={punishOptions}
         control={control}
         selectClassName="w-1/5 text-left block my-4 mx-auto bg-red-500"
         placeholder="Select duration"
         setSelectedUsers={setPunishmentTime}
       />
-      <CustomSelect
+      <MultiSelect
         placeholder="Select room"
-        options={
-          conversations?.map((conversation) => ({
-            label: conversation.name,
-            value: conversation.id.toString(),
-          })) ?? []
-        }
+        // @ts-ignore
+        options={conversations?.map((conversation) => ({
+          label: conversation.name,
+          value: conversation.id.toString(),
+        }))}
         control={control}
         selectClassName="w-1/5 text-left block my-4 mx-auto bg-red-500"
         setSelectedUsers={setSelectedRoom}
+        isMultiSelect={false}
       />
       <input
         placeholder="Reason"
