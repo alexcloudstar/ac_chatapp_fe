@@ -1,56 +1,37 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-
 import { FC } from 'react'
 import { Control, Controller } from 'react-hook-form'
 import Select from 'react-select'
 
 import { CreateRoomFormInputs } from '../CreateRoom/CreateRoom'
 
+import { defaultSelectStyle } from './constants'
+
 type OptionsType = {
   value: string
   label: string
 }
 
-type MultiSelectProps = {
+type MultiSelectProps<T> = {
   options: OptionsType[]
   selectStyle?: unknown
-  control: Control<CreateRoomFormInputs, any>
+  control: Control<CreateRoomFormInputs, CreateRoomFormInputs>
   defaultValue?: OptionsType[]
-  setSelectedUsers?: React.Dispatch<React.SetStateAction<string[]>>
+  setState?: React.Dispatch<React.SetStateAction<T[]>>
   selectClassName?: string
   placeholder?: string
 }
 
-const MultiSelect: FC<MultiSelectProps> = ({
+const MultiSelect: FC<MultiSelectProps<string>> = ({
   options,
   selectStyle,
   control,
   defaultValue,
-  setSelectedUsers,
+  setState,
   selectClassName,
   placeholder,
 }) => {
-  const defaultSelectStyle = {
-    option: (provided: any, state: any) => ({
-      ...provided,
-      fontWeight: state.isSelected ? 'bold' : 'normal',
-      color: 'white',
-      backgroundColor: '#03a9f1 ',
-      fontSize: 18,
-    }),
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    multiValue: (provided: any, _state: any) => ({
-      ...provided,
-      color: '#fff',
-      fontSize: 18,
-    }),
-  }
-
   const style = selectStyle ? selectStyle : defaultSelectStyle
-
-  const defaultOptions: MultiSelectProps['options'] = defaultValue ?? []
+  const defaultOptions: MultiSelectProps<string>['options'] = defaultValue ?? []
 
   return (
     <>
@@ -68,7 +49,7 @@ const MultiSelect: FC<MultiSelectProps> = ({
                 const userValues = options?.map((option) => option.value)
                 onChange(userValues)
 
-                return setSelectedUsers && setSelectedUsers(userValues)
+                return setState && setState(userValues)
               }}
               onBlur={onBlur}
               defaultValue={defaultOptions}

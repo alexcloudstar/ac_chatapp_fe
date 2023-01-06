@@ -173,7 +173,7 @@ const Header = () => {
                   defaultValue={joinedUsers}
                   options={allUsers}
                   control={control}
-                  setSelectedUsers={setSelectedUsers}
+                  setState={setSelectedUsers}
                 />
               </div>
             </>

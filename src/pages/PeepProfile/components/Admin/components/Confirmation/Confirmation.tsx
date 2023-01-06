@@ -4,7 +4,7 @@ import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
-import { MultiSelect } from 'components'
+import { MultiSelect, SingleSelect } from 'components'
 import { useGetConversationsQuery } from 'store/services/conversations'
 import { useAddPunishmentMutation } from 'store/services/punishment'
 import {
@@ -22,8 +22,8 @@ export type ConfirmationPropsType = {
 
 const Confirmation: FC<ConfirmationPropsType> = ({ onClose, punishment }) => {
   const { username } = useParams()
-  const [punishmentTime, setPunishmentTime] = useState<string[]>([''])
-  const [selectedRoom, setSelectedRoom] = useState<string[]>([''])
+  const [punishmentTime, setPunishmentTime] = useState<string>('')
+  const [selectedRoom, setSelectedRoom] = useState<string>('')
   const [reason, setReason] = useState<string>('')
 
   const { data: me } = useCurrentUserQuery()
@@ -79,12 +79,12 @@ const Confirmation: FC<ConfirmationPropsType> = ({ onClose, punishment }) => {
   const onSubmit = async () => {
     if (punishment && me) {
       await addPunishment({
-        chatroomId: parseInt(selectedRoom[0]),
+        chatroomId: parseInt(selectedRoom),
         currentUser: me,
         userId: users?.find((user) => user.username === username)?.id ?? -1,
         reason: reason,
         type: punishment,
-        duration: parseInt(punishmentTime[0]),
+        duration: parseInt(punishmentTime),
         createdAt: new Date().toISOString(),
       })
 
@@ -92,8 +92,6 @@ const Confirmation: FC<ConfirmationPropsType> = ({ onClose, punishment }) => {
       onClose()
     }
   }
-
-  console.log(conversations)
 
   return (
     <Modal
@@ -117,32 +115,30 @@ const Confirmation: FC<ConfirmationPropsType> = ({ onClose, punishment }) => {
         </div>
       }
     >
-      <h1 className="text-orange-500 font-bold text-center">
-        TODO: Change dropdowns from multi select to select
-      </h1>
+      <h1 className="text-orange-500 font-bold text-center"></h1>
       <p className="text-center">
         Are you want to{' '}
         <strong className="text-red-500">{punishment?.toLowerCase()}</strong>{' '}
         user <strong>{username}</strong>?
       </p>
-      <MultiSelect
+      <SingleSelect
         options={punishOptions}
         control={control}
         selectClassName="w-1/5 text-left block my-4 mx-auto bg-red-500"
         placeholder="Select duration"
-        setSelectedUsers={setPunishmentTime}
+        setState={setPunishmentTime}
       />
-      <MultiSelect
+      <SingleSelect
         placeholder="Select room"
-        // @ts-ignore
-        options={conversations?.map((conversation) => ({
-          label: conversation.name,
-          value: conversation.id.toString(),
-        }))}
+        options={
+          conversations?.map((conversation) => ({
+            label: conversation.name,
+            value: conversation.id.toString(),
+          })) ?? []
+        }
         control={control}
         selectClassName="w-1/5 text-left block my-4 mx-auto bg-red-500"
-        setSelectedUsers={setSelectedRoom}
-        isMultiSelect={false}
+        setState={setSelectedRoom}
       />
       <input
         placeholder="Reason"
