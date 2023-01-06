@@ -40,6 +40,17 @@ const ChatList = () => {
           const lastMessage =
             conversation.messages[conversation.messages.length - 1]
 
+          const isProfanityWord = conversation?.profanityWords.some(
+            (pWord) => pWord === lastMessage.message
+          )
+
+          const checkedMessage = isProfanityWord
+            ? {
+                ...lastMessage,
+                message: '****',
+              }
+            : lastMessage
+
           const lastMessageTime = new Date(
             lastMessage.createdAt
           ).toLocaleString('ro-RO', {
@@ -61,7 +72,7 @@ const ChatList = () => {
                 }}
                 message={
                   conversation.messages.length
-                    ? lastMessage?.message
+                    ? checkedMessage.message
                     : 'No message yet'
                 }
                 time={lastMessageTime}
