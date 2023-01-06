@@ -4,15 +4,11 @@
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { io } from 'socket.io-client'
 
-import { API_URL } from 'config/env'
 import { useSigninMutation, useSignupMutation } from 'store/services/auth'
 import { useCurrentUserQuery } from 'store/services/users'
 import { AuthFormInputs, ReduxQueryType, User } from 'types'
 import { setLocalStorage } from 'utils/localStorage'
-
-const socket = io(API_URL)
 
 const Auth = () => {
   const navigate = useNavigate()
@@ -24,7 +20,7 @@ const Auth = () => {
   const [signin] = useSigninMutation()
   const [signup] = useSignupMutation()
 
-  const { data: me, refetch } = useCurrentUserQuery<ReduxQueryType<User>>()
+  const { refetch } = useCurrentUserQuery<ReduxQueryType<User>>()
 
   const {
     register,
@@ -63,11 +59,6 @@ const Auth = () => {
     if (res?.error?.data.error === 'invalid_credentials')
       // @ts-ignore
       return setApiErrorMessage(res?.error?.data.message)
-
-    socket.emit('isOnline', {
-      userId: me?.id,
-      isOnline: true,
-    })
 
     // @ts-ignore
     setLocalStorage('accessToken', res.data.accessToken)
