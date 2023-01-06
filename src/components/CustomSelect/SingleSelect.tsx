@@ -49,8 +49,6 @@ const SingleSelect: FC<SingleSelectProps<string>> = ({
               onChange={(options) => {
                 onChange(options?.value)
 
-                console.log(options)
-
                 return setState && setState(options?.value ?? '')
               }}
               onBlur={onBlur}

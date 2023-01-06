@@ -6,18 +6,12 @@ import { ReduxQueryType, User } from 'types'
 
 import { Footer, Messages } from './components'
 
-// TODO: Check if user don't have any punishment such as ban/mute
-// TODO: if user have any punishment, show the punishment info and the time left for the punishment
-// TODO: And do not allow user to send message
-
 const Chat = () => {
   const navigate = useNavigate()
   const { roomId } = useParams<{ roomId: string }>()
   const { data: currentUser } = useCurrentUserQuery<ReduxQueryType<User>>()
 
   const onClose = () => navigate(-1)
-
-  console.log(currentUser)
 
   return (
     <>
