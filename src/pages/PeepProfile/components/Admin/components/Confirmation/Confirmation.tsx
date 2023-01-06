@@ -4,7 +4,7 @@ import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
-import { MultiSelect, SingleSelect } from 'components'
+import { SingleSelect } from 'components'
 import { useGetConversationsQuery } from 'store/services/conversations'
 import { useAddPunishmentMutation } from 'store/services/punishment'
 import {
