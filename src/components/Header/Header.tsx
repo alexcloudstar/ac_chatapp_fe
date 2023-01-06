@@ -3,10 +3,8 @@ import { FaPlus } from 'react-icons/fa'
 import { FiLogOut } from 'react-icons/fi'
 import { MdOutlineKeyboardBackspace } from 'react-icons/md'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { io } from 'socket.io-client'
 
 import { SearchBar } from 'components/SearchBar'
-import { API_URL } from 'config/env'
 import { Header as ConversationHeader } from 'pages/Chat/components'
 import { useCurrentUserQuery } from 'store/services/users'
 import { Button, Header, Modal } from 'stories'
@@ -18,8 +16,6 @@ import { useSignoutMutation } from '../../store/services/auth'
 import { CreateRoom } from '../CreateRoom'
 
 import styles from './header.module.css'
-
-const socket = io(API_URL)
 
 const ChatHeader = () => {
   const [showModal, setShowModal] = useState<boolean>(false)
@@ -36,11 +32,6 @@ const ChatHeader = () => {
 
   const logout = async () => {
     await signout(user?.id)
-
-    socket.emit('isOnline', {
-      userId: user?.id,
-      isOnline: false,
-    })
 
     removeLocalStorage('accessToken')
     navigate('/auth')
