@@ -28,6 +28,8 @@ const SearchBar = () => {
     dispatch(filterConversations(e.target.value))
   }
 
+  const onSearch = () => console.log('123')
+
   useEffect(() => {
     if (!query) {
       dispatch(setConversations(conversations))
@@ -40,9 +42,7 @@ const SearchBar = () => {
       placeholder="Search for rooms"
       icon={<FaSearch />}
       onChange={onChange}
-      onSearch={() => {
-        console.log('123')
-      }}
+      onSearch={onSearch}
       classes={styles.customInput}
     />
   )
