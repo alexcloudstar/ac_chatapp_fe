@@ -23,7 +23,7 @@ body {
 }
 
 .hide-mobile {
-  @apply hidden md:block;
+  @apply hidden md:flex;
 }
 
 .show-mobile {

@@ -180,7 +180,7 @@ const Header = () => {
           )}
         </Modal>
       )}
-      <div className="conversation-header flex items-center justify-evenly w-3/12">
+      <div className="conversation-header flex items-center justify-evenly xl:w-3/12 hide-mobile">
         <h1 className="mr-2">{chatroomName}</h1>
         {conversation?.userOwnerId === user?.id && (
           <div className="actions flex">

@@ -57,9 +57,11 @@ const ChatHeader = () => {
           <Header user={user} classes="justify-center" />
         </div>
         <div className="flex justify-between items-center cursor-pointer">
-          <div className="hide-mobile" onClick={onNavigateProfile}>
+          <div onClick={onNavigateProfile}>
             {location.pathname !== '/profile' && headerPathQuery ? (
-              <Header user={user} />
+              <div className="hide-mobile">
+                <Header user={user} />
+              </div>
             ) : (
               <Icon
                 icon={
