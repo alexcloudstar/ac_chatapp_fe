@@ -124,7 +124,7 @@ const Confirmation: FC<ConfirmationPropsType> = ({ onClose, punishment }) => {
       <SingleSelect
         options={punishOptions}
         control={control}
-        selectClassName="w-1/5 text-left block my-4 mx-auto bg-red-500"
+        selectClassName="xl:w-1/5 text-left block my-4 mx-auto bg-red-500"
         placeholder="Select duration"
         setState={setPunishmentTime}
       />
@@ -137,7 +137,7 @@ const Confirmation: FC<ConfirmationPropsType> = ({ onClose, punishment }) => {
           })) ?? []
         }
         control={control}
-        selectClassName="w-1/5 text-left block my-4 mx-auto bg-red-500"
+        selectClassName="xl:w-1/5 text-left block my-4 mx-auto bg-red-500"
         setState={setSelectedRoom}
       />
       <input
@@ -145,7 +145,7 @@ const Confirmation: FC<ConfirmationPropsType> = ({ onClose, punishment }) => {
         type="text"
         name="reason"
         required
-        className="w-1/5 outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block my-4 mx-auto p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+        className="xl:w-1/5 outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block my-4 mx-auto p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
         value={reason}
         onChange={onChange}
       />

@@ -40,17 +40,17 @@ const Punishments: FC<{ punishments: User['punishments'] }> = ({
     <div className="flex flex-col">
       {punishments?.map((punishment) => {
         return (
-          <div key={punishment.id} className="ml-4 flex">
-            <h3 className="text-sm mb-10 bg-red-700 p-3 rounded-full mr-4">
-              type: {punishment.type}
+          <div key={punishment.id} className="ml-4 flex flex-col md:flex-row">
+            <h3 className="text-sm mb-10 bg-red-700 p-3 rounded-full mr-4 flex justify-around">
+              type: <span>{punishment.type}</span>
             </h3>
-            <h3 className="text-sm mb-10 bg-red-700 p-3 rounded-full mr-4">
+            <h3 className="text-sm mb-10 bg-red-700 p-3 rounded-full mr-4 flex justify-around">
               duration: {punishment.duration} minutes
             </h3>
-            <h3 className="text-sm mb-10 bg-red-700 p-3 rounded-full mr-4">
+            <h3 className="text-sm mb-10 bg-red-700 p-3 rounded-full mr-4 flex justify-around">
               reason: {punishment.reason}
             </h3>
-            <h3 className="text-sm mb-10 bg-red-700 p-3 rounded-full mr-4">
+            <h3 className="text-sm mb-10 bg-red-700 p-3 rounded-full mr-4 flex justify-around">
               given by: {punishment.givenBy}
             </h3>
             {currentUser?.isAdmin && (
