@@ -1,3 +1,7 @@
+<div align="center">
+<img src="https://www.alexcloudstar.com/_next/image?url=https://media.graphassets.com/q3eD0G45S8G5dksnIkPm&w=640&q=75" />
+</div>
+
 <h1>Chat App V2</h1>
 is the upgraded application of KSChat (app which is just available though repo and no preview https://github.com/alexcloudstar/ac-chat-app
 
