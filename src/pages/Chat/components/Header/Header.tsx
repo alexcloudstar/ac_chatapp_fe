@@ -18,9 +18,9 @@ import {
 } from 'store/services/conversations'
 import { useCurrentUserQuery, useGetUsersQuery } from 'store/services/users'
 import { Icon, Modal } from 'stories/components'
-import { ReduxQueryType, User } from 'types'
+import { type ReduxQueryType, type User } from 'types'
 
-import { ModalContentType } from './types'
+import { type ModalContentType } from './types'
 
 const Header = () => {
   const { roomId } = useParams()

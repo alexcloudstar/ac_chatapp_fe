@@ -1,5 +1,12 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import {
+  Fragment,
+  lazy,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react'
 import { FaTrashAlt } from 'react-icons/fa'
 import { useParams } from 'react-router-dom'
 import { io } from 'socket.io-client'
@@ -12,11 +19,19 @@ import {
   useGetRoomMessagesQuery,
 } from 'store/services/messages'
 import { useCurrentUserQuery } from 'store/services/users'
-import { Avatar } from 'stories'
-import { Icon } from 'stories/components'
-import { ReduxQueryType, RemoveMessageType, User } from 'types'
+import { type ReduxQueryType, type RemoveMessageType, type User } from 'types'
 
-import { Message } from '../Message'
+const Message = lazy(() =>
+  import('../Message').then(({ Message }) => ({ default: Message }))
+)
+
+const Avatar = lazy(() =>
+  import('stories').then(({ Avatar }) => ({ default: Avatar }))
+)
+
+const Icon = lazy(() =>
+  import('stories/components').then(({ Icon }) => ({ default: Icon }))
+)
 
 const socket = io(API_URL)
 
