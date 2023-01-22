@@ -1,4 +1,7 @@
-import { ChatList, Peeps } from 'components'
+import { lazy } from 'react'
+
+const ChatList = lazy(() => import('components/ChatList/ChatList'))
+const Peeps = lazy(() => import('components/Peeps/Peeps'))
 
 const Home = () => {
   return (

@@ -1,13 +1,14 @@
-import { useState } from 'react'
+import { lazy, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { Punishments } from 'components'
 import {
   useCurrentUserQuery,
   useUpdateUserMutation,
 } from 'store/services/users'
 import { Avatar } from 'stories'
 import { ApiResponseState, ReduxQueryType, User } from 'types'
+
+const Punishments = lazy(() => import('components/Punishments/Punishments'))
 
 export interface IProfileFormProps {
   username?: User['username']

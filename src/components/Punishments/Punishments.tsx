@@ -7,7 +7,7 @@ import {
   useDeletePunishmentMutation,
 } from 'store/services/punishment'
 import { useCurrentUserQuery, useGetUserQuery } from 'store/services/users'
-import { PunishmentType, ReduxQueryType, User } from 'types'
+import { type PunishmentType, type ReduxQueryType, type User } from 'types'
 
 const Punishments: FC<{ punishments: User['punishments'] }> = ({
   punishments,

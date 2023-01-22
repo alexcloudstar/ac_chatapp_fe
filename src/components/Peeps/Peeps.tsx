@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { lazy, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { io } from 'socket.io-client'
 import { SwiperSlide } from 'swiper/react'
@@ -6,9 +6,9 @@ import { SwiperSlide } from 'swiper/react'
 import { API_URL } from 'config/env'
 import { useGetUsersQuery } from 'store/services/users'
 import { Peep } from 'stories'
-import { ReduxQueryType, User } from 'types'
+import { type ReduxQueryType, type User } from 'types'
 
-import { PeepsSlider } from './components'
+const PeepsSlider = lazy(() => import('./components/PeepsSlider/PeepsSlider'))
 
 const socket = io(API_URL)
 

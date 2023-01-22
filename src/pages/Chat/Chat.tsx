@@ -1,10 +1,12 @@
+import { lazy } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { useCurrentUserQuery } from 'store/services/users'
 import { Modal } from 'stories'
 import { ReduxQueryType, User } from 'types'
 
-import { Footer, Messages } from './components'
+const Footer = lazy(() => import('./components/Footer/Footer'))
+const Messages = lazy(() => import('./components/Messages/Messages'))
 
 const Chat = () => {
   const navigate = useNavigate()

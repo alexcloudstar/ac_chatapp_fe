@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from 'store'
 import { useGetConversationsQuery } from 'store/services/conversations'
-import { ReduxQueryType } from 'types'
+import { type ReduxQueryType } from 'types'
 
 import styles from './chatlist.module.css'
 import { Preview } from './components'
-import { ConversationType } from './types'
+import { type ConversationType } from './types'
 
 const ChatList = () => {
   const navigate = useNavigate()

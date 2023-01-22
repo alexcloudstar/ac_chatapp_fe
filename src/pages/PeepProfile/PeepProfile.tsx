@@ -1,11 +1,12 @@
+import { lazy } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { Punishments } from 'components'
 import { useCurrentUserQuery, useGetUserQuery } from 'store/services/users'
 import { Avatar } from 'stories'
 import { ReduxQueryType, User } from 'types'
 
-import { Admin } from './components'
+const Punishments = lazy(() => import('components/Punishments/Punishments'))
+const Admin = lazy(() => import('./components/Admin/Admin'))
 
 const PeepProfile = () => {
   const { username } = useParams<{ username: string }>()

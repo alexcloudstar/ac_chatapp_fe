@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { io } from 'socket.io-client'
 
@@ -44,15 +44,17 @@ const App = () => {
   return (
     <main className="flex flex-col justify-center items-center w-full h-full bg-[#596787]/[70%]">
       <BrowserRouter>
-        <Routes>
-          {routes.map((route) => (
-            <Route
-              key={route.key}
-              path={route.path}
-              element={route.component}
-            />
-          ))}
-        </Routes>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            {routes.map((route) => (
+              <Route
+                key={route.key}
+                path={route.path}
+                element={route.component}
+              />
+            ))}
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </main>
   )

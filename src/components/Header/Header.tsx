@@ -1,19 +1,46 @@
-import { useState } from 'react'
+import { lazy, useState } from 'react'
 import { FaPlus } from 'react-icons/fa'
 import { FiLogOut } from 'react-icons/fi'
 import { MdOutlineKeyboardBackspace } from 'react-icons/md'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { SearchBar } from 'components/SearchBar'
 import { Header as ConversationHeader } from 'pages/Chat/components'
 import { useCurrentUserQuery } from 'store/services/users'
-import { Button, Header, Modal } from 'stories'
-import { Icon } from 'stories/components/Icon/Icon'
-import { ReduxQueryType, User } from 'types'
+import { type ReduxQueryType, type User } from 'types'
 import { removeLocalStorage } from 'utils/localStorage'
 
 import { useSignoutMutation } from '../../store/services/auth'
-import { CreateRoom } from '../CreateRoom'
+
+const SearchBar = lazy(() =>
+  import('components/SearchBar').then(({ SearchBar }) => ({
+    default: SearchBar,
+  }))
+)
+
+const CreateRoom = lazy(() =>
+  import('../CreateRoom').then(({ CreateRoom }) => ({ default: CreateRoom }))
+)
+const Icon = lazy(() =>
+  import('stories/components/Icon/Icon').then(({ Icon }) => ({ default: Icon }))
+)
+
+const Button = lazy(() =>
+  import('stories/components/Button/Button').then(({ Button }) => ({
+    default: Button,
+  }))
+)
+
+const Header = lazy(() =>
+  import('stories/components/Header/Header').then(({ Header }) => ({
+    default: Header,
+  }))
+)
+
+const Modal = lazy(() =>
+  import('stories/components/Modal/Modal').then(({ Modal }) => ({
+    default: Modal,
+  }))
+)
 
 import styles from './header.module.css'
 
