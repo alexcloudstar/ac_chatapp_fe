@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://www.alexcloudstar.com/_next/image?url=https://media.graphassets.com/q3eD0G45S8G5dksnIkPm&w=640&q=75" />
+<img src="https://www.alexcloudstar.com/_next/image?url=https%3A%2F%2Fmedia.graphassets.com%2FvsZDi54zTnCbjQlaFW4Z&w=1920&q=75" />
 </div>
 
 <h1>Chat App V2</h1>
