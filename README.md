@@ -76,3 +76,15 @@ is the upgraded application of KSChat (app which is just available though repo a
 Frontend is hosted on **[vercel.com](http://vercel.com)**
 
 Backend is hosted on **[aws.com](http://aws.com)**
+
+Test accounts are:
+
+- test@test.com / test
+
+- test2@test.com / test2
+
+- test3@test.com / test3
+
+- test4@test.com / test4
+
+- admin@admin.com / admin
