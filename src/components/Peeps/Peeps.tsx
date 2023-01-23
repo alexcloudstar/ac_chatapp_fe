@@ -49,7 +49,7 @@ const Peeps = () => {
   return (
     <>
       {peeps?.length ? <h2 className="mt-[25px] mb-[15px]">Peeps</h2> : null}
-      <div className="w-full">
+      <div className="w-full mb-[25px]">
         <PeepsSlider>
           {peeps?.map((user: User) => (
             <SwiperSlide key={user.id}>
