@@ -28,7 +28,7 @@ const Preview: FC<PreviewProps> = ({
         user={user}
         time={time}
         message={message}
-        classes="text-[13px] mb-[25px]"
+        classes="text-[13px] mt-[25px] mb-[25px]"
         width={width}
         height={height}
       />

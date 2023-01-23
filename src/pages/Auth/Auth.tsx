@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { useSigninMutation, useSignupMutation } from 'store/services/auth'
 import { useCurrentUserQuery } from 'store/services/users'
-import { AuthFormInputs, ReduxQueryType, User } from 'types'
+import { type AuthFormInputs, type ReduxQueryType, type User } from 'types'
 import { setLocalStorage } from 'utils/localStorage'
 
 const Auth = () => {

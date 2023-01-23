@@ -7,7 +7,7 @@ import {
 } from 'store/services/conversations'
 import { useGetUsersQuery } from 'store/services/users'
 import { Toggle } from 'stories/components'
-import { ReduxQueryType, User } from 'types'
+import { type ReduxQueryType, type User } from 'types'
 
 import { MultiSelect } from '..'
 
