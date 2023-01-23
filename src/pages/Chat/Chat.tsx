@@ -49,7 +49,7 @@ const Chat = () => {
           </div>
         </Modal>
       ) : null}
-      <div className="Chat h-[inherit] flex flex-col justify-between mt-20">
+      <div className="Chat h-[inherit] flex flex-col justify-between mt-[3rem]">
         <Messages />
         <Footer />
       </div>
