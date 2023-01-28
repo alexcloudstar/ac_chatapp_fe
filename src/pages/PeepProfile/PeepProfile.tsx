@@ -1,6 +1,7 @@
 import { lazy } from 'react'
 import { useParams } from 'react-router-dom'
 
+import { Loading } from 'components'
 import { useCurrentUserQuery, useGetUserQuery } from 'store/services/users'
 import { Avatar } from 'stories'
 import { ReduxQueryType, User } from 'types'
@@ -17,7 +18,7 @@ const PeepProfile = () => {
 
   const { data: currentUser } = useCurrentUserQuery<ReduxQueryType<User>>()
 
-  if (isLoading) return <div>Loading...</div>
+  if (isLoading) return <Loading />
 
   return (
     <div className="flex justify-center flex-col items-center mt-8">

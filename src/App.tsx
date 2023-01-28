@@ -2,6 +2,7 @@ import { Suspense, useEffect } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { io } from 'socket.io-client'
 
+import { Loading } from 'components'
 import { API_URL } from 'config/env'
 import { useCurrentUserQuery } from 'store/services/users'
 import { ReduxQueryType, User } from 'types'
@@ -44,7 +45,7 @@ const App = () => {
   return (
     <main className="flex flex-col justify-center items-center w-full h-full bg-[#596787]/[70%]">
       <BrowserRouter>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loading />}>
           <Routes>
             {routes.map((route) => (
               <Route

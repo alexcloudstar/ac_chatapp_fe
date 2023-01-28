@@ -1,6 +1,7 @@
 import { lazy, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { Loading } from 'components'
 import {
   useCurrentUserQuery,
   useUpdateUserMutation,
@@ -64,7 +65,7 @@ const Profile = () => {
     })
   }
 
-  if (isLoading) return <div>Loading...</div>
+  if (isLoading) return <Loading />
 
   return (
     <div className="flex flex-col justify-center items-center h-full">
