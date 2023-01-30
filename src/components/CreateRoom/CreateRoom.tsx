@@ -129,14 +129,14 @@ const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
             </div>
           </div>
 
-          <div className="flex w-full mt-5">
+          {/* <div className="flex w-full mt-5">
             <div className="w-full flex justify-center items-center">
               <p className="text-gray-900 dark:text-gray-100 mr-5 text-lg">
                 Private
               </p>
               <Toggle isOn={isPrivate} setIsOn={setIsPrivate} />
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="mt-5">
