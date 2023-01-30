@@ -1,12 +1,13 @@
 {
-  "name": "vite_react_ts_storybook_boilerplate",
-  "private": true,
+  "name": "ac_chat_app_fe",
+  "private": false,
   "version": "1.0.0",
   "engines": {
     "node": ">=16.13.0",
     "npm": ">=8.1.0",
     "yarn": ">= 1.22.4"
   },
+  "license": "MIT",
   "scripts": {
     "dev": "vite --open",
     "build": "tsc && vite build",
