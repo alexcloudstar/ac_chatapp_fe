@@ -6,7 +6,6 @@ import {
   useGetConversationsQuery,
 } from 'store/services/conversations'
 import { useGetUsersQuery } from 'store/services/users'
-import { Toggle } from 'stories/components'
 import { type ReduxQueryType, type User } from 'types'
 
 import { MultiSelect } from '..'
@@ -21,7 +20,8 @@ export type CreateRoomFormInputs = {
 }
 
 const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
-  const [isPrivate, setIsPrivate] = useState<boolean>(false)
+  // TODO: Implement this
+  // const [isPrivate, setIsPrivate] = useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState<string>('')
 
   const {
@@ -58,7 +58,7 @@ const CreateRoom: FC<{ toggleModal: () => void }> = ({ toggleModal }) => {
         userUsernames: data.userUsernames,
         name: data.name,
         profanityWords,
-        isPrivate,
+        isPrivate: false,
         roomAvatar: data?.roomAvatar ?? ``,
       })
       refetch()
