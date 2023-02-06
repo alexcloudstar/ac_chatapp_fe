@@ -24,8 +24,9 @@ const SearchBar = () => {
   })
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value)
-    dispatch(filterConversations(e.target.value))
+    const query = e.target.value.toLowerCase()
+    setQuery(query)
+    dispatch(filterConversations(query))
   }
 
   const onSearch = () => console.log('123')

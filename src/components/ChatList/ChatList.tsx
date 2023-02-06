@@ -41,7 +41,7 @@ const ChatList = () => {
             conversation.messages[conversation.messages.length - 1]
 
           const isProfanityWord = conversation?.profanityWords.some(
-            (pWord) => pWord === lastMessage.message
+            (pWord) => pWord === lastMessage?.message
           )
 
           const checkedMessage = isProfanityWord
@@ -52,7 +52,7 @@ const ChatList = () => {
             : lastMessage
 
           const lastMessageTime = new Date(
-            lastMessage.createdAt
+            lastMessage?.createdAt
           ).toLocaleString('ro-RO', {
             hour: '2-digit',
             minute: '2-digit',
