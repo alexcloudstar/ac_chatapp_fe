@@ -46,7 +46,9 @@ const Auth = () => {
       // @ts-ignore
       res?.error?.data?.error !== 'invalid_credentials' &&
       // @ts-ignore
-      res?.error?.data?.error !== 'user_already_exists'
+      res?.error?.data?.error !== 'user_already_exists' &&
+      // @ts-ignore
+      res?.error?.data?.error !== 'user_does_not_exist'
     )
       return setApiErrorMessage('Something went wrong, please try again later')
 
@@ -57,6 +59,11 @@ const Auth = () => {
 
     // @ts-ignore
     if (res?.error?.data.error === 'invalid_credentials')
+      // @ts-ignore
+      return setApiErrorMessage(res?.error?.data.message)
+
+    // @ts-ignore
+    if (res?.error?.data.error === 'user_does_not_exist')
       // @ts-ignore
       return setApiErrorMessage(res?.error?.data.message)
 
