@@ -27,14 +27,14 @@ const PeepProfile = () => {
       <div>
         {user?.name && (
           <p className="mb-2">
-            <span className="font-bold">Name:</span> {user.name}
+            <span className="font-bold">Name:</span> {user?.name}
           </p>
         )}
         <p className="mb-2">
-          <span className="font-bold">Email:</span> {user.email}
+          <span className="font-bold">Email:</span> {user?.email}
         </p>
         <p className="mb-2">
-          <span className="font-bold">Username:</span> {user.username}
+          <span className="font-bold">Username:</span> {user?.username}
         </p>
         <p className="mb-2">
           <span className="font-bold">Online status:</span>{' '}
