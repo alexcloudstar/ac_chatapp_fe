@@ -1,9 +1,14 @@
 import { Suspense, useEffect } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom'
 import { io } from 'socket.io-client'
 
 import { Loading } from 'components'
+import { ConversationType } from 'components/ChatList/types'
 import { API_URL } from 'config/env'
+import {
+  useGetConversationQuery,
+  useGetConversationsQuery,
+} from 'store/services/conversations'
 import { useCurrentUserQuery } from 'store/services/users'
 import { ReduxQueryType, User } from 'types'
 
@@ -12,7 +17,23 @@ import { routes } from './routes'
 const socket = io(API_URL)
 
 const App = () => {
-  const { data: currentUser } = useCurrentUserQuery<ReduxQueryType<User>>()
+  const { roomId } = useParams()
+  const parsedRoomId = roomId ? +roomId : -1
+
+  const { isLoading: isLoadingConversation } = useGetConversationQuery<
+    ReduxQueryType<ConversationType>
+  >({
+    roomId: parsedRoomId,
+  })
+
+  const { data: currentUser, isLoading: isLoadingUser } =
+    useCurrentUserQuery<ReduxQueryType<User>>()
+
+  const { isLoading: isLoadingConversations } = useGetConversationsQuery<
+    ReduxQueryType<ConversationType[]>
+  >(null, {
+    refetchOnMountOrArgChange: true,
+  })
 
   useEffect(() => {
     const handleFocus = () => {
@@ -41,6 +62,9 @@ const App = () => {
       window.removeEventListener('blur', handleBlur)
     }
   }, [currentUser?.id])
+
+  if (isLoadingUser || isLoadingConversations || isLoadingConversation)
+    return <Loading />
 
   return (
     <main className="flex flex-col justify-center items-center w-full h-full bg-[#596787]/[70%]">
