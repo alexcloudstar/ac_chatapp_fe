@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useMemo } from 'react'
 import { Pagination } from 'swiper'
 import { Swiper } from 'swiper/react'
 
@@ -10,9 +10,9 @@ type PeepsSliderProps = {
 }
 
 const PeepsSlider: FC<PeepsSliderProps> = ({ children }) => {
-  return (
-    <Swiper
-      breakpoints={{
+  const memoizedOptions = useMemo(() => {
+    return {
+      breakpoints: {
         320: {
           slidesPerView: 3,
         },
@@ -22,14 +22,17 @@ const PeepsSlider: FC<PeepsSliderProps> = ({ children }) => {
         1920: {
           slidesPerView: 12,
         },
-      }}
-      spaceBetween={12}
-      pagination={{
+      },
+      spaceBetween: 12,
+      pagination: {
         clickable: true,
-      }}
-      modules={[Pagination]}
-      className="pb-[45px]"
-    >
+      },
+      modules: [Pagination],
+    }
+  }, [])
+
+  return (
+    <Swiper {...memoizedOptions} className="pb-[45px]">
       {children}
     </Swiper>
   )
