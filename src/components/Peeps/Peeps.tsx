@@ -14,11 +14,7 @@ const socket = io(API_URL)
 
 const Peeps = () => {
   const [peeps, setPeeps] = useState<User[]>([])
-  const {
-    data: users,
-    refetch,
-    isLoading,
-  } = useGetUsersQuery<ReduxQueryType<User[]>>()
+  const { data: users, refetch } = useGetUsersQuery<ReduxQueryType<User[]>>()
   const navigate = useNavigate()
 
   const onViewPeepProfile = (username: User['username']) =>
