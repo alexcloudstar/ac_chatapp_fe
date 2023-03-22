@@ -42,7 +42,9 @@ const Header = () => {
 
   const { data: conversation, refetch } = useGetConversationQuery<
     ReduxQueryType<ConversationType>
-  >({ roomId: parsedRoomId })
+  >({
+    roomId: parsedRoomId,
+  })
 
   const { data: me } = useCurrentUserQuery<ReduxQueryType<User>>()
 
