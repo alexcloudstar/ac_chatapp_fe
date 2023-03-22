@@ -63,8 +63,16 @@ const App = () => {
     }
   }, [currentUser?.id])
 
-  if (isLoadingUser || isLoadingConversations || isLoadingConversation)
-    return <Loading />
+  if (
+    (currentUser?.id && isLoadingUser) ||
+    isLoadingConversations ||
+    isLoadingConversation
+  )
+    return (
+      <main className="flex flex-col justify-center items-center w-full h-full bg-[#596787]/[70%]">
+        <Loading />
+      </main>
+    )
 
   return (
     <main className="flex flex-col justify-center items-center w-full h-full bg-[#596787]/[70%]">
