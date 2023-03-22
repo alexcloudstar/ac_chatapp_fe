@@ -18,7 +18,7 @@ const Home = () => {
     refetchOnMountOrArgChange: true,
   })
 
-  if (isLoadingConversations || isLoadingUsers) return <Loading />
+  // if (isLoadingConversations || isLoadingUsers) return <Loading />
 
   return (
     <div className="flex flex-col items-start w-full h-full">

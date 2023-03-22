@@ -18,7 +18,7 @@ const PeepProfile = () => {
 
   const { data: currentUser } = useCurrentUserQuery<ReduxQueryType<User>>()
 
-  if (isLoading) return <Loading />
+  // if (isLoading) return <Loading />
 
   return (
     <div className="flex justify-center flex-col items-center mt-8">

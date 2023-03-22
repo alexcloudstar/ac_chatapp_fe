@@ -65,7 +65,7 @@ const Profile = () => {
     })
   }
 
-  if (isLoading) return <Loading />
+  // if (isLoading) return <Loading />
 
   return (
     <div className="flex flex-col justify-center items-center h-full">
