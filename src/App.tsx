@@ -63,7 +63,11 @@ const App = () => {
     }
   }, [currentUser?.id])
 
-  if (isLoadingUser || isLoadingConversations || isLoadingConversation)
+  if (
+    (currentUser && isLoadingUser) ||
+    isLoadingConversations ||
+    isLoadingConversation
+  )
     return <Loading />
 
   return (
