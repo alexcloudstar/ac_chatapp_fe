@@ -9,7 +9,11 @@ import { punishmentAPI } from './services/punishment'
 import { usersAPI } from './services/users'
 import { conversationSlice } from './slices/conversations'
 
-const middlewaresArr = [usersAPI.middleware, authAPI.middleware]
+const middlewaresArr = [
+  usersAPI.middleware,
+  authAPI.middleware,
+  conversationsAPI.middleware,
+]
 
 export const store = configureStore({
   reducer: {
