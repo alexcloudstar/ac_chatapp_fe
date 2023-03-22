@@ -1,7 +1,6 @@
 import { lazy, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { Loading } from 'components'
 import {
   useCurrentUserQuery,
   useUpdateUserMutation,
@@ -23,7 +22,7 @@ export interface IProfileFormProps {
 const Profile = () => {
   const [apiResponse, setApiResponse] = useState<ApiResponseState>()
 
-  const { data: me, isLoading } = useCurrentUserQuery<ReduxQueryType<User>>()
+  const { data: me } = useCurrentUserQuery<ReduxQueryType<User>>()
 
   const [updateUser] =
     useUpdateUserMutation<ReduxQueryType<IProfileFormProps>>()
@@ -64,8 +63,6 @@ const Profile = () => {
       message: 'Profile updated successfully',
     })
   }
-
-  // if (isLoading) return <Loading />
 
   return (
     <div className="flex flex-col justify-center items-center h-full">
