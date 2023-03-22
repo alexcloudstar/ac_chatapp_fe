@@ -85,7 +85,7 @@ const ChatHeader = () => {
         </div>
         <div className="flex justify-between items-center cursor-pointer">
           <div onClick={onNavigateProfile}>
-            {location.pathname !== '/profile' && headerPathQuery ? (
+            {!location.pathname.includes('/profile') ? (
               <div className="hide-mobile">
                 <Header user={user} />
               </div>
@@ -103,11 +103,13 @@ const ChatHeader = () => {
 
           {headerPathQuery ? <SearchBar /> : <ConversationHeader />}
           <div className="flex items-center">
-            <Button
-              icon={<FaPlus />}
-              classes={`${styles.btnCreateRoom} bg-blue-500 ease-in-out duration-300 hover:bg-blue-700`}
-              onClick={toggleModal}
-            />
+            {!location.pathname.includes('/profile') && (
+              <Button
+                icon={<FaPlus />}
+                classes={`${styles.btnCreateRoom} bg-blue-500 ease-in-out duration-300 hover:bg-blue-700`}
+                onClick={toggleModal}
+              />
+            )}
 
             <Icon
               icon={<FiLogOut className="text-[24px] ml-8" />}
