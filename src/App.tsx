@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom'
 import { io } from 'socket.io-client'
 
