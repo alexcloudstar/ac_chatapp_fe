@@ -18,7 +18,12 @@ const ServerDown = () => {
       <p>Due this was a non-prod application it had a limited time on.</p>
       <p>
         So I decided to stop{' '}
-        <a href="https://aws.com" className="text-amber-500">
+        <a
+          href="https://aws.com"
+          target="_blank"
+          className="text-amber-500"
+          rel="noreferrer"
+        >
           AWS
         </a>{' '}
         instances for this application.
