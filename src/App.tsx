@@ -1,10 +1,11 @@
-import { Suspense, useEffect } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom'
 import { io } from 'socket.io-client'
 
 import { Loading } from 'components'
 import { ConversationType } from 'components/ChatList/types'
-import { API_URL } from 'config/env'
+import ServerDown from 'components/ServerDown'
+import { API_URL, IS_SERVER_DOWN } from 'config/env'
 import {
   useGetConversationQuery,
   useGetConversationsQuery,
@@ -63,19 +64,27 @@ const App = () => {
     }
   }, [currentUser?.id])
 
+  if (IS_SERVER_DOWN) {
+    return (
+      <MainComponent>
+        <ServerDown />
+      </MainComponent>
+    )
+  }
+
   if (
     (currentUser?.id && isLoadingUser) ||
     isLoadingConversations ||
     isLoadingConversation
   )
     return (
-      <main className="flex flex-col justify-center items-center w-full h-full bg-[#596787]/[70%]">
+      <MainComponent>
         <Loading />
-      </main>
+      </MainComponent>
     )
 
   return (
-    <main className="flex flex-col justify-center items-center w-full h-full bg-[#596787]/[70%]">
+    <MainComponent>
       <BrowserRouter>
         <Suspense fallback={<Loading />}>
           <Routes>
@@ -89,8 +98,14 @@ const App = () => {
           </Routes>
         </Suspense>
       </BrowserRouter>
-    </main>
+    </MainComponent>
   )
 }
 
 export default App
+
+export const MainComponent = ({ children }: { children: JSX.Element }) => (
+  <main className="flex flex-col justify-center items-center w-full h-full bg-[#596787]/[70%]">
+    {children}
+  </main>
+)
