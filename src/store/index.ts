@@ -26,6 +26,7 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(middlewaresArr),
+  devTools: process.env.NODE_ENV !== 'production',
 })
 
 setupListeners(store.dispatch)
